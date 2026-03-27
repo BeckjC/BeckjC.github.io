@@ -26,21 +26,21 @@
     <meta property="twitter:image" content="https://beckcherry.com/og-image.jpg">
     <meta property="twitter:creator" content="@beckjcs">
     
-    <!-- Favicon -->
+    <!-- Favicon (placeholder - needs actual favicon files) -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://beckcherry.com/">
     
-    <link rel="stylesheet" href="design-system-v2.css">
+    <link rel="stylesheet" href="design-system.css">
     <style>
+        /* Homepage-specific styles */
         body {
             overflow-x: hidden;
         }
         
-        /* ==================== HERO SECTION ==================== */
-        
+        /* Hero section with animated gradient background */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -48,7 +48,6 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            padding: var(--space-16) var(--space-6);
         }
         
         /* Animated gradient background */
@@ -64,18 +63,13 @@
             z-index: 0;
         }
         
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
         /* Floating glow orbs */
         .glow-orb {
             position: absolute;
             border-radius: 50%;
             background: var(--gradient-glow);
             filter: blur(60px);
-            opacity: 0.3;
+            opacity: 0.4;
             z-index: 1;
             animation: float 8s ease-in-out infinite;
         }
@@ -104,10 +98,21 @@
             animation-delay: 4s;
         }
         
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(30px, -30px); }
-            66% { transform: translate(-20px, 20px); }
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            33% {
+                transform: translate(30px, -30px);
+            }
+            66% {
+                transform: translate(-20px, 20px);
+            }
         }
         
         /* Hero content */
@@ -116,6 +121,7 @@
             z-index: 10;
             text-align: center;
             max-width: 800px;
+            padding: var(--space-8);
         }
         
         .hero h1 {
@@ -128,14 +134,14 @@
             opacity: 0;
             transform: translateY(30px);
             animation: slideUpFade 1s ease-out 0.4s forwards;
-            margin-top: var(--space-8);
+            margin-top: var(--space-6);
         }
         
         .hero .cta {
             opacity: 0;
             transform: translateY(30px);
             animation: slideUpFade 1s ease-out 0.6s forwards;
-            margin-top: var(--space-12);
+            margin-top: var(--space-8);
         }
         
         @keyframes slideUpFade {
@@ -145,7 +151,7 @@
             }
         }
         
-        /* Primary CTA Button */
+        /* CTA Button with glow effect */
         .btn-primary {
             display: inline-block;
             padding: var(--space-4) var(--space-8);
@@ -158,7 +164,6 @@
             transition: all var(--transition-base);
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
         }
         
         .btn-primary::before {
@@ -169,12 +174,12 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left var(--transition-smooth);
+            transition: left var(--transition-slow);
         }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-glow);
+            box-shadow: 0 10px 30px var(--color-accent-glow);
         }
         
         .btn-primary:hover::before {
@@ -188,6 +193,7 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
+            animation: bounce 2s ease-in-out infinite;
             opacity: 0;
             animation: fadeInBounce 1s ease-out 1s forwards;
         }
@@ -198,36 +204,45 @@
                 transform: translateX(-50%) translateY(-20px);
             }
             100% {
-                opacity: 0.5;
+                opacity: 0.6;
                 transform: translateX(-50%) translateY(0);
             }
         }
         
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-        
-        .scroll-indicator {
-            animation: fadeInBounce 1s ease-out 1s forwards, bounce 2s ease-in-out 2s infinite;
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
         }
         
         .scroll-arrow {
             width: 30px;
             height: 30px;
-            border-left: 2px solid var(--color-accent-500);
-            border-bottom: 2px solid var(--color-accent-500);
+            border-left: 2px solid var(--color-accent);
+            border-bottom: 2px solid var(--color-accent);
             transform: rotate(-45deg);
         }
         
-        /* ==================== CONTENT SECTIONS ==================== */
+        /* Interactive text effects */
+        .hover-lift {
+            display: inline-block;
+            transition: transform var(--transition-fast);
+        }
         
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Parallax sections (will be implemented next) */
         .content-section {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: var(--space-32) var(--space-6);
+            padding: var(--space-20) var(--space-8);
             position: relative;
         }
         
@@ -235,24 +250,42 @@
             background: var(--color-bg-elevated);
         }
         
-        /* MORE WHITESPACE - key Refactoring UI principle */
-        .section-header {
-            text-align: center;
-            margin-bottom: var(--space-24);
+        /* Glassmorphism card effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            padding: var(--space-12);
+            box-shadow: var(--shadow-xl);
         }
         
-        /* ==================== PORTFOLIO GRID ==================== */
+        /* Mouse follower (subtle cursor effect) */
+        .cursor-glow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gradient-glow);
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 9999;
+            transition: transform 0.15s ease-out;
+            filter: blur(20px);
+            opacity: 0;
+        }
         
+        /* Portfolio grid */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: var(--space-8);
-            margin-top: var(--space-16);
+            margin-top: var(--space-12);
         }
         
         .project-card {
-            background: var(--color-bg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--color-bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-xl);
             padding: var(--space-8);
             transition: all var(--transition-base);
@@ -260,14 +293,13 @@
             overflow: hidden;
         }
         
-        /* Accent border on top (Refactoring UI polish) */
         .project-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: var(--border-accent);
+            height: 4px;
             background: var(--gradient-accent);
             transform: scaleX(0);
             transform-origin: left;
@@ -276,8 +308,8 @@
         
         .project-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(0, 217, 255, 0.2);
-            box-shadow: var(--shadow-lg);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
         }
         
         .project-card:hover::before {
@@ -285,25 +317,19 @@
         }
         
         .project-icon {
-            font-size: var(--text-2xl);
-            margin-bottom: var(--space-6);
-            display: block;
-        }
-        
-        .project-card h3 {
+            font-size: var(--text-4xl);
             margin-bottom: var(--space-4);
         }
         
-        .project-description {
-            margin: var(--space-4) 0;
-            min-height: 3.6em;
+        .project-card h3 {
+            margin-bottom: var(--space-3);
         }
         
         .project-tags {
             display: flex;
             gap: var(--space-2);
             flex-wrap: wrap;
-            margin: var(--space-6) 0;
+            margin: var(--space-4) 0;
         }
         
         .tag {
@@ -311,29 +337,22 @@
             font-family: var(--font-mono);
             padding: var(--space-1) var(--space-3);
             background: rgba(0, 217, 255, 0.1);
-            color: var(--color-accent-500);
+            color: var(--color-accent);
             border-radius: var(--radius-sm);
             border: 1px solid rgba(0, 217, 255, 0.2);
-            font-weight: var(--weight-medium);
-            text-transform: uppercase;
-            letter-spacing: var(--tracking-wide);
         }
         
         .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
+            display: inline-block;
             margin-top: var(--space-4);
-            color: var(--color-accent-500);
+            color: var(--color-accent);
             text-decoration: none;
             font-weight: var(--weight-semibold);
-            font-size: var(--text-sm);
             transition: all var(--transition-fast);
         }
         
         .project-link:hover {
             transform: translateX(4px);
-            color: var(--color-accent-400);
         }
         
         .project-link-disabled {
@@ -343,42 +362,34 @@
         
         .project-link-disabled:hover {
             transform: none;
-            color: var(--color-text-tertiary);
         }
         
-        /* ==================== ABOUT SECTION ==================== */
-        
+        /* About section */
         .about-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .about-content p {
-            margin-bottom: var(--space-8);
+            animation: fadeIn var(--transition-smooth) ease-out;
         }
         
         .about-content p:first-child {
             font-weight: var(--weight-semibold);
-            color: var(--color-text-primary);
         }
         
-        /* ==================== LINKS SECTION ==================== */
-        
+        /* Link Hub */
         .links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--space-6);
-            max-width: 600px;
+            gap: var(--space-4);
+            max-width: 650px;
             margin: 0 auto;
         }
         
+
         .link-button {
             display: flex;
             align-items: center;
             gap: var(--space-4);
             padding: var(--space-6);
-            background: var(--color-bg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--color-bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-lg);
             text-decoration: none;
             color: var(--color-text-primary);
@@ -395,14 +406,14 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.05), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
             transition: left var(--transition-smooth);
         }
         
         .link-button:hover {
             transform: translateX(4px);
-            border-color: rgba(0, 217, 255, 0.2);
-            box-shadow: var(--shadow-md);
+            border-color: var(--color-accent);
+            box-shadow: 0 4px 12px rgba(0, 217, 255, 0.2);
         }
         
         .link-button:hover::before {
@@ -410,51 +421,36 @@
         }
         
         .link-icon {
-            font-size: var(--text-xl);
+            font-size: var(--text-2xl);
         }
         
         .link-text {
-            font-size: var(--text-base);
+            font-size: var(--text-lg);
         }
-        
-        /* ==================== FOOTER ==================== */
-        
-        .footer-credits {
-            text-align: center;
-            margin-top: var(--space-16);
-            padding-top: var(--space-8);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .footer-credits p {
-            margin-bottom: var(--space-2);
-        }
-        
-        /* ==================== MOBILE RESPONSIVE ==================== */
-        
-        @media (max-width: 768px) {
-            .hero {
-                padding: var(--space-12) var(--space-4);
+
+        /* Tablet adjustments */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
-            
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
             .orb-1, .orb-2, .orb-3 {
                 width: 150px;
                 height: 150px;
             }
             
+            .hero-content {
+                padding: var(--space-6) var(--space-4);
+            }
+            
             .btn-primary {
+                font-size: var(--text-base);
+                padding: var(--space-3) var(--space-6);
                 width: 100%;
                 text-align: center;
-                padding: var(--space-3) var(--space-6);
-            }
-            
-            .content-section {
-                padding: var(--space-24) var(--space-4);
-                min-height: auto;
-            }
-            
-            .section-header {
-                margin-bottom: var(--space-16);
             }
             
             .portfolio-grid {
@@ -462,8 +458,21 @@
                 gap: var(--space-6);
             }
             
+            .project-card {
+                padding: var(--space-6);
+            }
+            
             .links-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .content-section {
+                padding: var(--space-16) var(--space-4);
+            }
+            
+            /* Disable cursor glow on mobile */
+            .cursor-glow {
+                display: none;
             }
             
             /* Reduce animation intensity on mobile */
@@ -476,7 +485,16 @@
             }
         }
         
+        /* Small mobile */
         @media (max-width: 480px) {
+            .hero h1 {
+                font-size: var(--text-3xl);
+            }
+            
+            .tagline p {
+                font-size: var(--text-base);
+            }
+            
             .scroll-indicator {
                 bottom: var(--space-8);
             }
@@ -495,10 +513,22 @@
             .link-button:active {
                 transform: translateX(2px);
             }
+            
+            /* Remove hover-only effects on touch devices */
+            .project-card:hover {
+                transform: none;
+            }
+            
+            .link-button:hover {
+                transform: none;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Custom cursor glow effect -->
+    <div class="cursor-glow"></div>
+    
     <!-- Hero Section -->
     <section class="hero">
         <!-- Animated background orbs -->
@@ -509,11 +539,12 @@
         <!-- Hero content -->
         <div class="hero-content">
             <h1 class="heading-1">
-                Beck <span class="gradient-text">Cherry</span>
+                <span class="hover-lift">Beck</span> 
+                <span class="hover-lift gradient-text">Cherry</span>
             </h1>
             
             <div class="tagline">
-                <p class="body-large">
+                <p class="body-large" style="color: var(--color-text-secondary);">
                     Learning to wrangle AI before I get wrangled by it.
                 </p>
             </div>
@@ -533,17 +564,17 @@
     
     <!-- Portfolio Section -->
     <section class="content-section" id="work" style="background: var(--color-bg);">
-        <div style="max-width: 1200px; width: 100%;">
-            <div class="section-header">
-                <h2 class="heading-2 gradient-text">What I'm Building</h2>
-            </div>
+        <div style="max-width: 1200px; width: 100%; padding: 0 var(--space-6);">
+            <h2 class="heading-2 gradient-text" style="text-align: center; margin-bottom: var(--space-16);">
+                What I'm Building
+            </h2>
             
             <div class="portfolio-grid">
                 <!-- Project 1: Zero to CEO -->
-                <div class="project-card">
-                    <span class="project-icon">💼</span>
+                <div class="project-card" data-project="zero-to-ceo">
+                    <div class="project-icon">💼</div>
                     <h3 class="heading-4">Zero to CEO</h3>
-                    <p class="body-small project-description">
+                    <p class="body-small" style="color: var(--color-text-secondary); margin: var(--space-4) 0;">
                         An AI agent building a business in real-time. Raw build logs updated daily.
                     </p>
                     <div class="project-tags">
@@ -552,15 +583,15 @@
                         <span class="tag">Live</span>
                     </div>
                     <a href="https://zero-to-ceo.vercel.app" class="project-link" target="_blank">
-                        View Project <span>→</span>
+                        View Project →
                     </a>
                 </div>
                 
                 <!-- Project 2: Yacht AI -->
-                <div class="project-card">
-                    <span class="project-icon">⛵</span>
+                <div class="project-card" data-project="yacht-ai">
+                    <div class="project-icon">⛵</div>
                     <h3 class="heading-4">Yacht AI</h3>
-                    <p class="body-small project-description">
+                    <p class="body-small" style="color: var(--color-text-secondary); margin: var(--space-4) 0;">
                         Chat with your yacht manual. RAG-powered AI assistant for boat owners.
                     </p>
                     <div class="project-tags">
@@ -568,16 +599,16 @@
                         <span class="tag">RAG</span>
                         <span class="tag">B2C</span>
                     </div>
-                    <span class="project-link project-link-disabled">
+                    <a href="#" class="project-link project-link-disabled">
                         Coming Soon
-                    </span>
+                    </a>
                 </div>
                 
                 <!-- Project 3: OpenClaw iOS -->
-                <div class="project-card">
-                    <span class="project-icon">📱</span>
+                <div class="project-card" data-project="openclaw-ios">
+                    <div class="project-icon">📱</div>
                     <h3 class="heading-4">OpenClaw iOS</h3>
-                    <p class="body-small project-description">
+                    <p class="body-small" style="color: var(--color-text-secondary); margin: var(--space-4) 0;">
                         Native iOS client for OpenClaw. Chat with AI agents on the go.
                     </p>
                     <div class="project-tags">
@@ -585,16 +616,16 @@
                         <span class="tag">Swift</span>
                         <span class="tag">Open Source</span>
                     </div>
-                    <span class="project-link project-link-disabled">
+                    <a href="#" class="project-link project-link-disabled">
                         In Development
-                    </span>
+                    </a>
                 </div>
                 
                 <!-- Project 4: Occupy Greenland -->
-                <div class="project-card">
-                    <span class="project-icon">🇬🇱</span>
+                <div class="project-card" data-project="occupy-greenland">
+                    <div class="project-icon">🇬🇱</div>
                     <h3 class="heading-4">Occupy Greenland</h3>
-                    <p class="body-small project-description">
+                    <p class="body-small" style="color: var(--color-text-secondary); margin: var(--space-4) 0;">
                         Political merch. Because someone has to make the memes real.
                     </p>
                     <div class="project-tags">
@@ -603,7 +634,7 @@
                         <span class="tag">Merch</span>
                     </div>
                     <a href="https://beckcherry.com/occupy-greenland" class="project-link" target="_blank">
-                        View Store <span>→</span>
+                        View Store →
                     </a>
                 </div>
             </div>
@@ -612,37 +643,37 @@
     
     <!-- About Section -->
     <section class="content-section" id="about" style="background: var(--color-bg-elevated);">
-        <div style="max-width: 800px; width: 100%;">
-            <div class="section-header">
-                <h2 class="heading-2 gradient-text">About Me</h2>
-            </div>
+        <div style="max-width: 800px; padding: 0 var(--space-6);">
+            <h2 class="heading-2 gradient-text" style="text-align: center; margin-bottom: var(--space-12);">
+                About Me
+            </h2>
             
             <div class="about-content">
-                <p class="body-large">
+                <p class="body-large" style="margin-bottom: var(--space-6); line-height: var(--leading-relaxed);">
                     I'm Beck. I build stuff with AI.
                 </p>
                 
-                <p class="body">
+                <p class="body" style="margin-bottom: var(--space-6); color: var(--color-text-secondary); line-height: var(--leading-relaxed);">
                     Learning to build with AI agents before they build without us. Building Yacht AI (SaaS for yacht owners), Zero to CEO (an AI agent building a business in public), and a bunch of other experiments that may or may not work.
                 </p>
                 
-                <p class="body">
+                <p class="body" style="margin-bottom: var(--space-6); color: var(--color-text-secondary); line-height: var(--leading-relaxed);">
                     Documenting everything as I go. The wins, the failures, the weird stuff in between.
                 </p>
                 
-                <p class="body">
+                <p class="body" style="color: var(--color-text-secondary); line-height: var(--leading-relaxed);">
                     Building products I actually want to exist. Ask me in a year how it went.
                 </p>
             </div>
         </div>
     </section>
     
-    <!-- Links Section -->
+    <!-- Link Hub Section -->
     <section class="content-section" id="links" style="background: var(--color-bg);">
-        <div style="max-width: 800px; width: 100%;">
-            <div class="section-header">
-                <h2 class="heading-2 gradient-text">Let's Connect</h2>
-            </div>
+        <div style="max-width: 600px; padding: 0 var(--space-6);">
+            <h2 class="heading-2 gradient-text" style="text-align: center; margin-bottom: var(--space-12);">
+                Let's Connect
+            </h2>
             
             <div class="links-grid">
                 <a href="https://www.linkedin.com/in/beckcherry" target="_blank" class="link-button">
@@ -655,19 +686,49 @@
                     <span class="link-text">Twitter</span>
                 </a>
             </div>
-            
-            <div class="footer-credits">
+
+            <div style="text-align: center; margin-top: var(--space-12);">
                 <p class="caption">
-                    Built by AI agents. Design principles by Refactoring UI.
+                    Built by an AI agent. Design by Tommy. Code by Tommy. Everything by Tommy.
                 </p>
-                <p class="caption">
-                    Frontend by ⚡ Deck v2.0
+                <p class="caption" style="margin-top: var(--space-4); color: var(--color-text-tertiary);">
+                    Frontend by ⚡ Deck
                 </p>
             </div>
         </div>
     </section>
     
     <script>
+        // Custom cursor glow effect
+        const cursorGlow = document.querySelector('.cursor-glow');
+        let mouseX = 0;
+        let mouseY = 0;
+        let glowX = 0;
+        let glowY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorGlow.style.opacity = '0.4';
+        });
+        
+        // Smooth cursor following with lag
+        function animateCursor() {
+            const dx = mouseX - glowX;
+            const dy = mouseY - glowY;
+            
+            glowX += dx * 0.15;
+            glowY += dy * 0.15;
+            
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        
+        // Name hover effect removed per Beck's feedback
+        
         // Smooth scroll for CTA button
         document.querySelector('.btn-primary').addEventListener('click', (e) => {
             e.preventDefault();
@@ -677,15 +738,13 @@
             });
         });
         
+
         // Hide scroll indicator after scrolling
         let scrolled = false;
         window.addEventListener('scroll', () => {
             if (!scrolled && window.scrollY > 100) {
                 scrolled = true;
-                const indicator = document.querySelector('.scroll-indicator');
-                if (indicator) {
-                    indicator.style.opacity = '0';
-                }
+                document.querySelector('.scroll-indicator').style.opacity = '0';
             }
         });
     </script>

@@ -27,7 +27,7 @@
   --color-error: #FF3366;
   
   /* Gradients */
-  --gradient-hero: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
+  --gradient-hero: linear-gradient(135deg, #0A1929 0%, #1E3A5F 50%, #00D9FF 100%);
   --gradient-accent: linear-gradient(90deg, var(--color-accent) 0%, #0099FF 100%);
   --gradient-glow: radial-gradient(circle at 50% 50%, var(--color-accent-glow) 0%, transparent 70%);
 }

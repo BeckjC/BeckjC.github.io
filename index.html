@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Beck Cherry - AI Wrangler | Building AI Products in Public</title>
+    <meta name="title" content="Beck Cherry - AI Wrangler | Building AI Products in Public">
+    <meta name="description" content="Learning to build with AI agents before they build without us. Building Yacht AI, Zero to CEO, and more. No hype, just honest building in public.">
+    <meta name="author" content="Beck Cherry">
+    <meta name="keywords" content="AI, AI agents, OpenClaw, Yacht AI, Zero to CEO, AI Wrangler, building in public">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://beckcherry.com/">
+    <meta property="og:title" content="Beck Cherry - AI Wrangler">
+    <meta property="og:description" content="Learning to build with AI agents before they build without us. Building Yacht AI, Zero to CEO, and more.">
+    <meta property="og:image" content="https://beckcherry.com/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beckcherry.com/">
+    <meta property="twitter:title" content="Beck Cherry - AI Wrangler">
+    <meta property="twitter:description" content="Learning to build with AI agents before they build without us. Building Yacht AI, Zero to CEO, and more.">
+    <meta property="twitter:image" content="https://beckcherry.com/og-image.jpg">
+    <meta property="twitter:creator" content="@beckjcs">
+    
+    <!-- Favicon (placeholder - needs actual favicon files) -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://beckcherry.com/">
+    
+    <link rel="stylesheet" href="design-system.css">
+    <style>
+        /* Homepage-specific styles */
+        body {
+            overflow-x: hidden;
+        }
+        
+        /* Hero section with animated gradient background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animated gradient background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--gradient-hero);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
+        
+        /* Floating glow orbs */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--gradient-glow);
+            filter: blur(60px);
+            opacity: 0.4;
+            z-index: 1;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            top: 60%;
+            left: 60%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            33% {
+                transform: translate(30px, -30px);
+            }
+            66% {
+                transform: translate(-20px, 20px);
+            }
+        }
+        
+        /* Hero content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            padding: var(--space-8);
+        }
+        
+        .hero h1 {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUpFade 1s ease-out 0.2s forwards;
+        }
+        
+        .hero .tagline {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUpFade 1s ease-out 0.4s forwards;
+            margin-top: var(--space-6);
+        }
+        
+        .hero .cta {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUpFade 1s ease-out 0.6s forwards;
+            margin-top: var(--space-8);
+        }
+        
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* CTA Button with glow effect */
+        .btn-primary {
+            display: inline-block;
+            padding: var(--space-4) var(--space-8);
+            background: var(--gradient-accent);
+            color: var(--color-bg-dark);
+            font-weight: var(--weight-bold);
+            font-size: var(--text-lg);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left var(--transition-slow);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--color-accent-glow);
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--space-12);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s ease-in-out infinite;
+            opacity: 0;
+            animation: fadeInBounce 1s ease-out 1s forwards;
+        }
+        
+        @keyframes fadeInBounce {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            100% {
+                opacity: 0.6;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+        
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border-left: 2px solid var(--color-accent);
+            border-bottom: 2px solid var(--color-accent);
+            transform: rotate(-45deg);
+        }
+        
+        /* Interactive text effects */
+        .hover-lift {
+            display: inline-block;
+            transition: transform var(--transition-fast);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Parallax sections (will be implemented next) */
+        .content-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-20) var(--space-8);
+            position: relative;
+        }
+        
+        .content-section:nth-child(even) {
+            background: var(--color-bg-elevated);
+        }
+        
+        /* Glassmorphism card effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            padding: var(--space-12);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        /* Mouse follower (subtle cursor effect) */
+        .cursor-glow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gradient-glow);
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 9999;
+            transition: transform 0.15s ease-out;
+            filter: blur(20px);
+            opacity: 0;
+        }
+        
+        /* Portfolio grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-8);
+            margin-top: var(--space-12);
+        }
+        
+        .project-card {
+            background: var(--color-bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-smooth);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
+        }
+        
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .project-icon {
+            font-size: var(--text-4xl);
+            margin-bottom: var(--space-4);
+        }
+        
+        .project-card h3 {
+            margin-bottom: var(--space-3);
+        }
+        
+        .project-tags {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+            margin: var(--space-4) 0;
+        }
+        
+        .tag {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            padding: var(--space-1) var(--space-3);
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--color-accent);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+        
+        .project-link {
+            display: inline-block;
+            margin-top: var(--space-4);
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: var(--weight-semibold);
+            transition: all var(--transition-fast);
+        }
+        
+        .project-link:hover {
+            transform: translateX(4px);
+        }
+        
+        .project-link-disabled {
+            color: var(--color-text-tertiary);
+            cursor: not-allowed;
+        }
+        
+        .project-link-disabled:hover {
+            transform: none;
+        }
+        
+        /* About section */
+        .about-content {
+            animation: fadeIn var(--transition-smooth) ease-out;
+        }
+        
+        .about-content p:first-child {
+            font-weight: var(--weight-semibold);
+        }
+        
+        /* Link Hub */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        
+
+        .link-button {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-6);
+            background: var(--color-bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            color: var(--color-text-primary);
+            font-weight: var(--weight-medium);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            transition: left var(--transition-smooth);
+        }
+        
+        .link-button:hover {
+            transform: translateX(4px);
+            border-color: var(--color-accent);
+            box-shadow: 0 4px 12px rgba(0, 217, 255, 0.2);
+        }
+        
+        .link-button:hover::before {
+            left: 100%;
+        }
+        
+        .link-icon {
+            font-size: var(--text-2xl);
+        }
+        
+        .link-text {
+            font-size: var(--text-lg);
+        }
+
+        /* Tablet adjustments */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .orb-1, .orb-2, .orb-3 {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .hero-content {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .btn-primary {
+                font-size: var(--text-base);
+                padding: var(--space-3) var(--space-6);
+                width: 100%;
+                text-align: center;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+            
+            .project-card {
+                padding: var(--space-6);
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-section {
+                padding: var(--space-16) var(--space-4);
+            }
+            
+            /* Disable cursor glow on mobile */
+            .cursor-glow {
+                display: none;
+            }
+            
+            /* Reduce animation intensity on mobile */
+            .hero::before {
+                animation-duration: 30s;
+            }
+            
+            .orb-1, .orb-2, .orb-3 {
+                animation-duration: 12s;
+            }
+        }
+        
+        /* Small mobile */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: var(--text-3xl);
+            }
+            
+            .tagline p {
+                font-size: var(--text-base);
+            }
+            
+            .scroll-indicator {
+                bottom: var(--space-8);
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-primary:active {
+                transform: scale(0.98);
+            }
+            
+            .project-card:active {
+                transform: translateY(-2px);
+            }
+            
+            .link-button:active {
+                transform: translateX(2px);
+            }
+            
+            /* Remove hover-only effects on touch devices */
+            .project-card:hover {
+                transform: none;
+            }
+            
+            .link-button:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom cursor glow effect -->
+    <div class="cursor-glow"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Animated background orbs -->
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+        
+        <!-- Hero content -->
+        <div class="hero-content">
+            <h1 class="heading-1">
+                <span class="hover-lift">Beck</span> 
+                <span class="hover-lift gradient-text">Cherry</span>
+            </h1>
+            
+            <div class="tagline">
+                <p class="body-large" style="color: var(--color-text-secondary);">
+                    Learning to wrangle AI before I get wrangled by it.
+                </p>
+            </div>
+            
+            <div class="cta">
+                <a href="#work" class="btn-primary">
+                    See what I'm building →
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section class="content-section" id="work" style="background: var(--color-bg);">
+        <div style="max-width: 1200px; width: 100%; padding: 0 var(--space-6);">
+            <h2 class="heading-2 gradient-text" style="text-align: center; margin-bottom: var(--space-16);">
+                What I'm Building
+            </h2>
+            
+            <div class="portfolio-grid">
+                <!-- Project 1: Zero to CEO -->
+                <div class="project-card" data-project="zero-to-ceo">
+                    <div class="project-icon">💼</div>
+                    <h3 class="heading-4">Zero to CEO</h3>
+                    <p class="body-small" style="color: var(--color-text-secondary); margin: var(--space-4) 0;">
+                        An AI agent building a business in real-time. Raw build logs updated daily.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Business</span>
+                        <span class="tag">Live</span>
+                    </div>
+                    <a href="https://zero-to-ceo.vercel.app" class="project-link" target="_blank">
+                        View Project →
+                    </a>
+                </div>
+                
+                <!-- Project 2: Yacht AI -->
+                <div class="project-card" data-project="yacht-ai">
+                    <div class="project-icon">⛵</div>
+                    <h3 class="heading-4">Yacht AI</h3>
+                    <p class="body-small" style="color: var(--color-text-secondary); margin: var(--space-4) 0;">
+                        Chat with your yacht manual. RAG-powered AI assistant for boat owners.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">SaaS</span>
+                        <span class="tag">RAG</span>
+                        <span class="tag">B2C</span>
+                    </div>
+                    <a href="#" class="project-link project-link-disabled">
+                        Coming Soon
+                    </a>
+                </div>
+                
+                <!-- Project 3: OpenClaw iOS -->
+                <div class="project-card" data-project="openclaw-ios">
+                    <div class="project-icon">📱</div>
+                    <h3 class="heading-4">OpenClaw iOS</h3>
+                    <p class="body-small" style="color: var(--color-text-secondary); margin: var(--space-4) 0;">
+                        Native iOS client for OpenClaw. Chat with AI agents on the go.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">iOS</span>
+                        <span class="tag">Swift</span>
+                        <span class="tag">Open Source</span>
+                    </div>
+                    <a href="#" class="project-link project-link-disabled">
+                        In Development
+                    </a>
+                </div>
+                
+                <!-- Project 4: Occupy Greenland -->
+                <div class="project-card" data-project="occupy-greenland">
+                    <div class="project-icon">🇬🇱</div>
+                    <h3 class="heading-4">Occupy Greenland</h3>
+                    <p class="body-small" style="color: var(--color-text-secondary); margin: var(--space-4) 0;">
+                        Political merch. Because someone has to make the memes real.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">E-commerce</span>
+                        <span class="tag">Political</span>
+                        <span class="tag">Merch</span>
+                    </div>
+                    <a href="https://beckcherry.com/occupy-greenland" class="project-link" target="_blank">
+                        View Store →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="content-section" id="about" style="background: var(--color-bg-elevated);">
+        <div style="max-width: 800px; padding: 0 var(--space-6);">
+            <h2 class="heading-2 gradient-text" style="text-align: center; margin-bottom: var(--space-12);">
+                About Me
+            </h2>
+            
+            <div class="about-content">
+                <p class="body-large" style="margin-bottom: var(--space-6); line-height: var(--leading-relaxed);">
+                    I'm Beck. I build stuff with AI.
+                </p>
+                
+                <p class="body" style="margin-bottom: var(--space-6); color: var(--color-text-secondary); line-height: var(--leading-relaxed);">
+                    Learning to build with AI agents before they build without us. Building Yacht AI (SaaS for yacht owners), Zero to CEO (an AI agent building a business in public), and a bunch of other experiments that may or may not work.
+                </p>
+                
+                <p class="body" style="margin-bottom: var(--space-6); color: var(--color-text-secondary); line-height: var(--leading-relaxed);">
+                    Documenting everything as I go. The wins, the failures, the weird stuff in between.
+                </p>
+                
+                <p class="body" style="color: var(--color-text-secondary); line-height: var(--leading-relaxed);">
+                    Building products I actually want to exist. Ask me in a year how it went.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Link Hub Section -->
+    <section class="content-section" id="links" style="background: var(--color-bg);">
+        <div style="max-width: 600px; padding: 0 var(--space-6);">
+            <h2 class="heading-2 gradient-text" style="text-align: center; margin-bottom: var(--space-12);">
+                Let's Connect
+            </h2>
+            
+            <div class="links-grid">
+                <a href="https://www.linkedin.com/in/beckcherry" target="_blank" class="link-button">
+                    <span class="link-icon">💼</span>
+                    <span class="link-text">LinkedIn</span>
+                </a>
+                
+                <a href="https://twitter.com/beckjcs" target="_blank" class="link-button">
+                    <span class="link-icon">🐦</span>
+                    <span class="link-text">Twitter</span>
+                </a>
+            </div>
+
+            <div style="text-align: center; margin-top: var(--space-12);">
+                <p class="caption">
+                    Built by an AI agent. Design by Tommy. Code by Tommy. Everything by Tommy.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Custom cursor glow effect
+        const cursorGlow = document.querySelector('.cursor-glow');
+        let mouseX = 0;
+        let mouseY = 0;
+        let glowX = 0;
+        let glowY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorGlow.style.opacity = '0.4';
+        });
+        
+        // Smooth cursor following with lag
+        function animateCursor() {
+            const dx = mouseX - glowX;
+            const dy = mouseY - glowY;
+            
+            glowX += dx * 0.15;
+            glowY += dy * 0.15;
+            
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        
+        // Name hover effect removed per Beck's feedback
+        
+        // Smooth scroll for CTA button
+        document.querySelector('.btn-primary').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#work').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+        
+
+        // Hide scroll indicator after scrolling
+        let scrolled = false;
+        window.addEventListener('scroll', () => {
+            if (!scrolled && window.scrollY > 100) {
+                scrolled = true;
+                document.querySelector('.scroll-indicator').style.opacity = '0';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -374,9 +374,9 @@
             border-radius: 50%;
             background: var(--gradient-glow);
             filter: blur(60px);
-            opacity: 0.3;
+            opacity: 0.25;
             z-index: 1;
-            animation: float 8s ease-in-out infinite;
+            animation: float 15s ease-in-out infinite;
         }
         
         .orb-1 {
@@ -405,8 +405,7 @@
         
         @keyframes float {
             0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(30px, -30px); }
-            66% { transform: translate(-20px, 20px); }
+            50% { transform: translate(10px, -10px); }
         }
         
         /* Hero content */
@@ -508,7 +507,7 @@
         }
         
         .scroll-indicator {
-            animation: fadeInBounce 1s ease-out 1s forwards, bounce 2s ease-in-out 2s infinite;
+            animation: fadeInBounce 1s ease-out 1s forwards;
         }
         
         .scroll-arrow {

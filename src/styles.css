@@ -169,43 +169,71 @@ button {
 
 .list-grid {
   display: grid;
-  gap: 2rem 1.5rem;
 }
 
 .blog-grid {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
+  gap: 4rem;
 }
 
 .recipes-grid {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2.25rem 1.5rem;
 }
 
 .entry-card {
   display: grid;
+}
+
+.blog-grid .entry-card {
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.blog-grid .entry-card:nth-child(even) img {
+  order: 2;
+}
+
+.blog-grid .entry-card:nth-child(even) .entry-copy {
+  order: 1;
+}
+
+.recipes-grid .entry-card {
   gap: 0.9rem;
 }
 
 .image-card img {
   width: 100%;
-  aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
   background: #f3f3f3;
 }
 
+.blog-grid .image-card img {
+  aspect-ratio: 16 / 10;
+}
+
+.recipes-grid .image-card img {
+  aspect-ratio: 4 / 3;
+}
+
 .entry-copy {
   display: grid;
   gap: 0.75rem;
+  align-content: start;
 }
 
 .meta-row {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .section-heading {
   max-width: 42rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .section-heading h1,
@@ -220,11 +248,12 @@ button {
 }
 
 .entry-copy h2 {
-  font-size: clamp(1.3rem, 2vw, 1.9rem);
+  font-size: clamp(1.4rem, 2vw, 2rem);
 }
 
 .entry-copy p {
   margin: 0;
+  max-width: 34rem;
 }
 
 .text-link,
@@ -234,7 +263,7 @@ button {
 
 .older-link {
   display: inline-flex;
-  margin-top: 1.25rem;
+  margin-top: 2rem;
 }
 
 .contact-row {
@@ -242,6 +271,18 @@ button {
   flex-wrap: wrap;
   gap: 0.85rem;
   margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .blog-grid .entry-card {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .blog-grid .entry-card:nth-child(even) img,
+  .blog-grid .entry-card:nth-child(even) .entry-copy {
+    order: initial;
+  }
 }
 
 @media (max-width: 720px) {

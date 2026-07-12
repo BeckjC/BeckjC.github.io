@@ -231,7 +231,7 @@ function App() {
       </header>
 
       <main id="top">
-        {page === pages.home && <HomePage navigate={navigate} />}
+        {page === pages.home && <HomePage />}
         {page === pages.blog && <BlogPage />}
         {page === pages.recipes && <RecipesPage />}
         {page === pages.contact && <ContactPage />}
@@ -240,27 +240,23 @@ function App() {
   )
 }
 
-function HomePage({ navigate }) {
+function HomePage() {
   return (
     <section className="section home-shell">
       <img className="hero-logo" src={logoUrl} alt="Beck Cherry" />
 
-      <div className="feature-grid">
-        <button className="feature-card" onClick={() => navigate(pages.blog)}>
-          <img src={blogPosts[0].image} alt="" />
-          <div>
-            <p className="feature-label">Beck’s Blog</p>
-            <h2>{blogPosts[0].title}</h2>
+      <div className="home-signup">
+        <form className="signup-form" onSubmit={(event) => event.preventDefault()}>
+          <label className="signup-label" htmlFor="email-list">
+            Email
+          </label>
+          <div className="signup-row">
+            <input id="email-list" name="email" type="email" autoComplete="email" />
+            <button type="submit" className="button button-secondary">
+              Submit
+            </button>
           </div>
-        </button>
-
-        <button className="feature-card" onClick={() => navigate(pages.recipes)}>
-          <img src={recipes[0].image} alt="" />
-          <div>
-            <p className="feature-label">Nan’s Recipes</p>
-            <h2>{recipes[0].title}</h2>
-          </div>
-        </button>
+        </form>
       </div>
     </section>
   )

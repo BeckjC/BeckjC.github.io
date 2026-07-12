@@ -246,6 +246,7 @@ function HomePage() {
       <img className="hero-logo" src={logoUrl} alt="Beck Cherry" />
 
       <div className="home-signup">
+        <p className="signup-copy">Join the email list for new posts and recipes.</p>
         <form className="signup-form" onSubmit={(event) => event.preventDefault()}>
           <label className="signup-label" htmlFor="email-list">
             Email

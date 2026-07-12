@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { blogPosts, homeImageUrl, logoUrl, recipes, youtubeUrl } from './content'
+import { blogPosts, logoUrl, recipes, youtubeUrl } from './content'
 
 const pages = {
   home: 'home',
@@ -41,9 +41,13 @@ function parseRoute() {
 
 function App() {
   const [route, setRoute] = useState(() => parseRoute())
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handleHashChange = () => setRoute(parseRoute())
+    const handleHashChange = () => {
+      setRoute(parseRoute())
+      setMenuOpen(false)
+    }
     window.addEventListener('hashchange', handleHashChange)
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
@@ -55,6 +59,7 @@ function App() {
   }, [route])
 
   const navigate = (nextPage) => {
+    setMenuOpen(false)
     window.location.hash = nextPage === pages.home ? 'top' : nextPage
   }
 
@@ -70,7 +75,17 @@ function App() {
           Beck Cherry
         </button>
 
-        <nav className="nav" aria-label="Primary">
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls="site-nav"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          ☰
+        </button>
+
+        <nav id="site-nav" className={menuOpen ? 'nav nav-open' : 'nav'} aria-label="Primary">
           {navItems.map((item) => (
             <button
               key={item.key}
@@ -106,7 +121,6 @@ function App() {
 function HomePage() {
   return (
     <section className="section home-shell">
-      <img className="home-photo" src={homeImageUrl} alt="" />
       <img className="hero-logo" src={logoUrl} alt="Beck Cherry" />
 
       <div className="home-signup">

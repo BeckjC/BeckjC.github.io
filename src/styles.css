@@ -68,6 +68,12 @@ button {
   text-align: left;
 }
 
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
 .nav {
   display: flex;
   flex-wrap: wrap;
@@ -86,14 +92,16 @@ button {
 .brand:focus-visible,
 .title-link:focus-visible,
 .button:focus-visible,
-.back-link:focus-visible {
+.back-link:focus-visible,
+.menu-toggle:focus-visible {
   color: var(--text);
   outline: none;
 }
 
 .nav-link-active,
 .nav-link:hover,
-.nav-link:focus-visible {
+.nav-link:focus-visible,
+.menu-toggle:hover {
   border-color: var(--accent);
 }
 
@@ -107,12 +115,6 @@ button {
   align-content: center;
   gap: 2rem;
   justify-items: start;
-}
-
-.home-photo {
-  width: min(100%, 760px);
-  height: auto;
-  display: block;
 }
 
 .hero-logo {
@@ -319,12 +321,26 @@ button {
 
 @media (max-width: 720px) {
   .topbar {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav {
-    gap: 0.8rem;
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding-top: 0.75rem;
+  }
+
+  .nav.nav-open {
+    display: flex;
   }
 
   .signup-row {

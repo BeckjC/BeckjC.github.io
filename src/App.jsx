@@ -72,7 +72,7 @@ function App() {
     <div className="site-shell">
       <header className="topbar">
         <button className="brand brand-button" onClick={() => navigate(pages.home)}>
-          Beck Cherry
+          <img className="nav-logo" src={logoUrl} alt="Beck Cherry" />
         </button>
 
         <button
@@ -121,8 +121,6 @@ function App() {
 function HomePage() {
   return (
     <section className="section home-shell">
-      <img className="hero-logo" src={logoUrl} alt="Beck Cherry" />
-
       <div className="home-signup">
         <h1 className="signup-copy">
           Read my <span className="accent-text">FREE newsletter</span>.

@@ -66,6 +66,14 @@ button {
 
 .brand-button {
   text-align: left;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-logo {
+  width: 118px;
+  height: auto;
+  display: block;
 }
 
 .menu-toggle {
@@ -116,13 +124,6 @@ button {
   gap: 2rem;
   justify-items: center;
   text-align: center;
-}
-
-.hero-logo {
-  width: min(100%, 150px);
-  height: auto;
-  display: block;
-  opacity: 0.92;
 }
 
 .home-signup {

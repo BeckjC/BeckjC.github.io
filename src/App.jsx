@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { blogPosts, logoUrl, recipes, youtubeUrl } from './content'
+import { blogPosts, homeImageUrl, logoUrl, recipes, youtubeUrl } from './content'
 
 const pages = {
   home: 'home',
@@ -106,6 +106,7 @@ function App() {
 function HomePage() {
   return (
     <section className="section home-shell">
+      <img className="home-photo" src={homeImageUrl} alt="" />
       <img className="hero-logo" src={logoUrl} alt="Beck Cherry" />
 
       <div className="home-signup">

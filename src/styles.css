@@ -109,8 +109,14 @@ button {
   justify-items: start;
 }
 
+.home-photo {
+  width: min(100%, 760px);
+  height: auto;
+  display: block;
+}
+
 .hero-logo {
-  width: min(100%, 520px);
+  width: min(100%, 260px);
   height: auto;
   display: block;
 }

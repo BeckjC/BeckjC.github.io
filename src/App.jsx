@@ -124,11 +124,11 @@ function HomePage() {
       <img className="hero-logo" src={logoUrl} alt="Beck Cherry" />
 
       <div className="home-signup">
-        <p className="signup-copy">Read my FREE newsletter for new posts, recipes, and whatever I’m working on.</p>
+        <h1 className="signup-copy">
+          Read my <span className="accent-text">FREE newsletter</span>.
+        </h1>
+        <p className="signup-subcopy">New posts, recipes, and whatever I’m working on.</p>
         <form className="signup-form" onSubmit={(event) => event.preventDefault()}>
-          <label className="signup-label" htmlFor="email-list">
-            Email
-          </label>
           <div className="signup-row">
             <input
               id="email-list"

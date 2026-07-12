@@ -114,7 +114,8 @@ button {
   display: grid;
   align-content: center;
   gap: 2rem;
-  justify-items: start;
+  justify-items: center;
+  text-align: center;
 }
 
 .hero-logo {
@@ -125,6 +126,7 @@ button {
 
 .home-signup {
   width: min(100%, 760px);
+  justify-self: center;
 }
 
 .signup-copy,
@@ -148,7 +150,7 @@ button {
 }
 
 .signup-copy {
-  margin: 0 0 1rem;
+  margin: 0 auto 1rem;
   max-width: 34rem;
   color: var(--text);
   font-size: clamp(1.35rem, 2vw, 1.85rem);
@@ -345,6 +347,10 @@ button {
 
   .signup-row {
     flex-direction: column;
+  }
+
+  .home-signup {
+    width: 100%;
   }
 }
 

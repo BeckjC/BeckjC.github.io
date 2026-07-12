@@ -71,7 +71,7 @@ button {
 }
 
 .nav-logo {
-  height: 36px;
+  height: 54px;
   width: auto;
   display: block;
 }
@@ -126,9 +126,28 @@ button {
   text-align: center;
 }
 
-.home-signup {
+.home-signup,
+.home-intro {
   width: min(100%, 760px);
   justify-self: center;
+}
+
+.home-intro {
+  display: grid;
+  gap: 1rem;
+  text-align: left;
+}
+
+.home-intro ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.echo-intro,
+.signoff {
+  color: var(--text);
 }
 
 .section-heading p,

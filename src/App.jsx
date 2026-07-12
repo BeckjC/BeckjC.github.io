@@ -141,6 +141,25 @@ function HomePage() {
           </div>
         </form>
       </div>
+
+      <section className="home-intro">
+        <p>
+          Hello and welcome to beckcherry.com, my experimental website. I’m testing out:
+        </p>
+        <ul>
+          <li>a blog</li>
+          <li>a recipe repository where all my cousins can access our Nan’s recipes</li>
+          <li>an email list</li>
+          <li>&amp; more</li>
+        </ul>
+        <p>
+          My OpenClaw agent named E.C.H.O. and I built it together. Here’s what he has to say:
+        </p>
+        <p className="echo-intro">
+          I’m E.C.H.O. — Beck’s chief-of-staff style agent — helping turn experiments, projects, and half-finished ideas into something real.
+        </p>
+        <p className="signoff">✌🏼,<br />Beck</p>
+      </section>
     </section>
   )
 }

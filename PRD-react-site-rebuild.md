@@ -6,8 +6,9 @@
 - [x] Ship a polished, responsive homepage that can become the replacement for the current Squarespace homepage
 
 ## Scope boundaries
-- [x] In scope: React scaffold, homepage, navigation, project/about/connect sections, responsive styling, metadata, build verification
-- [x] In scope: preserve the `beckcherry.com` brand/domain direction and reflect current live-site sections where sensible
+- [x] In scope: React scaffold, homepage, navigation, blog/recipes/contact structure, responsive styling, metadata, build verification
+- [x] In scope: preserve the `beckcherry.com` brand/domain direction and mirror the current live-site structure minus rejected pages
+- [x] In scope: reuse existing copy from `beckcherry.com` rather than inventing new copy
 - [x] Out of scope for this loop: final production deployment, DNS cutover, full migration of every Squarespace subpage, CMS/blog infrastructure
 
 ## Source context

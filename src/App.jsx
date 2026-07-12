@@ -272,15 +272,14 @@ function BlogPage() {
 
       <div className="list-grid blog-grid">
         {blogPosts.map((post) => (
-          <article key={post.href} className="entry-card image-card">
-            <img src={post.image} alt="" />
+          <article key={post.href} className="entry-card text-entry">
             <div className="entry-copy">
-              <p className="meta-row">Beck Cherry · {post.date}</p>
-              <h2>{post.title}</h2>
+              <h2>
+                <a className="title-link" href={post.href} target="_blank" rel="noreferrer">
+                  {post.title}
+                </a>
+              </h2>
               <p>{post.excerpt}</p>
-              <a className="text-link" href={post.href} target="_blank" rel="noreferrer">
-                Read More
-              </a>
             </div>
           </article>
         ))}
@@ -299,15 +298,14 @@ function RecipesPage() {
 
       <div className="list-grid recipes-grid">
         {recipes.map((recipe) => (
-          <article key={recipe.href} className="entry-card image-card">
-            {recipe.image ? <img src={recipe.image} alt="" /> : null}
+          <article key={recipe.href} className="entry-card text-entry">
             <div className="entry-copy">
-              <p className="meta-row">Beck Cherry · {recipe.date}</p>
-              <h2>{recipe.title}</h2>
+              <h2>
+                <a className="title-link" href={recipe.href} target="_blank" rel="noreferrer">
+                  {recipe.title}
+                </a>
+              </h2>
               {recipe.excerpt ? <p>{recipe.excerpt}</p> : null}
-              <a className="text-link" href={recipe.href} target="_blank" rel="noreferrer">
-                Read More
-              </a>
             </div>
           </article>
         ))}

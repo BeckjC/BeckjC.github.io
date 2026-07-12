@@ -4,7 +4,7 @@
   --line: #d9d9d9;
   --text: #111111;
   --muted: #666666;
-  --accent: #111111;
+  --accent: #8bbce8;
   --container: 1180px;
 }
 
@@ -86,8 +86,13 @@ button {
 .title-link:focus-visible,
 .button:focus-visible {
   color: var(--text);
-  border-color: var(--text);
   outline: none;
+}
+
+.nav-link-active,
+.nav-link:hover,
+.nav-link:focus-visible {
+  border-color: var(--accent);
 }
 
 .section {
@@ -154,7 +159,7 @@ button {
 }
 
 .signup-row input:focus-visible {
-  outline: 1px solid var(--text);
+  outline: 1px solid var(--accent);
   outline-offset: 0;
 }
 
@@ -163,6 +168,11 @@ button {
   align-items: center;
   justify-content: center;
   padding: 0 1rem;
+}
+
+.button:hover,
+.button:focus-visible {
+  border-color: var(--accent);
 }
 
 .list-grid {
@@ -218,16 +228,21 @@ button {
   max-width: 34rem;
 }
 
-.title-link {
-  border-bottom: 1px solid transparent;
+.title-link,
+.older-link {
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.18em;
 }
 
-.title-link:hover {
-  border-color: var(--text);
+.title-link:hover,
+.older-link:hover {
+  color: var(--text);
+  text-decoration-color: var(--accent);
 }
 
 .older-link {
-  color: var(--accent);
   display: inline-flex;
   margin-top: 2rem;
 }

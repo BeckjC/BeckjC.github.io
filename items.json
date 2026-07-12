@@ -1,0 +1,42 @@
+[
+  {
+    "id": "beck-personal-site-001",
+    "fact": "Beck Personal Site is an active PARA project at ~/life/projects/beck-personal-site for replacing the current Squarespace-backed beckcherry.com site with a React build.",
+    "category": "status",
+    "timestamp": "2026-07-09",
+    "source": "2026-07-09 personal-site session + project repo state",
+    "status": "active",
+    "lastAccessed": "2026-07-09T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-002",
+    "fact": "Beck wants the replacement personal site to keep the beckcherry.com domain while using React and cheap/easy hosting instead of paying for a site builder plus hosting.",
+    "category": "product-decision",
+    "timestamp": "2026-07-09",
+    "source": "2026-07-09 personal-site session",
+    "status": "active",
+    "lastAccessed": "2026-07-09T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-003",
+    "fact": "On July 9, 2026, Beck set the public-facing direction for the site as personal and creative, more visual, less wordy, with solid colors and fewer gradients.",
+    "category": "design-principle",
+    "timestamp": "2026-07-09",
+    "source": "2026-07-09 personal-site session",
+    "status": "active",
+    "lastAccessed": "2026-07-09T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-004",
+    "fact": "The new personal site should include Who I Am, Nan’s Recipes, Contact, LinkedIn, YouTube, and Blog, with Blog, Nan’s Recipes, and Contact living inside the new site; X and Occupy Greenland should be removed.",
+    "category": "content-decision",
+    "timestamp": "2026-07-09",
+    "source": "2026-07-09 personal-site session",
+    "status": "active",
+    "lastAccessed": "2026-07-09T23:00:00-07:00",
+    "accessCount": 1
+  }
+]

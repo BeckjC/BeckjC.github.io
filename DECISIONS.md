@@ -11,3 +11,7 @@
 ## 2026-07-09 — Avoid ongoing site-builder fees
 - Decision: Hosting should not require paying for a separate visual site-builder subscription.
 - Why: Goal is cheap, simple hosting with full code control.
+
+## 2026-07-12 — Use GitHub Pages for preview and final hosting path
+- Decision: The site will preview on GitHub Pages at `https://beckjc.github.io/`, with the custom domain added later after approval.
+- Why: It gives Beck a browser-viewable URL during the build and preserves a simple path to the final custom domain.

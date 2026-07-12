@@ -4,16 +4,16 @@
 - Project lives at `/Users/cherrynet/life/projects/beck-personal-site`
 - A new React + Vite version of the personal site now exists in this repo
 - The new homepage pulls from both the current Squarespace nav/content structure and the earlier local prototype direction
-- Local production build passes with `npm run build`
+- Local production build now outputs to `docs/` for GitHub Pages
+- GitHub Pages preview repo is live at `https://github.com/BeckjC/BeckjC.github.io`
+- Browser preview is live at `https://beckjc.github.io/`
 - The current live `beckcherry.com` still redirects to `https://www.beckcherry.com/` and is still served by Squarespace
-- No current project-level Vercel linkage was found (`.vercel` missing, no Vercel auth available on this machine)
-- No Surge deployment matching `beckcherry.com` was found in the logged-in Surge account
 
 ## Blockers
-- GitHub Pages repo / preview URL still needs to be created and connected
 - Squarespace content like blog/recipes/contact still needs migration or replacement before domain cutover
+- Custom-domain DNS should wait until Beck approves replacing the current live site
 
 ## Next steps
-- Choose deployment target for the React site
+- Keep iterating on the React site and push updated preview builds to GitHub Pages
 - Add any missing pages/content that must exist before replacing Squarespace
-- Cut over `beckcherry.com` after deployment is ready and approved
+- Point the approved custom domain at GitHub Pages after the replacement is ready and approved

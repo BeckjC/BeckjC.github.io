@@ -117,11 +117,10 @@ button {
   padding: 2rem 0 4rem;
 }
 
-.home-shell {
+.home-hero {
   min-height: calc(100vh - 120px);
   display: grid;
   align-content: center;
-  gap: 2rem;
   justify-items: center;
   text-align: center;
 }
@@ -132,22 +131,42 @@ button {
   justify-self: center;
 }
 
+.home-intro-section {
+  padding-top: 3rem;
+}
+
 .home-intro {
   display: grid;
   gap: 1rem;
   text-align: left;
 }
 
+.home-intro p:first-child {
+  color: var(--text);
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+}
+
 .home-intro ul {
+  color: var(--text);
   margin: 0;
   padding-left: 1.25rem;
   display: grid;
   gap: 0.5rem;
 }
 
+.home-intro li::marker {
+  color: var(--accent-strong);
+}
+
 .echo-intro,
 .signoff {
   color: var(--text);
+}
+
+.echo-intro {
+  color: var(--accent-strong);
+  font-size: 1.08rem;
+  line-height: 1.7;
 }
 
 .section-heading p,

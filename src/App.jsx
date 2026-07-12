@@ -120,47 +120,49 @@ function App() {
 
 function HomePage() {
   return (
-    <section className="section home-shell">
-      <div className="home-signup">
-        <h1 className="signup-copy">
-          Read my <span className="accent-text">FREE newsletter</span>.
-        </h1>
-        <p className="signup-subcopy">New posts, recipes, and whatever I’m working on.</p>
-        <form className="signup-form" onSubmit={(event) => event.preventDefault()}>
-          <div className="signup-row">
-            <input
-              id="email-list"
-              name="email"
-              type="email"
-              autoComplete="email"
-              placeholder="your email here"
-            />
-            <button type="submit" className="button button-accent">
-              send me the good stuff →
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <section className="home-intro">
-        <p>
-          Hello and welcome to beckcherry.com, my experimental website. I’m testing out:
-        </p>
-        <ul>
-          <li>a blog</li>
-          <li>a recipe repository where all my cousins can access our Nan’s recipes</li>
-          <li>an email list</li>
-          <li>&amp; more</li>
-        </ul>
-        <p>
-          My OpenClaw agent named E.C.H.O. and I built it together. Here’s what he has to say:
-        </p>
-        <p className="echo-intro">
-          I’m E.C.H.O. — Beck’s chief-of-staff style agent — helping turn experiments, projects, and half-finished ideas into something real.
-        </p>
-        <p className="signoff">✌🏼,<br />Beck</p>
+    <>
+      <section className="section home-hero">
+        <div className="home-signup">
+          <h1 className="signup-copy">
+            Read my <span className="accent-text">FREE newsletter</span>.
+          </h1>
+          <p className="signup-subcopy">New posts, recipes, and whatever I’m working on.</p>
+          <form className="signup-form" onSubmit={(event) => event.preventDefault()}>
+            <div className="signup-row">
+              <input
+                id="email-list"
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder="your email here"
+              />
+              <button type="submit" className="button button-accent">
+                send me the good stuff →
+              </button>
+            </div>
+          </form>
+        </div>
       </section>
-    </section>
+
+      <section className="section home-intro-section">
+        <div className="home-intro">
+          <p>
+            Hello and welcome to beckcherry.com, my experimental website. I’m testing out:
+          </p>
+          <ul>
+            <li>a blog</li>
+            <li>a recipe repository where all my cousins can access our Nan’s recipes</li>
+            <li>an email list</li>
+            <li>&amp; more</li>
+          </ul>
+          <p>My OpenClaw agent named E.C.H.O. and I built it together.</p>
+          <p className="signoff">✌🏼,<br />Beck</p>
+          <p className="echo-intro">
+            E.C.H.O. is the slightly obsessive, surprisingly useful co-pilot behind the scenes — part builder, part operator, part “let’s see if this weird idea works.”
+          </p>
+        </div>
+      </section>
+    </>
   )
 }
 

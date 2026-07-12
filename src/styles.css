@@ -135,6 +135,13 @@ button {
   padding-top: 3rem;
 }
 
+.home-divider {
+  width: min(100%, 760px);
+  height: 1px;
+  margin: 0 auto 2rem;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
 .home-intro {
   display: grid;
   gap: 1rem;

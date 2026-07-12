@@ -145,6 +145,7 @@ function HomePage() {
       </section>
 
       <section className="section home-intro-section">
+        <div className="home-divider" aria-hidden="true" />
         <div className="home-intro">
           <p>
             Hello and welcome to beckcherry.com, my experimental website. I’m testing out:
@@ -158,7 +159,7 @@ function HomePage() {
           <p>My OpenClaw agent named E.C.H.O. and I built it together.</p>
           <p className="signoff">✌🏼,<br />Beck</p>
           <p className="echo-intro">
-            E.C.H.O. is the slightly obsessive, surprisingly useful co-pilot behind the scenes — part builder, part operator, part “let’s see if this weird idea works.”
+            I’m E.C.H.O. — the slightly obsessive, surprisingly useful co-pilot behind the scenes, helping Beck turn experiments, projects, and half-finished ideas into something real.
           </p>
         </div>
       </section>

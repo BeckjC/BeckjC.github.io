@@ -481,6 +481,151 @@ button {
   margin-top: 1.5rem;
 }
 
+.adventures-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.adventures-sidebar {
+  display: grid;
+  gap: 1rem;
+}
+
+.adventures-sidebar-card,
+.map-card {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: #fff;
+  padding: 1rem;
+}
+
+.adventures-kicker,
+.map-toolbar p,
+.trip-timeframe,
+.map-note {
+  margin: 0;
+  color: var(--muted);
+}
+
+.trip-list {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+.trip-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  text-align: left;
+}
+
+.trip-chip-active {
+  border-color: var(--accent-strong);
+  background: rgba(139, 188, 232, 0.14);
+}
+
+.trip-chip-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.trip-stop-list {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.trip-stop-list li {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.trip-stop-list span {
+  color: var(--muted);
+}
+
+.map-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.map-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.map-controls {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.map-controls .button {
+  min-width: 3rem;
+}
+
+.map-frame {
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid #d9e6f3;
+  background: linear-gradient(180deg, #f8fbff, #eef5fb);
+}
+
+.adventures-map {
+  width: 100%;
+  height: auto;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+
+.adventures-map:active {
+  cursor: grabbing;
+}
+
+.map-country {
+  fill: #eef3f7;
+  stroke: #b8c7d6;
+  stroke-width: 0.7;
+}
+
+.trip-line {
+  fill: none;
+  stroke: var(--trip-color);
+  stroke-width: 2.5;
+  opacity: 0.38;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trip-line-active {
+  opacity: 0.95;
+  stroke-width: 3.2;
+}
+
+.trip-stop {
+  fill: var(--trip-color);
+  stroke: #fff;
+  stroke-width: 1.6;
+  opacity: 0.72;
+}
+
+.trip-stop-active {
+  opacity: 1;
+}
+
 @media (max-width: 720px) {
   .home-hero {
     min-height: calc(100svh - 88px);
@@ -550,6 +695,15 @@ button {
 
   .signup-status {
     text-align: center;
+  }
+
+  .adventures-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .map-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

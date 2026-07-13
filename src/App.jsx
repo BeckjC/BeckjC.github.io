@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
+import AdventuresPage from './AdventuresPage'
 import { blogPosts, homePortraitUrl, logoUrl, recipes, youtubeUrl } from './content'
 
 const pages = {
   home: 'home',
+  adventures: 'becks-adventures',
   blog: 'becks-blog',
   recipes: 'nans-recipes',
   contact: 'contact',
@@ -10,6 +12,7 @@ const pages = {
 
 const navItems = [
   { key: pages.home, label: 'Home' },
+  { key: pages.adventures, label: 'Beck’s Adventures' },
   { key: pages.blog, label: 'Beck’s Blog' },
   { key: pages.recipes, label: 'Nan’s Recipes' },
   { key: pages.contact, label: 'About me' },
@@ -100,6 +103,7 @@ function App() {
 
       <main id="top">
         {route.page === pages.home && <HomePage />}
+        {route.page === pages.adventures && <AdventuresPage />}
         {route.page === pages.blog && !route.slug && <BlogPage />}
         {route.page === pages.blog && route.slug && selectedBlogPost && (
           <EntryPage entry={selectedBlogPost} parentLabel="Beck’s Blog" parentHref={`#${pages.blog}`} />

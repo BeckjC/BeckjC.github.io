@@ -9,8 +9,7 @@ import { travelLog } from './adventuresData'
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 520
 const MIN_SCALE = 1
-const MAX_SCALE = 8
-const ZOOM_STEP = 1.2
+const MAX_SCALE = 14
 
 const worldFeatures = feature(worldAtlas, worldAtlas.objects.countries).features
 
@@ -29,11 +28,9 @@ export default function AdventuresPage() {
   const [selectedTripId, setSelectedTripId] = useState(travelLog[0]?.id ?? null)
   const [transform, setTransform] = useState(zoomIdentity)
   const svgRef = useRef(null)
-  const zoomBehaviorRef = useRef(null)
 
   const projection = useMemo(() => buildProjection(), [])
   const pathGenerator = useMemo(() => geoPath(projection), [projection])
-
   const selectedTrip = travelLog.find((trip) => trip.id === selectedTripId) ?? travelLog[0] ?? null
 
   const projectedTrips = useMemo(
@@ -68,8 +65,8 @@ export default function AdventuresPage() {
     const zoomBehavior = zoom()
       .scaleExtent([MIN_SCALE, MAX_SCALE])
       .translateExtent([
-        [-MAP_WIDTH * 2, -MAP_HEIGHT * 2],
-        [MAP_WIDTH * 3, MAP_HEIGHT * 3],
+        [0, 0],
+        [MAP_WIDTH, MAP_HEIGHT],
       ])
       .extent([
         [0, 0],
@@ -84,7 +81,6 @@ export default function AdventuresPage() {
         setTransform(event.transform)
       })
 
-    zoomBehaviorRef.current = zoomBehavior
     selection.call(zoomBehavior)
     selection.on('dblclick.zoom', null)
 
@@ -93,23 +89,6 @@ export default function AdventuresPage() {
     }
   }, [])
 
-  const nudgeZoom = (direction) => {
-    if (!svgRef.current || !zoomBehaviorRef.current) return
-
-    const selection = select(svgRef.current)
-    selection
-      .transition()
-      .duration(180)
-      .call(zoomBehaviorRef.current.scaleBy, direction, [MAP_WIDTH / 2, MAP_HEIGHT / 2])
-  }
-
-  const resetView = () => {
-    if (!svgRef.current || !zoomBehaviorRef.current) return
-
-    const selection = select(svgRef.current)
-    selection.transition().duration(220).call(zoomBehaviorRef.current.transform, zoomIdentity)
-  }
-
   return (
     <section className="section page-section adventures-shell">
       <div className="section-heading adventures-heading compact-heading">
@@ -117,52 +96,7 @@ export default function AdventuresPage() {
       </div>
 
       <div className="adventures-layout">
-        <aside className="adventures-sidebar">
-          <div className="adventures-sidebar-card compact-card">
-            <div className="trip-list trip-list-compact">
-              {travelLog.map((trip) => (
-                <button
-                  key={trip.id}
-                  type="button"
-                  className={selectedTrip?.id === trip.id ? 'trip-chip trip-chip-active' : 'trip-chip'}
-                  onClick={() => setSelectedTripId(trip.id)}
-                >
-                  <span className="trip-chip-dot" style={{ backgroundColor: trip.color }} />
-                  <span>{trip.title}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {selectedTrip ? (
-            <div className="adventures-sidebar-card compact-card">
-              <h2>{selectedTrip.title}</h2>
-              <p className="trip-timeframe">{selectedTrip.timeframe}</p>
-              <ol className="trip-stop-list trip-stop-list-compact">
-                {selectedTrip.stops.map((stop) => (
-                  <li key={stop.id}>{stop.name}</li>
-                ))}
-              </ol>
-            </div>
-          ) : null}
-        </aside>
-
         <div className="map-card compact-card">
-          <div className="map-toolbar map-toolbar-compact">
-            <p>Drag • pinch • zoom</p>
-            <div className="map-controls">
-              <button type="button" className="button" onClick={() => nudgeZoom(1 / ZOOM_STEP)}>
-                −
-              </button>
-              <button type="button" className="button" onClick={resetView}>
-                reset
-              </button>
-              <button type="button" className="button" onClick={() => nudgeZoom(ZOOM_STEP)}>
-                +
-              </button>
-            </div>
-          </div>
-
           <div className="map-frame">
             <svg
               ref={svgRef}
@@ -194,7 +128,7 @@ export default function AdventuresPage() {
                       key={`${trip.id}-${stop.id}`}
                       cx={stop.x}
                       cy={stop.y}
-                      r={selectedTrip?.id === trip.id ? 6 : 4.5}
+                      r={(selectedTrip?.id === trip.id ? 6 : 4.5) * (0.95 + transform.k * 0.16)}
                       className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
                       style={{ '--trip-color': trip.color }}
                     />
@@ -204,6 +138,36 @@ export default function AdventuresPage() {
             </svg>
           </div>
         </div>
+
+        <aside className="adventures-sidebar adventures-sidebar-bottom">
+          <div className="adventures-sidebar-card compact-card">
+            <div className="trip-list trip-list-compact trip-list-inline">
+              {travelLog.map((trip) => (
+                <button
+                  key={trip.id}
+                  type="button"
+                  className={selectedTrip?.id === trip.id ? 'trip-chip trip-chip-active' : 'trip-chip'}
+                  onClick={() => setSelectedTripId(trip.id)}
+                >
+                  <span className="trip-chip-dot" style={{ backgroundColor: trip.color }} />
+                  <span>{trip.title}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {selectedTrip ? (
+            <div className="adventures-sidebar-card compact-card">
+              <h2>{selectedTrip.title}</h2>
+              <p className="trip-timeframe">{selectedTrip.timeframe}</p>
+              <ol className="trip-stop-list trip-stop-list-compact trip-stop-list-inline">
+                {selectedTrip.stops.map((stop) => (
+                  <li key={stop.id}>{stop.name}</li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
+        </aside>
       </div>
     </section>
   )

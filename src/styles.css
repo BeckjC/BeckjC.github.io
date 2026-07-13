@@ -483,14 +483,17 @@ button {
 
 .adventures-layout {
   display: grid;
-  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: start;
 }
 
 .adventures-sidebar {
   display: grid;
   gap: 1rem;
+}
+
+.adventures-sidebar-bottom {
+  gap: 0.85rem;
 }
 
 .adventures-sidebar-card,
@@ -539,6 +542,19 @@ button {
   text-align: left;
 }
 
+.trip-list-inline,
+.trip-stop-list-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.trip-list-inline .trip-chip {
+  width: auto;
+}
+
 .trip-chip-active {
   border-color: var(--accent-strong);
   background: rgba(139, 188, 232, 0.14);
@@ -571,29 +587,17 @@ button {
   gap: 0.55rem;
 }
 
+.trip-stop-list-inline li {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+}
+
 .map-card {
   display: grid;
   gap: 1rem;
-}
-
-.map-toolbar {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: center;
-}
-
-.map-toolbar-compact {
-  gap: 0.75rem;
-}
-
-.map-controls {
-  display: flex;
-  gap: 0.6rem;
-}
-
-.map-controls .button {
-  min-width: 3rem;
+  padding: 0.5rem;
 }
 
 .map-frame {
@@ -601,11 +605,13 @@ button {
   border-radius: 24px;
   border: 1px solid #d9e6f3;
   background: linear-gradient(180deg, #f8fbff, #eef5fb);
+  min-height: min(74svh, 820px);
 }
 
 .adventures-map {
   width: 100%;
-  height: auto;
+  height: 100%;
+  min-height: min(74svh, 820px);
   display: block;
   touch-action: none;
   cursor: grab;
@@ -643,8 +649,8 @@ button {
 .trip-stop {
   fill: var(--trip-color);
   stroke: #fff;
-  stroke-width: 1.6;
-  opacity: 0.72;
+  stroke-width: 1.35;
+  opacity: 0.82;
 }
 
 .trip-stop-active {
@@ -722,14 +728,11 @@ button {
     text-align: center;
   }
 
-  .adventures-layout {
-    grid-template-columns: 1fr;
+  .map-frame,
+  .adventures-map {
+    min-height: min(66svh, 640px);
   }
 
-  .map-toolbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -152,6 +152,12 @@ export default function AdventuresPage() {
     <section className="section page-section adventures-shell">
       <div className="section-heading adventures-heading compact-heading">
         <h1>Beck’s Adventures</h1>
+        <p>
+          I always thought it’d be cool to see what my path across the planet would look like. Now with AI it’s easy to see. Enjoy!
+        </p>
+        <p>
+          I don’t want to be tracked everywhere so I just had E.C.H.O. add some of my major trips.
+        </p>
       </div>
 
       <div className="adventures-layout">

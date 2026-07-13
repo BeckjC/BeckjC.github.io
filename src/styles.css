@@ -507,6 +507,15 @@ button {
   margin-bottom: 1rem;
 }
 
+.adventures-heading {
+  max-width: 40rem;
+}
+
+.adventures-heading p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
 .compact-card {
   padding: 0.9rem;
 }

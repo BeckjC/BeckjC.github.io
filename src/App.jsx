@@ -128,7 +128,7 @@ function HomePage() {
             <h1 className="signup-copy">
               Read my <span className="accent-text">FREE newsletter</span>.
             </h1>
-            <p className="signup-subcopy">New posts, recipes, and whatever I’m working on.</p>
+            <p className="signup-subcopy">New posts about whatever I’m experimenting with using AI (or anything else I find interesting).</p>
             <form className="signup-form" onSubmit={(event) => event.preventDefault()}>
               <div className="signup-row">
                 <input

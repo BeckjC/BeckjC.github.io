@@ -3,13 +3,13 @@ import { geoNaturalEarth1, geoPath } from 'd3-geo'
 import { select } from 'd3-selection'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { feature } from 'topojson-client'
-import worldAtlas from 'world-atlas/countries-110m.json'
+import worldAtlas from 'world-atlas/countries-50m.json'
 import { travelLog } from './adventuresData'
 
 const MAP_WIDTH = 960
-const MAP_HEIGHT = 520
+const MAP_HEIGHT = 420
 const MIN_SCALE = 1
-const MAX_SCALE = 24
+const MAX_SCALE = 60
 
 const worldFeatures = feature(worldAtlas, worldAtlas.objects.countries).features
 
@@ -128,9 +128,12 @@ export default function AdventuresPage() {
                       key={`${trip.id}-${stop.id}`}
                       cx={stop.x}
                       cy={stop.y}
-                      r={(selectedTrip?.id === trip.id ? 7 : 5.25) / Math.max(transform.k ** 0.55, 1)}
+                      r={(selectedTrip?.id === trip.id ? 4.5 : 3.5) / Math.max(transform.k ** 0.72, 1)}
                       className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
-                      style={{ '--trip-color': trip.color }}
+                      style={{
+                        '--trip-color': trip.color,
+                        '--trip-stroke-width': `${(selectedTrip?.id === trip.id ? 0.9 : 0.7) / Math.max(transform.k ** 0.72, 1)}`,
+                      }}
                     />
                   )),
                 )}

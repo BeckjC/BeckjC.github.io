@@ -12,7 +12,7 @@ const navItems = [
   { key: pages.home, label: 'Home' },
   { key: pages.blog, label: 'Beck’s Blog' },
   { key: pages.recipes, label: 'Nan’s Recipes' },
-  { key: pages.contact, label: 'Contact' },
+  { key: pages.contact, label: 'About me' },
 ]
 
 function parseRoute() {
@@ -112,7 +112,7 @@ function App() {
             parentHref={`#${pages.recipes}`}
           />
         )}
-        {route.page === pages.contact && <ContactPage />}
+        {route.page === pages.contact && <AboutPage />}
       </main>
     </div>
   )
@@ -244,17 +244,20 @@ function EntryPage({ entry, parentHref, parentLabel }) {
   )
 }
 
-function ContactPage() {
+function AboutPage() {
   return (
     <section className="section page-section contact-shell">
       <div className="section-heading">
-        <h1>Contact</h1>
-        <p>Get in touch.</p>
+        <h1>About me</h1>
+        <p>A little about me, plus the corners of the internet I actually use.</p>
       </div>
 
       <div className="contact-row">
         <a className="button" href={youtubeUrl} target="_blank" rel="noreferrer">
           YouTube
+        </a>
+        <a className="button" href="https://www.linkedin.com/in/beckcherry" target="_blank" rel="noreferrer">
+          LinkedIn
         </a>
       </div>
     </section>

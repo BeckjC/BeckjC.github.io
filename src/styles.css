@@ -72,7 +72,8 @@ button {
 
 .nav-logo {
   height: 54px;
-  width: auto;
+  width: 54px;
+  object-fit: cover;
   display: block;
 }
 
@@ -136,6 +137,13 @@ button {
 .home-intro {
   width: 100%;
   justify-self: center;
+}
+
+.hero-wordmark {
+  width: min(100%, 320px);
+  height: auto;
+  display: block;
+  margin: 0 auto 1rem;
 }
 
 .home-portrait {

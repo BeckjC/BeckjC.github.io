@@ -9,7 +9,7 @@ import { travelLog } from './adventuresData'
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 520
 const MIN_SCALE = 1
-const MAX_SCALE = 14
+const MAX_SCALE = 24
 
 const worldFeatures = feature(worldAtlas, worldAtlas.objects.countries).features
 
@@ -128,7 +128,7 @@ export default function AdventuresPage() {
                       key={`${trip.id}-${stop.id}`}
                       cx={stop.x}
                       cy={stop.y}
-                      r={(selectedTrip?.id === trip.id ? 6 : 4.5) * (0.95 + transform.k * 0.16)}
+                      r={(selectedTrip?.id === trip.id ? 7 : 5.25) / Math.max(transform.k ** 0.55, 1)}
                       className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
                       style={{ '--trip-color': trip.color }}
                     />

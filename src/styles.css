@@ -120,7 +120,7 @@ button {
 }
 
 .home-hero {
-  min-height: calc(100vh - 120px);
+  min-height: calc(100svh - 120px);
   display: grid;
   align-content: center;
   padding-top: 1.25rem;
@@ -399,6 +399,12 @@ button {
 }
 
 @media (max-width: 720px) {
+  .home-hero {
+    min-height: calc(100svh - 96px);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
   .topbar {
     align-items: center;
     flex-wrap: wrap;

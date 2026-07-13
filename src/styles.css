@@ -501,6 +501,14 @@ button {
   padding: 1rem;
 }
 
+.compact-heading {
+  margin-bottom: 1rem;
+}
+
+.compact-card {
+  padding: 0.9rem;
+}
+
 .adventures-kicker,
 .map-toolbar p,
 .trip-timeframe,
@@ -513,6 +521,10 @@ button {
   display: grid;
   gap: 0.65rem;
   margin-top: 0.75rem;
+}
+
+.trip-list-compact {
+  margin-top: 0;
 }
 
 .trip-chip {
@@ -555,6 +567,10 @@ button {
   color: var(--muted);
 }
 
+.trip-stop-list-compact {
+  gap: 0.55rem;
+}
+
 .map-card {
   display: grid;
   gap: 1rem;
@@ -565,6 +581,10 @@ button {
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
+}
+
+.map-toolbar-compact {
+  gap: 0.75rem;
 }
 
 .map-controls {
@@ -593,6 +613,11 @@ button {
 
 .adventures-map:active {
   cursor: grabbing;
+}
+
+.adventures-sidebar-card h2 {
+  margin: 0;
+  font-size: 1.2rem;
 }
 
 .map-country {

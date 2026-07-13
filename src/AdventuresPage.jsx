@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { geoNaturalEarth1, geoPath } from 'd3-geo'
 import { feature } from 'topojson-client'
 import worldAtlas from 'world-atlas/countries-110m.json'
@@ -27,10 +27,32 @@ function buildProjection() {
     )
 }
 
+function getDistance(first, second) {
+  return Math.hypot(second.x - first.x, second.y - first.y)
+}
+
+function getMidpoint(first, second) {
+  return {
+    x: (first.x + second.x) / 2,
+    y: (first.y + second.y) / 2,
+  }
+}
+
+function zoomAroundPoint(view, nextScale, point) {
+  const ratio = nextScale / view.scale
+
+  return {
+    scale: nextScale,
+    x: point.x - (point.x - view.x) * ratio,
+    y: point.y - (point.y - view.y) * ratio,
+  }
+}
+
 export default function AdventuresPage() {
   const [selectedTripId, setSelectedTripId] = useState(travelLog[0]?.id ?? null)
   const [view, setView] = useState({ scale: 1, x: 0, y: 0 })
-  const [dragState, setDragState] = useState(null)
+  const pointersRef = useRef(new Map())
+  const gestureRef = useRef(null)
 
   const projection = useMemo(() => buildProjection(), [])
   const pathGenerator = useMemo(() => geoPath(projection), [projection])
@@ -60,57 +82,147 @@ export default function AdventuresPage() {
     })
   }, [projection])
 
-  const activeProjectedTrip = projectedTrips.find((trip) => trip.id === selectedTrip?.id) ?? projectedTrips[0] ?? null
-
   const zoom = (direction) => {
-    setView((current) => ({
-      ...current,
-      scale: clamp(current.scale * direction, MIN_SCALE, MAX_SCALE),
-    }))
+    setView((current) => {
+      const nextScale = clamp(current.scale * direction, MIN_SCALE, MAX_SCALE)
+      return zoomAroundPoint(current, nextScale, { x: MAP_WIDTH / 2, y: MAP_HEIGHT / 2 })
+    })
+  }
+
+  const resetView = () => {
+    pointersRef.current.clear()
+    gestureRef.current = null
+    setView({ scale: 1, x: 0, y: 0 })
   }
 
   const handleWheel = (event) => {
     event.preventDefault()
-    const nextScale = event.deltaY > 0 ? view.scale / ZOOM_STEP : view.scale * ZOOM_STEP
-    setView((current) => ({
-      ...current,
-      scale: clamp(nextScale, MIN_SCALE, MAX_SCALE),
-    }))
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const point = {
+      x: ((event.clientX - bounds.left) / bounds.width) * MAP_WIDTH,
+      y: ((event.clientY - bounds.top) / bounds.height) * MAP_HEIGHT,
+    }
+
+    setView((current) => {
+      const nextScale = clamp(
+        event.deltaY > 0 ? current.scale / ZOOM_STEP : current.scale * ZOOM_STEP,
+        MIN_SCALE,
+        MAX_SCALE,
+      )
+
+      return zoomAroundPoint(current, nextScale, point)
+    })
   }
 
   const handlePointerDown = (event) => {
     event.currentTarget.setPointerCapture(event.pointerId)
-    setDragState({ startX: event.clientX, startY: event.clientY, originX: view.x, originY: view.y })
+    const nextPointers = new Map(pointersRef.current)
+    nextPointers.set(event.pointerId, { x: event.clientX, y: event.clientY })
+    pointersRef.current = nextPointers
+
+    const pointerValues = [...nextPointers.values()]
+
+    if (pointerValues.length === 1) {
+      gestureRef.current = {
+        type: 'pan',
+        startPointer: pointerValues[0],
+        startView: view,
+      }
+      return
+    }
+
+    if (pointerValues.length === 2) {
+      const [first, second] = pointerValues
+      gestureRef.current = {
+        type: 'pinch',
+        startDistance: getDistance(first, second),
+        startMidpoint: getMidpoint(first, second),
+        startView: view,
+      }
+    }
   }
 
   const handlePointerMove = (event) => {
-    if (!dragState) return
-    setView((current) => ({
-      ...current,
-      x: dragState.originX + (event.clientX - dragState.startX),
-      y: dragState.originY + (event.clientY - dragState.startY),
-    }))
+    if (!pointersRef.current.has(event.pointerId)) return
+
+    const nextPointers = new Map(pointersRef.current)
+    nextPointers.set(event.pointerId, { x: event.clientX, y: event.clientY })
+    pointersRef.current = nextPointers
+
+    const pointerValues = [...nextPointers.values()]
+    const gesture = gestureRef.current
+
+    if (!gesture) return
+
+    if (pointerValues.length >= 2) {
+      const [first, second] = pointerValues
+      const currentDistance = getDistance(first, second)
+      const currentMidpoint = getMidpoint(first, second)
+
+      setView(() => {
+        const nextScale = clamp(
+          gesture.startView.scale * (currentDistance / gesture.startDistance),
+          MIN_SCALE,
+          MAX_SCALE,
+        )
+
+        const scaledView = zoomAroundPoint(gesture.startView, nextScale, gesture.startMidpoint)
+
+        return {
+          ...scaledView,
+          x: scaledView.x + (currentMidpoint.x - gesture.startMidpoint.x),
+          y: scaledView.y + (currentMidpoint.y - gesture.startMidpoint.y),
+        }
+      })
+
+      return
+    }
+
+    if (gesture.type === 'pan' && pointerValues.length === 1) {
+      const [pointer] = pointerValues
+      setView(() => ({
+        ...gesture.startView,
+        x: gesture.startView.x + (pointer.x - gesture.startPointer.x),
+        y: gesture.startView.y + (pointer.y - gesture.startPointer.y),
+      }))
+    }
   }
 
   const handlePointerUp = (event) => {
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId)
     }
-    setDragState(null)
+
+    const nextPointers = new Map(pointersRef.current)
+    nextPointers.delete(event.pointerId)
+    pointersRef.current = nextPointers
+
+    const pointerValues = [...nextPointers.values()]
+
+    if (pointerValues.length === 1) {
+      gestureRef.current = {
+        type: 'pan',
+        startPointer: pointerValues[0],
+        startView: view,
+      }
+      return
+    }
+
+    if (pointerValues.length === 0) {
+      gestureRef.current = null
+    }
   }
 
   return (
     <section className="section page-section adventures-shell">
-      <div className="section-heading adventures-heading">
+      <div className="section-heading adventures-heading compact-heading">
         <h1>Beck’s Adventures</h1>
-        <p>A living travel log with pins for the places you’ve stayed and lines connecting each trip.</p>
       </div>
 
       <div className="adventures-layout">
         <aside className="adventures-sidebar">
-          <div className="adventures-sidebar-card">
-            <p className="adventures-kicker">Trip index</p>
-            <div className="trip-list">
+          <div className="adventures-sidebar-card compact-card">
+            <div className="trip-list trip-list-compact">
               {travelLog.map((trip) => (
                 <button
                   key={trip.id}
@@ -119,41 +231,33 @@ export default function AdventuresPage() {
                   onClick={() => setSelectedTripId(trip.id)}
                 >
                   <span className="trip-chip-dot" style={{ backgroundColor: trip.color }} />
-                  <span>
-                    {trip.title}
-                    {trip.provisional ? ' · starter' : ''}
-                  </span>
+                  <span>{trip.title}</span>
                 </button>
               ))}
             </div>
           </div>
 
           {selectedTrip ? (
-            <div className="adventures-sidebar-card">
-              <p className="adventures-kicker">Selected trip</p>
+            <div className="adventures-sidebar-card compact-card">
               <h2>{selectedTrip.title}</h2>
-              <p>{selectedTrip.summary}</p>
               <p className="trip-timeframe">{selectedTrip.timeframe}</p>
-              <ol className="trip-stop-list">
+              <ol className="trip-stop-list trip-stop-list-compact">
                 {selectedTrip.stops.map((stop) => (
-                  <li key={stop.id}>
-                    <strong>{stop.name}</strong>
-                    <span>{stop.note}</span>
-                  </li>
+                  <li key={stop.id}>{stop.name}</li>
                 ))}
               </ol>
             </div>
           ) : null}
         </aside>
 
-        <div className="map-card">
-          <div className="map-toolbar">
-            <p>Scroll to zoom. Drag to move.</p>
+        <div className="map-card compact-card">
+          <div className="map-toolbar map-toolbar-compact">
+            <p>Drag • pinch • zoom</p>
             <div className="map-controls">
               <button type="button" className="button" onClick={() => zoom(1 / ZOOM_STEP)}>
                 −
               </button>
-              <button type="button" className="button" onClick={() => setView({ scale: 1, x: 0, y: 0 })}>
+              <button type="button" className="button" onClick={resetView}>
                 reset
               </button>
               <button type="button" className="button" onClick={() => zoom(ZOOM_STEP)}>
@@ -172,16 +276,13 @@ export default function AdventuresPage() {
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
               onPointerLeave={handlePointerUp}
             >
               <rect width={MAP_WIDTH} height={MAP_HEIGHT} fill="#f7fbff" rx="28" />
               <g transform={`translate(${view.x} ${view.y}) scale(${view.scale})`}>
                 {worldFeatures.map((shape) => (
-                  <path
-                    key={shape.id}
-                    d={pathGenerator(shape)}
-                    className="map-country"
-                  />
+                  <path key={shape.id} d={pathGenerator(shape)} className="map-country" />
                 ))}
 
                 {projectedTrips.map((trip) =>
@@ -197,26 +298,19 @@ export default function AdventuresPage() {
 
                 {projectedTrips.flatMap((trip) =>
                   trip.projectedStops.map((stop) => (
-                    <g key={`${trip.id}-${stop.id}`}>
-                      <circle
-                        cx={stop.x}
-                        cy={stop.y}
-                        r={selectedTrip?.id === trip.id ? 6 : 4.5}
-                        className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
-                        style={{ '--trip-color': trip.color }}
-                      />
-                    </g>
+                    <circle
+                      key={`${trip.id}-${stop.id}`}
+                      cx={stop.x}
+                      cy={stop.y}
+                      r={selectedTrip?.id === trip.id ? 6 : 4.5}
+                      className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
+                      style={{ '--trip-color': trip.color }}
+                    />
                   )),
                 )}
               </g>
             </svg>
           </div>
-
-          {activeProjectedTrip?.provisional ? (
-            <p className="map-note">
-              Starter data is live. Send me your trips later and I’ll turn this into the real log.
-            </p>
-          ) : null}
         </div>
       </div>
     </section>

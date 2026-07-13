@@ -255,4 +255,57 @@ export const travelLog = [
       [-9.1393, 38.7108]
     ]
   },
+  {
+    id: 'iceland-road-trip',
+    title: 'Iceland road trip',
+    timeframe: 'Reykjanes + South Coast',
+    color: '#5e7fc7',
+    provisional: false,
+    summary: 'A loop through Reykjavik, the South Coast, and a few big Iceland highlights, with dots only where I spent the night.',
+    stops: [
+      {
+        id: 'blue-house-bb',
+        name: 'Blue House B&B',
+        coordinates: [-21.9864, 64.1676],
+        note: 'First night near Reykjavik after Keflavík and the Blue Lagoon.',
+      },
+      {
+        id: 'thingholt-stay',
+        name: 'Þingholt',
+        coordinates: [-21.9357, 64.1457],
+        note: 'Stayed near Þingholt after downtown Reykjavik.',
+      },
+      {
+        id: 'rangarthing-eystra',
+        name: 'Rangárþing eystra',
+        coordinates: [-19.1456, 63.7531],
+        note: 'Base for a few nights and day trips across the South Coast.',
+      },
+      {
+        id: 'reykjavik-return',
+        name: 'Reykjavik',
+        coordinates: [-21.9426, 64.1466],
+        note: 'Final two nights back in Reykjavik.',
+      }
+    ],
+    routePoints: [
+      [-22.6056, 63.985],
+      [-22.4475, 63.8804],
+      [-21.9864, 64.1676],
+      [-21.9266, 64.142],
+      [-21.9346, 64.1417],
+      [-21.9224, 64.1475],
+      [-21.9357, 64.1457],
+      [-21.9547, 64.1205],
+      [-21.0174, 64.2557],
+      [-19.1456, 63.7531],
+      [-19.0186, 63.4186],
+      [-19.006, 63.5321],
+      [-19.047, 63.4046],
+      [-19.5113, 63.6156],
+      [-19.7672, 63.6838],
+      [-22.4308, 63.8424],
+      [-21.9426, 64.1466]
+    ]
+  },
 ]

@@ -657,6 +657,10 @@ button {
   fill: #fff3cf;
 }
 
+.trip-stop-landmark {
+  opacity: 1;
+}
+
 .trip-stop {
   fill: var(--trip-color);
   opacity: 0.82;

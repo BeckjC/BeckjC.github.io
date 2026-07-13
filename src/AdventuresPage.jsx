@@ -73,13 +73,30 @@ export default function AdventuresPage() {
           })
           .filter(Boolean)
 
+        const projectedRoutePoints = (trip.routePoints || trip.stops.map((stop) => stop.coordinates))
+          .map((coordinates) => {
+            const point = projection(coordinates)
+            if (!point) return null
+            return { x: point[0], y: point[1] }
+          })
+          .filter(Boolean)
+
+        const projectedLandmarks = (trip.landmarks || [])
+          .map((landmark) => {
+            const point = projection(landmark.coordinates)
+            if (!point) return null
+            return { ...landmark, x: point[0], y: point[1] }
+          })
+          .filter(Boolean)
+
         return {
           ...trip,
           projectedStops,
+          projectedLandmarks,
           linePath:
-            projectedStops.length > 1
-              ? projectedStops
-                  .map((stop, index) => `${index === 0 ? 'M' : 'L'} ${stop.x} ${stop.y}`)
+            projectedRoutePoints.length > 1
+              ? projectedRoutePoints
+                  .map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`)
                   .join(' ')
               : '',
         }
@@ -174,7 +191,7 @@ export default function AdventuresPage() {
                         cx={stop.x}
                         cy={stop.y}
                         r={outerRadius}
-                        className={stop.special === 'landmark' ? 'trip-stop-ring trip-stop-ring-landmark' : 'trip-stop-ring'}
+                        className="trip-stop-ring"
                       />,
                       <circle
                         key={`${trip.id}-${stop.id}`}
@@ -182,7 +199,33 @@ export default function AdventuresPage() {
                         cy={stop.y}
                         r={innerRadius}
                         className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
-                        style={{ '--trip-color': stop.special === 'landmark' ? '#e2a93b' : trip.color }}
+                        style={{ '--trip-color': trip.color }}
+                      />,
+                    ]
+                  }),
+                )}
+
+                {projectedTrips.flatMap((trip) =>
+                  (trip.projectedLandmarks || []).flatMap((landmark) => {
+                    const scale = Math.max(transform.k, 1)
+                    const innerRadius = 6.2 / scale
+                    const outerRadius = 7.2 / scale
+
+                    return [
+                      <circle
+                        key={`${trip.id}-${landmark.id}-ring`}
+                        cx={landmark.x}
+                        cy={landmark.y}
+                        r={outerRadius}
+                        className="trip-stop-ring trip-stop-ring-landmark"
+                      />,
+                      <circle
+                        key={`${trip.id}-${landmark.id}`}
+                        cx={landmark.x}
+                        cy={landmark.y}
+                        r={innerRadius}
+                        className="trip-stop trip-stop-landmark"
+                        style={{ '--trip-color': '#e2a93b' }}
                       />,
                     ]
                   }),

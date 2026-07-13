@@ -8,8 +8,8 @@ import { travelLog } from './adventuresData'
 
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 360
-const MIN_SCALE = 1.34
-const MAX_SCALE = 140
+const MIN_SCALE = 1.58
+const MAX_SCALE = 220
 const INITIAL_TRANSFORM = zoomIdentity
   .translate((MAP_WIDTH * (1 - MIN_SCALE)) / 2, (MAP_HEIGHT * (1 - MIN_SCALE)) / 2)
   .scale(MIN_SCALE)
@@ -20,8 +20,8 @@ const worldFeatureCollection = { type: 'FeatureCollection', features: worldFeatu
 function buildProjection() {
   return geoNaturalEarth1().fitExtent(
     [
-      [8, 2],
-      [MAP_WIDTH - 8, MAP_HEIGHT - 2],
+      [2, -2],
+      [MAP_WIDTH - 2, MAP_HEIGHT + 2],
     ],
     worldFeatureCollection,
   )
@@ -33,8 +33,8 @@ function nearlyEqual(a, b) {
 
 function clampTransform(transform, bounds) {
   const [[x0, y0], [x1, y1]] = bounds
-  const marginX = 12
-  const marginY = 6
+  const marginX = 2
+  const marginY = 1
 
   const minX = MAP_WIDTH - marginX - transform.k * x1
   const maxX = marginX - transform.k * x0
@@ -156,7 +156,7 @@ export default function AdventuresPage() {
                       className={selectedTrip?.id === trip.id ? 'trip-line trip-line-active' : 'trip-line'}
                       style={{
                         '--trip-color': trip.color,
-                        '--trip-line-width': `${(selectedTrip?.id === trip.id ? 2.1 : 1.7) / Math.max(transform.k ** 0.72, 1)}`,
+                        '--trip-line-width': `${(selectedTrip?.id === trip.id ? 1.8 : 1.45) / Math.max(transform.k ** 0.9, 1)}`,
                       }}
                     />
                   ) : null,
@@ -165,8 +165,8 @@ export default function AdventuresPage() {
                 {projectedTrips.flatMap((trip) =>
                   trip.projectedStops.flatMap((stop) => {
                     const scale = Math.max(transform.k, 1)
-                    const innerRadius = (selectedTrip?.id === trip.id ? 3.45 : 2.8) / scale
-                    const outerRadius = (selectedTrip?.id === trip.id ? 4.1 : 3.45) / scale
+                    const innerRadius = (selectedTrip?.id === trip.id ? 4.15 : 3.4) / scale
+                    const outerRadius = (selectedTrip?.id === trip.id ? 4.85 : 4.1) / scale
 
                     return [
                       <circle

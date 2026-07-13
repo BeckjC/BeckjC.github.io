@@ -2,32 +2,52 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { geoNaturalEarth1, geoPath } from 'd3-geo'
 import { select } from 'd3-selection'
 import { zoom, zoomIdentity } from 'd3-zoom'
-import { feature, mesh } from 'topojson-client'
+import { feature } from 'topojson-client'
 import worldAtlas from 'world-atlas/countries-50m.json'
-import landAtlas from 'world-atlas/land-50m.json'
 import { travelLog } from './adventuresData'
 
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 360
-const MIN_SCALE = 1.32
+const MIN_SCALE = 1
 const MAX_SCALE = 60
 const INITIAL_TRANSFORM = zoomIdentity
-  .translate((MAP_WIDTH * (1 - MIN_SCALE)) / 2, (MAP_HEIGHT * (1 - MIN_SCALE)) / 2)
-  .scale(MIN_SCALE)
 
 const worldFeatures = feature(worldAtlas, worldAtlas.objects.countries).features
-const landFeature = feature(landAtlas, landAtlas.objects.land)
-const borderMesh = mesh(worldAtlas, worldAtlas.objects.countries, (a, b) => a !== b)
+const worldFeatureCollection = { type: 'FeatureCollection', features: worldFeatures }
 
 function buildProjection() {
-  return geoNaturalEarth1()
-    .fitExtent(
-      [
-        [18, 8],
-        [MAP_WIDTH - 18, MAP_HEIGHT - 8],
-      ],
-      landFeature,
-    )
+  return geoNaturalEarth1().fitExtent(
+    [
+      [18, 8],
+      [MAP_WIDTH - 18, MAP_HEIGHT - 8],
+    ],
+    worldFeatureCollection,
+  )
+}
+
+function nearlyEqual(a, b) {
+  return Math.abs(a - b) < 0.01
+}
+
+function clampTransform(transform, bounds) {
+  const [[x0, y0], [x1, y1]] = bounds
+  const marginX = 12
+  const marginY = 6
+
+  const minX = MAP_WIDTH - marginX - transform.k * x1
+  const maxX = marginX - transform.k * x0
+  const minY = MAP_HEIGHT - marginY - transform.k * y1
+  const maxY = marginY - transform.k * y0
+
+  const x = minX > maxX
+    ? MAP_WIDTH / 2 - (transform.k * (x0 + x1)) / 2
+    : Math.min(maxX, Math.max(minX, transform.x))
+
+  const y = minY > maxY
+    ? MAP_HEIGHT / 2 - (transform.k * (y0 + y1)) / 2
+    : Math.min(maxY, Math.max(minY, transform.y))
+
+  return zoomIdentity.translate(x, y).scale(transform.k)
 }
 
 export default function AdventuresPage() {
@@ -37,32 +57,33 @@ export default function AdventuresPage() {
 
   const projection = useMemo(() => buildProjection(), [])
   const pathGenerator = useMemo(() => geoPath(projection), [projection])
+  const worldBounds = useMemo(() => pathGenerator.bounds(worldFeatureCollection), [pathGenerator])
   const selectedTrip = travelLog.find((trip) => trip.id === selectedTripId) ?? travelLog[0] ?? null
 
-  const projectedTrips = useMemo(() => {
-    if (!projection) return []
+  const projectedTrips = useMemo(
+    () =>
+      travelLog.map((trip) => {
+        const projectedStops = trip.stops
+          .map((stop) => {
+            const point = projection(stop.coordinates)
+            if (!point) return null
+            return { ...stop, x: point[0], y: point[1] }
+          })
+          .filter(Boolean)
 
-    return travelLog.map((trip) => {
-      const projectedStops = trip.stops
-        .map((stop) => {
-          const point = projection(stop.coordinates)
-          if (!point) return null
-          return { ...stop, x: point[0], y: point[1] }
-        })
-        .filter(Boolean)
-
-      return {
-        ...trip,
-        projectedStops,
-        linePath:
-          projectedStops.length > 1
-            ? projectedStops
-                .map((stop, index) => `${index === 0 ? 'M' : 'L'} ${stop.x} ${stop.y}`)
-                .join(' ')
-            : '',
-      }
-    })
-  }, [projection])
+        return {
+          ...trip,
+          projectedStops,
+          linePath:
+            projectedStops.length > 1
+              ? projectedStops
+                  .map((stop, index) => `${index === 0 ? 'M' : 'L'} ${stop.x} ${stop.y}`)
+                  .join(' ')
+              : '',
+        }
+      }),
+    [projection],
+  )
 
   useEffect(() => {
     if (!svgRef.current) return
@@ -70,10 +91,6 @@ export default function AdventuresPage() {
     const selection = select(svgRef.current)
     const zoomBehavior = zoom()
       .scaleExtent([MIN_SCALE, MAX_SCALE])
-      .translateExtent([
-        [0, 0],
-        [MAP_WIDTH, MAP_HEIGHT],
-      ])
       .extent([
         [0, 0],
         [MAP_WIDTH, MAP_HEIGHT],
@@ -84,17 +101,28 @@ export default function AdventuresPage() {
         return true
       })
       .on('zoom', (event) => {
-        setTransform(event.transform)
+        const clamped = clampTransform(event.transform, worldBounds)
+
+        if (
+          !nearlyEqual(clamped.x, event.transform.x) ||
+          !nearlyEqual(clamped.y, event.transform.y) ||
+          !nearlyEqual(clamped.k, event.transform.k)
+        ) {
+          selection.call(zoomBehavior.transform, clamped)
+          return
+        }
+
+        setTransform(clamped)
       })
 
     selection.call(zoomBehavior)
-    selection.call(zoomBehavior.transform, INITIAL_TRANSFORM)
+    selection.call(zoomBehavior.transform, clampTransform(INITIAL_TRANSFORM, worldBounds))
     selection.on('dblclick.zoom', null)
 
     return () => {
       selection.on('.zoom', null)
     }
-  }, [])
+  }, [worldBounds])
 
   return (
     <section className="section page-section adventures-shell">
@@ -114,8 +142,9 @@ export default function AdventuresPage() {
             >
               <rect width={MAP_WIDTH} height={MAP_HEIGHT} fill="#f7fbff" rx="28" />
               <g transform={transform.toString()}>
-                <path d={pathGenerator(landFeature)} className="map-land" />
-                <path d={pathGenerator(borderMesh)} className="map-borders" />
+                {worldFeatures.map((shape) => (
+                  <path key={shape.id} d={pathGenerator(shape)} className="map-country" />
+                ))}
 
                 {projectedTrips.map((trip) =>
                   trip.linePath ? (
@@ -130,9 +159,9 @@ export default function AdventuresPage() {
 
                 {projectedTrips.flatMap((trip) =>
                   trip.projectedStops.flatMap((stop) => {
-                    const scale = Math.max(transform.k ** 0.8, 1)
-                    const innerRadius = (selectedTrip?.id === trip.id ? 3.15 : 2.45) / scale
-                    const outerRadius = innerRadius + 0.42 / scale
+                    const scale = Math.max(transform.k ** 1.08, 1)
+                    const innerRadius = (selectedTrip?.id === trip.id ? 2.7 : 2.15) / scale
+                    const outerRadius = innerRadius + 0.8 / Math.max(transform.k, 1)
 
                     return [
                       <circle

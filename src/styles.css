@@ -628,31 +628,26 @@ button {
   font-size: 1.2rem;
 }
 
-.map-land {
+.map-country {
   fill: #eef3f7;
-  stroke: #aebfce;
-  stroke-width: 0.8;
-}
-
-.map-borders {
-  fill: none;
-  stroke: #c4d2de;
-  stroke-width: 0.45;
-  opacity: 0.9;
+  stroke: #b6c5d2;
+  stroke-width: 0.55;
+  vector-effect: non-scaling-stroke;
 }
 
 .trip-line {
   fill: none;
   stroke: var(--trip-color);
-  stroke-width: 2.5;
-  opacity: 0.38;
+  stroke-width: 2;
+  opacity: 0.32;
   stroke-linecap: round;
   stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
 
 .trip-line-active {
-  opacity: 0.95;
-  stroke-width: 3.2;
+  opacity: 0.8;
+  stroke-width: 2.4;
 }
 
 .trip-stop-ring {

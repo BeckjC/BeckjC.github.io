@@ -178,11 +178,19 @@ button {
 
 .home-intro {
   display: grid;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1.3fr) minmax(220px, 0.9fr);
+  gap: 2.5rem;
   text-align: left;
+  align-items: start;
 }
 
-.home-intro p:first-child {
+.beck-note,
+.echo-note {
+  display: grid;
+  gap: 1rem;
+}
+
+.beck-note p:first-child {
   color: var(--text);
   font-size: clamp(1.1rem, 1.4vw, 1.3rem);
 }
@@ -204,10 +212,22 @@ button {
   color: var(--text);
 }
 
+.echo-note {
+  position: relative;
+  padding-top: 0.35rem;
+}
+
+.echo-note::before {
+  content: '';
+  width: 72px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-strong), transparent);
+}
+
 .echo-intro {
   color: var(--accent-strong);
   font-size: 1.08rem;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 .section-heading p,
@@ -473,6 +493,11 @@ button {
     width: 100%;
     justify-items: center;
     text-align: center;
+  }
+
+  .home-intro {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .signup-row {

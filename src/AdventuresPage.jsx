@@ -8,8 +8,8 @@ import { travelLog } from './adventuresData'
 
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 360
-const MIN_SCALE = 1.58
-const MAX_SCALE = 220
+const MIN_SCALE = 1.86
+const MAX_SCALE = 320
 const INITIAL_TRANSFORM = zoomIdentity
   .translate((MAP_WIDTH * (1 - MIN_SCALE)) / 2, (MAP_HEIGHT * (1 - MIN_SCALE)) / 2)
   .scale(MIN_SCALE)
@@ -156,7 +156,7 @@ export default function AdventuresPage() {
                       className={selectedTrip?.id === trip.id ? 'trip-line trip-line-active' : 'trip-line'}
                       style={{
                         '--trip-color': trip.color,
-                        '--trip-line-width': `${(selectedTrip?.id === trip.id ? 1.8 : 1.45) / Math.max(transform.k ** 0.9, 1)}`,
+                        '--trip-line-width': `${(selectedTrip?.id === trip.id ? 1.45 : 1.15) / Math.max(transform.k ** 1.05, 1)}`,
                       }}
                     />
                   ) : null,
@@ -165,8 +165,8 @@ export default function AdventuresPage() {
                 {projectedTrips.flatMap((trip) =>
                   trip.projectedStops.flatMap((stop) => {
                     const scale = Math.max(transform.k, 1)
-                    const innerRadius = (selectedTrip?.id === trip.id ? 4.15 : 3.4) / scale
-                    const outerRadius = (selectedTrip?.id === trip.id ? 4.85 : 4.1) / scale
+                    const innerRadius = (selectedTrip?.id === trip.id ? 5.25 : 4.35) / scale
+                    const outerRadius = (selectedTrip?.id === trip.id ? 5.95 : 5.05) / scale
 
                     return [
                       <circle

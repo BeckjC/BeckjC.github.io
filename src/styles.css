@@ -131,6 +131,23 @@ button {
   width: min(100%, 760px);
   margin: 0 auto;
   display: grid;
+  position: relative;
+  padding: 0.75rem 0;
+}
+
+.home-hero-content::before {
+  content: '';
+  position: absolute;
+  inset: -2.5rem -3rem auto -3rem;
+  height: 16rem;
+  background: radial-gradient(circle, rgba(139, 188, 232, 0.22), transparent 72%);
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.home-hero-content > * {
+  position: relative;
+  z-index: 1;
 }
 
 .home-signup,
@@ -144,6 +161,7 @@ button {
   height: auto;
   display: block;
   margin: 0 auto 0.75rem;
+  animation: hero-rise 500ms ease both;
 }
 
 
@@ -217,12 +235,13 @@ button {
   color: var(--text);
   font-size: clamp(2rem, 4.2vw, 4.25rem);
   line-height: 0.98;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.05em;
+  animation: hero-rise 560ms ease 80ms both;
 }
 
 .accent-text {
-  color: var(--text);
+  color: #4f97d6;
   text-decoration-line: underline;
   text-decoration-color: var(--accent);
   text-decoration-thickness: 0.16em;
@@ -232,12 +251,15 @@ button {
 .signup-subcopy {
   margin: 0 auto 0.8rem;
   max-width: 30rem;
+  color: #4b4b4b;
+  animation: hero-rise 620ms ease 150ms both;
 }
 
 .signup-form {
   display: grid;
   gap: 0.55rem;
   margin-top: 0.5rem;
+  animation: hero-rise 680ms ease 220ms both;
 }
 
 .signup-row {
@@ -276,6 +298,7 @@ button {
 .button-accent {
   border-color: var(--accent-strong);
   background: linear-gradient(90deg, rgba(139, 188, 232, 0.25), rgba(94, 164, 223, 0.42));
+  box-shadow: 0 10px 24px rgba(139, 188, 232, 0.18);
 }
 
 .button:hover,
@@ -471,5 +494,16 @@ button {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

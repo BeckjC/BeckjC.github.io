@@ -1,3 +1,11 @@
+export const homeBase = {
+  id: 'santa-barbara-home',
+  name: 'Santa Barbara',
+  coordinates: [-119.6982, 34.4208],
+  note: 'Home base.',
+  special: 'home',
+}
+
 export const travelLog = [
   {
     id: 'greece-sailing-trip',

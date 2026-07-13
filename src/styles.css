@@ -657,7 +657,12 @@ button {
   fill: #fff3cf;
 }
 
-.trip-stop-landmark {
+.trip-stop-ring-home {
+  fill: #dff5ec;
+}
+
+.trip-stop-landmark,
+.trip-stop-home {
   opacity: 1;
 }
 

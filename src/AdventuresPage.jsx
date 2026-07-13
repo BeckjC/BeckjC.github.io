@@ -4,7 +4,7 @@ import { select } from 'd3-selection'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { feature } from 'topojson-client'
 import worldAtlas from 'world-atlas/countries-50m.json'
-import { travelLog } from './adventuresData'
+import { homeBase, travelLog } from './adventuresData'
 
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 360
@@ -61,6 +61,11 @@ export default function AdventuresPage() {
   const pathGenerator = useMemo(() => geoPath(projection), [projection])
   const worldBounds = useMemo(() => pathGenerator.bounds(worldFeatureCollection), [pathGenerator])
   const selectedTrip = travelLog.find((trip) => trip.id === selectedTripId) ?? travelLog[0] ?? null
+  const projectedHomeBase = useMemo(() => {
+    const point = projection(homeBase.coordinates)
+    if (!point) return null
+    return { ...homeBase, x: point[0], y: point[1] }
+  }, [projection])
 
   const projectedTrips = useMemo(
     () =>
@@ -230,6 +235,32 @@ export default function AdventuresPage() {
                     ]
                   }),
                 )}
+
+                {projectedHomeBase
+                  ? (() => {
+                      const scale = Math.max(transform.k, 1)
+                      const innerRadius = 6.8 / scale
+                      const outerRadius = 8.1 / scale
+
+                      return [
+                        <circle
+                          key="home-base-ring"
+                          cx={projectedHomeBase.x}
+                          cy={projectedHomeBase.y}
+                          r={outerRadius}
+                          className="trip-stop-ring trip-stop-ring-home"
+                        />,
+                        <circle
+                          key="home-base-dot"
+                          cx={projectedHomeBase.x}
+                          cy={projectedHomeBase.y}
+                          r={innerRadius}
+                          className="trip-stop trip-stop-home"
+                          style={{ '--trip-color': '#2d7c68' }}
+                        />,
+                      ]
+                    })()
+                  : null}
               </g>
             </svg>
           </div>

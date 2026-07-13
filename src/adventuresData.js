@@ -136,4 +136,87 @@ export const travelLog = [
       }
     ]
   },
+  {
+    id: 'baltic-to-lisbon-trip',
+    title: 'Gdańsk to Lisbon sail',
+    timeframe: 'August 2025',
+    color: '#2e6ea8',
+    provisional: false,
+    summary: 'Hotel nights in Gdańsk, then a long sail through the Baltic, Kiel Canal, Channel, Biscay, and down to Lisbon. Unlisted nights were spent at sea.',
+    stops: [
+      {
+        id: 'gdansk-bb',
+        name: 'B&B Hotel Gdańsk Old Town',
+        coordinates: [18.6526, 54.3486],
+        note: 'Stayed 8/3–8/5.',
+      },
+      {
+        id: 'gdansk-holland-house',
+        name: 'Holland House Residence, Gdańsk',
+        coordinates: [18.6539, 54.3488],
+        note: 'Stayed 8/5–8/7.',
+      },
+      {
+        id: 'gdansk-stay-inn',
+        name: 'Stay Inn Hotel Gdańsk',
+        coordinates: [18.6518, 54.3497],
+        note: 'Stayed 8/7–8/8.',
+      },
+      {
+        id: 'sassnitz-harbor',
+        name: 'Sassnitz Harbor',
+        coordinates: [13.6419, 54.5158],
+        note: 'Night of 8/9.',
+      },
+      {
+        id: 'kiel-canal-night',
+        name: 'Post–Kiel Canal anchorage',
+        coordinates: [9.1473611111, 53.8961944444],
+        note: 'Night of 8/10 after navigating the canal.',
+      },
+      {
+        id: 'port-du-grand-large',
+        name: 'Port du Grand Large',
+        coordinates: [2.3452, 51.0377],
+        note: 'Night of 8/14 on the fuel dock.',
+      },
+      {
+        id: 'brittany-night',
+        name: 'Off Brittany',
+        coordinates: [-4.4879722222, 48.3774444444],
+        note: 'Night of 8/16.',
+      },
+      {
+        id: 'lisbon-approach-night',
+        name: 'Off Lisbon',
+        coordinates: [-9.4156944444, 38.6927777778],
+        note: 'Night of 8/21.',
+      },
+      {
+        id: 'lisbon-hotel',
+        name: 'Lisbon',
+        coordinates: [-9.1393, 38.7108],
+        note: 'Lift Boutique Hotel on 8/22.',
+      }
+    ],
+    routePoints: [
+      [18.6603, 54.3566],
+      [16.1300, 54.4900],
+      [13.6419, 54.5158],
+      [10.2210, 54.3737],
+      [9.9650, 54.3170],
+      [9.6610, 54.2720],
+      [9.2860, 54.1710],
+      [8.9885, 54.1607],
+      [9.1473611111, 53.8961944444],
+      [4.4777, 51.9244],
+      [2.3452, 51.0377],
+      [-1.5550, 47.2150],
+      [-4.4879722222, 48.3774444444],
+      [-5.9330, 43.5450],
+      [-8.8830, 42.2400],
+      [-9.4156944444, 38.6927777778],
+      [-9.1393, 38.7108]
+    ]
+  },
 ]

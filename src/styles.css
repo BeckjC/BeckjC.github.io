@@ -648,10 +648,13 @@ button {
   stroke-width: 3.2;
 }
 
+.trip-stop-ring {
+  fill: #fff;
+  opacity: 0.98;
+}
+
 .trip-stop {
   fill: var(--trip-color);
-  stroke: #fff;
-  stroke-width: var(--trip-stroke-width, 0.8);
   opacity: 0.82;
 }
 

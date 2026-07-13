@@ -3,60 +3,75 @@ import { geoNaturalEarth1, geoPath } from 'd3-geo'
 import { select } from 'd3-selection'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { feature } from 'topojson-client'
-import worldAtlas from 'world-atlas/countries-50m.json'
 import { travelLog } from './adventuresData'
 
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 420
 const MIN_SCALE = 1
-const MAX_SCALE = 60
+const MAX_SCALE = 80
 
-const worldFeatures = feature(worldAtlas, worldAtlas.objects.countries).features
-
-function buildProjection() {
+function buildProjection(features) {
   return geoNaturalEarth1()
     .fitExtent(
       [
         [24, 24],
         [MAP_WIDTH - 24, MAP_HEIGHT - 24],
       ],
-      { type: 'FeatureCollection', features: worldFeatures },
+      { type: 'FeatureCollection', features },
     )
 }
 
 export default function AdventuresPage() {
   const [selectedTripId, setSelectedTripId] = useState(travelLog[0]?.id ?? null)
   const [transform, setTransform] = useState(zoomIdentity)
+  const [worldFeatures, setWorldFeatures] = useState([])
   const svgRef = useRef(null)
 
-  const projection = useMemo(() => buildProjection(), [])
-  const pathGenerator = useMemo(() => geoPath(projection), [projection])
+  useEffect(() => {
+    let cancelled = false
+
+    import('world-atlas/countries-10m.json').then((module) => {
+      if (cancelled) return
+      const atlas = module.default
+      setWorldFeatures(feature(atlas, atlas.objects.countries).features)
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const projection = useMemo(
+    () => (worldFeatures.length ? buildProjection(worldFeatures) : null),
+    [worldFeatures],
+  )
+  const pathGenerator = useMemo(() => (projection ? geoPath(projection) : null), [projection])
   const selectedTrip = travelLog.find((trip) => trip.id === selectedTripId) ?? travelLog[0] ?? null
 
-  const projectedTrips = useMemo(
-    () =>
-      travelLog.map((trip) => {
-        const projectedStops = trip.stops
-          .map((stop) => {
-            const point = projection(stop.coordinates)
-            if (!point) return null
-            return { ...stop, x: point[0], y: point[1] }
-          })
-          .filter(Boolean)
+  const projectedTrips = useMemo(() => {
+    if (!projection) return []
 
-        return {
-          ...trip,
-          projectedStops,
-          linePath:
-            projectedStops.length > 1
-              ? projectedStops
-                  .map((stop, index) => `${index === 0 ? 'M' : 'L'} ${stop.x} ${stop.y}`)
-                  .join(' ')
-              : '',
-        }
-      }),
-    [projection],
-  )
+    return travelLog.map((trip) => {
+      const projectedStops = trip.stops
+        .map((stop) => {
+          const point = projection(stop.coordinates)
+          if (!point) return null
+          return { ...stop, x: point[0], y: point[1] }
+        })
+        .filter(Boolean)
+
+      return {
+        ...trip,
+        projectedStops,
+        linePath:
+          projectedStops.length > 1
+            ? projectedStops
+                .map((stop, index) => `${index === 0 ? 'M' : 'L'} ${stop.x} ${stop.y}`)
+                .join(' ')
+            : '',
+      }
+    })
+  }, [projection])
 
   useEffect(() => {
     if (!svgRef.current) return
@@ -107,9 +122,10 @@ export default function AdventuresPage() {
             >
               <rect width={MAP_WIDTH} height={MAP_HEIGHT} fill="#f7fbff" rx="28" />
               <g transform={transform.toString()}>
-                {worldFeatures.map((shape) => (
-                  <path key={shape.id} d={pathGenerator(shape)} className="map-country" />
-                ))}
+                {pathGenerator &&
+                  worldFeatures.map((shape) => (
+                    <path key={shape.id} d={pathGenerator(shape)} className="map-country" />
+                  ))}
 
                 {projectedTrips.map((trip) =>
                   trip.linePath ? (
@@ -123,19 +139,29 @@ export default function AdventuresPage() {
                 )}
 
                 {projectedTrips.flatMap((trip) =>
-                  trip.projectedStops.map((stop) => (
-                    <circle
-                      key={`${trip.id}-${stop.id}`}
-                      cx={stop.x}
-                      cy={stop.y}
-                      r={(selectedTrip?.id === trip.id ? 4.5 : 3.5) / Math.max(transform.k ** 0.72, 1)}
-                      className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
-                      style={{
-                        '--trip-color': trip.color,
-                        '--trip-stroke-width': `${(selectedTrip?.id === trip.id ? 0.9 : 0.7) / Math.max(transform.k ** 0.72, 1)}`,
-                      }}
-                    />
-                  )),
+                  trip.projectedStops.flatMap((stop) => {
+                    const scale = Math.max(transform.k ** 0.78, 1)
+                    const innerRadius = (selectedTrip?.id === trip.id ? 3.4 : 2.7) / scale
+                    const outerRadius = innerRadius + 0.5 / scale
+
+                    return [
+                      <circle
+                        key={`${trip.id}-${stop.id}-outer`}
+                        cx={stop.x}
+                        cy={stop.y}
+                        r={outerRadius}
+                        className="trip-stop-ring"
+                      />,
+                      <circle
+                        key={`${trip.id}-${stop.id}-inner`}
+                        cx={stop.x}
+                        cy={stop.y}
+                        r={innerRadius}
+                        className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
+                        style={{ '--trip-color': trip.color }}
+                      />,
+                    ]
+                  }),
                 )}
               </g>
             </svg>

@@ -144,8 +144,6 @@ function HomePage() {
               </div>
             </form>
           </div>
-
-          <img className="home-portrait" src={homePortraitUrl} alt="Beck Cherry" />
         </div>
       </section>
 

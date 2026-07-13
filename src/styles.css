@@ -638,20 +638,19 @@ button {
 .trip-line {
   fill: none;
   stroke: var(--trip-color);
-  stroke-width: 2;
+  stroke-width: var(--trip-line-width, 1.8);
   opacity: 0.32;
   stroke-linecap: round;
   stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
 }
 
 .trip-line-active {
   opacity: 0.8;
-  stroke-width: 2.4;
 }
 
 .trip-stop-ring {
   fill: #fff;
+  opacity: 1;
 }
 
 .trip-stop {

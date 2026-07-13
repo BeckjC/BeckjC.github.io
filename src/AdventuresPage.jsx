@@ -8,9 +8,11 @@ import { travelLog } from './adventuresData'
 
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 360
-const MIN_SCALE = 1
-const MAX_SCALE = 60
+const MIN_SCALE = 1.18
+const MAX_SCALE = 90
 const INITIAL_TRANSFORM = zoomIdentity
+  .translate((MAP_WIDTH * (1 - MIN_SCALE)) / 2, (MAP_HEIGHT * (1 - MIN_SCALE)) / 2)
+  .scale(MIN_SCALE)
 
 const worldFeatures = feature(worldAtlas, worldAtlas.objects.countries).features
 const worldFeatureCollection = { type: 'FeatureCollection', features: worldFeatures }
@@ -18,8 +20,8 @@ const worldFeatureCollection = { type: 'FeatureCollection', features: worldFeatu
 function buildProjection() {
   return geoNaturalEarth1().fitExtent(
     [
-      [18, 8],
-      [MAP_WIDTH - 18, MAP_HEIGHT - 8],
+      [8, 2],
+      [MAP_WIDTH - 8, MAP_HEIGHT - 2],
     ],
     worldFeatureCollection,
   )
@@ -152,16 +154,19 @@ export default function AdventuresPage() {
                       key={`${trip.id}-line`}
                       d={trip.linePath}
                       className={selectedTrip?.id === trip.id ? 'trip-line trip-line-active' : 'trip-line'}
-                      style={{ '--trip-color': trip.color }}
+                      style={{
+                        '--trip-color': trip.color,
+                        '--trip-line-width': `${(selectedTrip?.id === trip.id ? 2.1 : 1.7) / Math.max(transform.k ** 0.72, 1)}`,
+                      }}
                     />
                   ) : null,
                 )}
 
                 {projectedTrips.flatMap((trip) =>
                   trip.projectedStops.flatMap((stop) => {
-                    const scale = Math.max(transform.k ** 1.08, 1)
-                    const innerRadius = (selectedTrip?.id === trip.id ? 2.7 : 2.15) / scale
-                    const outerRadius = innerRadius + 0.8 / Math.max(transform.k, 1)
+                    const scale = Math.max(transform.k, 1)
+                    const innerRadius = (selectedTrip?.id === trip.id ? 2.35 : 1.9) / scale
+                    const outerRadius = (selectedTrip?.id === trip.id ? 2.95 : 2.45) / scale
 
                     return [
                       <circle

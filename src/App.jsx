@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { blogPosts, logoUrl, recipes, youtubeUrl } from './content'
+import { blogPosts, homePortraitUrl, logoUrl, recipes, youtubeUrl } from './content'
 
 const pages = {
   home: 'home',
@@ -122,25 +122,29 @@ function HomePage() {
   return (
     <>
       <section className="section home-hero">
-        <div className="home-signup">
-          <h1 className="signup-copy">
-            Read my <span className="accent-text">FREE newsletter</span>.
-          </h1>
-          <p className="signup-subcopy">New posts, recipes, and whatever I’m working on.</p>
-          <form className="signup-form" onSubmit={(event) => event.preventDefault()}>
-            <div className="signup-row">
-              <input
-                id="email-list"
-                name="email"
-                type="email"
-                autoComplete="email"
-                placeholder="your email here"
-              />
-              <button type="submit" className="button button-accent">
-                send me the good stuff →
-              </button>
-            </div>
-          </form>
+        <div className="home-hero-content">
+          <div className="home-signup">
+            <h1 className="signup-copy">
+              Read my <span className="accent-text">FREE newsletter</span>.
+            </h1>
+            <p className="signup-subcopy">New posts, recipes, and whatever I’m working on.</p>
+            <form className="signup-form" onSubmit={(event) => event.preventDefault()}>
+              <div className="signup-row">
+                <input
+                  id="email-list"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="your email here"
+                />
+                <button type="submit" className="button button-accent">
+                  send me the good stuff →
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <img className="home-portrait" src={homePortraitUrl} alt="Beck Cherry" />
         </div>
       </section>
 

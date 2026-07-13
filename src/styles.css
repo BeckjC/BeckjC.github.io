@@ -121,14 +121,27 @@ button {
   min-height: calc(100vh - 120px);
   display: grid;
   align-content: center;
-  justify-items: center;
-  text-align: center;
+}
+
+.home-hero-content {
+  width: min(100%, 980px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2.5rem;
+  align-items: center;
 }
 
 .home-signup,
 .home-intro {
-  width: min(100%, 760px);
+  width: 100%;
   justify-self: center;
+}
+
+.home-portrait {
+  width: min(100%, 220px);
+  height: auto;
+  display: block;
 }
 
 .home-intro-section {
@@ -403,6 +416,12 @@ button {
 
   .nav.nav-open {
     display: flex;
+  }
+
+  .home-hero-content {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
   }
 
   .signup-row {

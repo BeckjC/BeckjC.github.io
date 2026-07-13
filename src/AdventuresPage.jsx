@@ -174,7 +174,7 @@ export default function AdventuresPage() {
                         cx={stop.x}
                         cy={stop.y}
                         r={outerRadius}
-                        className="trip-stop-ring"
+                        className={stop.special === 'landmark' ? 'trip-stop-ring trip-stop-ring-landmark' : 'trip-stop-ring'}
                       />,
                       <circle
                         key={`${trip.id}-${stop.id}`}
@@ -182,7 +182,7 @@ export default function AdventuresPage() {
                         cy={stop.y}
                         r={innerRadius}
                         className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
-                        style={{ '--trip-color': trip.color }}
+                        style={{ '--trip-color': stop.special === 'landmark' ? '#e2a93b' : trip.color }}
                       />,
                     ]
                   }),

@@ -653,6 +653,10 @@ button {
   opacity: 1;
 }
 
+.trip-stop-ring-landmark {
+  fill: #fff3cf;
+}
+
 .trip-stop {
   fill: var(--trip-color);
   opacity: 0.82;

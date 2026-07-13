@@ -38,6 +38,13 @@ function getMidpoint(first, second) {
   }
 }
 
+function toMapPoint(clientX, clientY, bounds) {
+  return {
+    x: ((clientX - bounds.left) / bounds.width) * MAP_WIDTH,
+    y: ((clientY - bounds.top) / bounds.height) * MAP_HEIGHT,
+  }
+}
+
 function zoomAroundPoint(view, nextScale, point) {
   const ratio = nextScale / view.scale
 
@@ -98,10 +105,7 @@ export default function AdventuresPage() {
   const handleWheel = (event) => {
     event.preventDefault()
     const bounds = event.currentTarget.getBoundingClientRect()
-    const point = {
-      x: ((event.clientX - bounds.left) / bounds.width) * MAP_WIDTH,
-      y: ((event.clientY - bounds.top) / bounds.height) * MAP_HEIGHT,
-    }
+    const point = toMapPoint(event.clientX, event.clientY, bounds)
 
     setView((current) => {
       const nextScale = clamp(
@@ -116,8 +120,9 @@ export default function AdventuresPage() {
 
   const handlePointerDown = (event) => {
     event.currentTarget.setPointerCapture(event.pointerId)
+    const bounds = event.currentTarget.getBoundingClientRect()
     const nextPointers = new Map(pointersRef.current)
-    nextPointers.set(event.pointerId, { x: event.clientX, y: event.clientY })
+    nextPointers.set(event.pointerId, toMapPoint(event.clientX, event.clientY, bounds))
     pointersRef.current = nextPointers
 
     const pointerValues = [...nextPointers.values()]
@@ -145,8 +150,9 @@ export default function AdventuresPage() {
   const handlePointerMove = (event) => {
     if (!pointersRef.current.has(event.pointerId)) return
 
+    const bounds = event.currentTarget.getBoundingClientRect()
     const nextPointers = new Map(pointersRef.current)
-    nextPointers.set(event.pointerId, { x: event.clientX, y: event.clientY })
+    nextPointers.set(event.pointerId, toMapPoint(event.clientX, event.clientY, bounds))
     pointersRef.current = nextPointers
 
     const pointerValues = [...nextPointers.values()]

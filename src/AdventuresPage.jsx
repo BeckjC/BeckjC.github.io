@@ -9,7 +9,7 @@ import { travelLog } from './adventuresData'
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 360
 const MIN_SCALE = 1.34
-const MAX_SCALE = 90
+const MAX_SCALE = 140
 const INITIAL_TRANSFORM = zoomIdentity
   .translate((MAP_WIDTH * (1 - MIN_SCALE)) / 2, (MAP_HEIGHT * (1 - MIN_SCALE)) / 2)
   .scale(MIN_SCALE)
@@ -165,8 +165,8 @@ export default function AdventuresPage() {
                 {projectedTrips.flatMap((trip) =>
                   trip.projectedStops.flatMap((stop) => {
                     const scale = Math.max(transform.k, 1)
-                    const innerRadius = (selectedTrip?.id === trip.id ? 2.95 : 2.35) / scale
-                    const outerRadius = (selectedTrip?.id === trip.id ? 3.55 : 2.95) / scale
+                    const innerRadius = (selectedTrip?.id === trip.id ? 3.45 : 2.8) / scale
+                    const outerRadius = (selectedTrip?.id === trip.id ? 4.1 : 3.45) / scale
 
                     return [
                       <circle

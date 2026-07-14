@@ -15,10 +15,8 @@ const blogRoutes = blogPosts.map((post) => ({ page: 'becks-blog', slug: post.slu
 const recipeRoutes = recipes.map((recipe) => ({ page: 'nans-recipes', slug: recipe.slug }))
 const allRoutes = [...staticRoutes, ...blogRoutes, ...recipeRoutes]
 
-const today = new Date().toISOString()
-
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${allRoutes
-  .map((route) => `  <url><loc>${SITE_URL}${getRoutePath(route)}</loc><lastmod>${today}</lastmod></url>`)
+  .map((route) => `  <url><loc>${SITE_URL}${getRoutePath(route)}</loc></url>`)
   .join('\n')}\n</urlset>\n`
 
 const robots = `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`

@@ -1,0 +1,17 @@
+{
+  "name": "Beck Cherry",
+  "short_name": "Beck Cherry",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#131313",
+  "theme_color": "#131313",
+  "description": "The personal site of Beck Cherry — blog posts, Nan’s recipes, adventures, and experiments built in public.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

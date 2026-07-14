@@ -1,38 +1,43 @@
 # PRD — React rebuild of beckcherry.com
 
-## Outcome
+## Completed foundation loop
 - [x] Replace the old static prototype with a new React-based personal site in this repo
 - [x] Use the current `beckcherry.com` content and the existing project folder content as source material
 - [x] Ship a polished, responsive homepage that can become the replacement for the current Squarespace homepage
+- [x] Build verification completed with `npm run build`
 
-## Scope boundaries
-- [x] In scope: React scaffold, homepage, navigation, blog/recipes/contact structure, responsive styling, metadata, build verification
-- [x] In scope: preserve the `beckcherry.com` brand/domain direction and mirror the current live-site structure minus rejected pages
-- [x] In scope: reuse existing copy from `beckcherry.com` rather than inventing new copy
-- [x] Out of scope for this loop: final production deployment, DNS cutover, full migration of every Squarespace subpage, CMS/blog infrastructure
+## Current loop — professional structure + SEO/AI pass
 
-## Source context
-- [x] Current live site has lightweight nav/content around Home, Occupy Greenland T-Shirt, Beck's Blog, Nan's Recipes, Contact
-- [x] Existing prototype repo content centers on Beck Cherry, AI projects, building in public, and contact/social links
-- [x] Beck explicitly wants React and wants to replace the Squarespace site builder with a code-owned site
+### Outcome
+- [ ] Merge the current production-worthy site work into `main`
+- [ ] Clean up stale GitHub Pages-era output paths and repo clutter so the codebase feels intentional and professional
+- [ ] Improve SEO and AI discoverability without changing the human-facing UX or core site behavior
 
-## Design direction
-- [x] Editorial dark-mode founder site with sharp typography, restrained motion, and product-forward cards
-- [x] Feels bespoke rather than template-like
-- [x] Mobile-first and accessible
+### Scope boundaries
+- [ ] In scope: code organization, routing internals, metadata, structured data, crawl/discovery files, build config cleanup, Vercel-ready deploy config
+- [ ] In scope: preserve the current visual design and functional UX for visitors
+- [ ] Out of scope: redesigning page layouts, changing copy direction materially, replacing the signup backend, or migrating to a new framework
 
-## Implementation tasks
-- [x] Create React + Vite app structure in the existing repo
-- [x] Build a homepage with: hero, currently building, ecosystem/content, about, connect/footer
-- [x] Carry forward useful content from the current live site and existing prototype
-- [x] Add clear placeholders or status treatment for content not yet migrated from Squarespace
-- [x] Keep the code simple to maintain and extend
+### Key context
+- [ ] Production domain is now `https://beckcherry.com/` on Vercel
+- [ ] The repo still contains GitHub Pages-era `docs/` output assumptions and `.nojekyll` artifacts
+- [ ] The current app is a React + Vite SPA with internal page navigation for Home, Adventures, Blog, Recipes, and About Me
 
-## Verification
-- [x] `npm install`
-- [x] `npm run build`
+### Implementation checklist
+- [ ] Normalize build/deploy paths around the standard Vite `dist/` output and remove stale output artifacts from source control where appropriate
+- [ ] Refactor oversized app logic into a cleaner professional structure without changing visitor-facing behavior
+- [ ] Preserve backward compatibility for existing hash URLs while improving canonical route handling
+- [ ] Add deterministic route metadata handling for title, description, canonical, Open Graph, and Twitter tags
+- [ ] Add structured data for person/website pages and AI-readable discovery files (`robots.txt`, `sitemap.xml`, `llms.txt`, manifest, favicon assets) where appropriate
+- [ ] Keep the cherry favicon and current live domain configuration intact
 
-## Done condition
-- [x] Repo contains a working React site build
-- [x] Build passes locally
-- [x] Site is visually strong enough to serve as the new direction for `beckcherry.com`
+### Verification
+- [ ] `npm test`
+- [ ] `npm run build`
+- [ ] Inspect generated `dist/` output for metadata and crawl files
+- [ ] Deploy preview/prod on Vercel and confirm `https://beckcherry.com/` serves the updated build
+
+### Done condition
+- [ ] `main` contains the verified cleanup + SEO/AI pass
+- [ ] The repo no longer depends on stale GitHub Pages deployment structure
+- [ ] The site exposes stronger machine-readable metadata/discovery while looking and behaving the same to human visitors

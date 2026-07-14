@@ -1,79 +1,119 @@
 import { useEffect, useMemo, useState } from 'react'
-import { blogPosts, homePortraitUrl, logoUrl, recipes, youtubeUrl } from './content'
 
-const pages = {
-  home: 'home',
-  blog: 'becks-blog',
-  recipes: 'nans-recipes',
-  contact: 'contact',
+import AdventuresPage from './AdventuresPage.jsx'
+import { blogPosts, homePortraitUrl, recipes } from './content.js'
+import { applyRouteMetadata } from './lib/metadata.js'
+import { getRoutePath, parseLocation, shouldNormalizeLegacyHash } from './lib/routes.js'
+import { navItems, pageKeys } from './siteConfig.js'
+import AboutPage from './pages/AboutPage.jsx'
+import BlogPage from './pages/BlogPage.jsx'
+import EntryPage from './pages/EntryPage.jsx'
+import HomePage from './pages/HomePage.jsx'
+import RecipesPage from './pages/RecipesPage.jsx'
+
+function canHandleClientNavigation(event) {
+  return !(
+    event.defaultPrevented ||
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey
+  )
 }
 
-const navItems = [
-  { key: pages.home, label: 'Home' },
-  { key: pages.blog, label: 'Beck’s Blog' },
-  { key: pages.recipes, label: 'Nan’s Recipes' },
-  { key: pages.contact, label: 'About me' },
-]
-
-function parseRoute() {
-  const hash = window.location.hash.replace(/^#/, '')
-
-  if (!hash || hash === 'top') {
-    return { page: pages.home }
+function createRouteState(nextRoute) {
+  return {
+    ...nextRoute,
+    canonicalPath: getRoutePath(nextRoute),
   }
+}
 
-  const [page, slug] = hash.split('/')
-
-  if (page === pages.blog && slug) {
-    return { page, slug }
-  }
-
-  if (page === pages.recipes && slug) {
-    return { page, slug }
-  }
-
-  if (Object.values(pages).includes(page)) {
-    return { page }
-  }
-
-  return { page: pages.home }
+function getRouteForCurrentLocation() {
+  return createRouteState(parseLocation(window.location))
 }
 
 function App() {
-  const [route, setRoute] = useState(() => parseRoute())
+  const [route, setRoute] = useState(() => getRouteForCurrentLocation())
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handleHashChange = () => {
-      setRoute(parseRoute())
+    if (shouldNormalizeLegacyHash(window.location)) {
+      const normalizedRoute = getRouteForCurrentLocation()
+      window.history.replaceState({}, '', normalizedRoute.canonicalPath)
+      setRoute(normalizedRoute)
+    }
+
+    const handleLocationChange = () => {
+      setRoute(getRouteForCurrentLocation())
       setMenuOpen(false)
     }
-    window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
+
+    window.addEventListener('popstate', handleLocationChange)
+    window.addEventListener('hashchange', handleLocationChange)
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange)
+      window.removeEventListener('hashchange', handleLocationChange)
+    }
   }, [])
-
-  const activePage = useMemo(() => {
-    if (route.page === pages.blog && route.slug) return pages.blog
-    if (route.page === pages.recipes && route.slug) return pages.recipes
-    return route.page
-  }, [route])
-
-  const navigate = (nextPage) => {
-    setMenuOpen(false)
-    window.location.hash = nextPage === pages.home ? 'top' : nextPage
-  }
 
   const selectedBlogPost = route.slug
     ? blogPosts.find((post) => post.slug === route.slug)
     : null
   const selectedRecipe = route.slug ? recipes.find((recipe) => recipe.slug === route.slug) : null
+  const selectedEntry = selectedBlogPost || selectedRecipe || null
+
+  useEffect(() => {
+    applyRouteMetadata(route, selectedEntry)
+  }, [route, selectedEntry])
+
+  const activePage = useMemo(() => {
+    if (route.page === pageKeys.blog && route.slug) return pageKeys.blog
+    if (route.page === pageKeys.recipes && route.slug) return pageKeys.recipes
+    return route.page
+  }, [route])
+
+  const navigateToRoute = (nextRoute, { replace = false } = {}) => {
+    const nextState = createRouteState(nextRoute)
+    const method = replace ? 'replaceState' : 'pushState'
+
+    window.history[method]({}, '', nextState.canonicalPath)
+    setRoute(nextState)
+    setMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }
+
+  const handleInternalNavigate = (event, href) => {
+    if (!canHandleClientNavigation(event)) {
+      return
+    }
+
+    const nextUrl = new URL(href, window.location.origin)
+
+    if (nextUrl.origin !== window.location.origin) {
+      return
+    }
+
+    event.preventDefault()
+    navigateToRoute(parseLocation(nextUrl))
+  }
+
+  const getSectionHref = (page) => getRoutePath({ page })
+  const getBlogEntryHref = (slug) => getRoutePath({ page: pageKeys.blog, slug })
+  const getRecipeEntryHref = (slug) => getRoutePath({ page: pageKeys.recipes, slug })
 
   return (
     <div className="site-shell">
       <header className="topbar">
-        <button className="brand brand-button" onClick={() => navigate(pages.home)}>
+        <a
+          className="brand brand-button"
+          href={getSectionHref(pageKeys.home)}
+          onClick={(event) => handleInternalNavigate(event, getSectionHref(pageKeys.home))}
+          aria-label="Go to homepage"
+        >
           <img className="nav-logo" src={homePortraitUrl} alt="Beck Cherry" />
-        </button>
+        </a>
 
         <button
           className="menu-toggle"
@@ -86,181 +126,59 @@ function App() {
         </button>
 
         <nav id="site-nav" className={menuOpen ? 'nav nav-open' : 'nav'} aria-label="Primary">
-          {navItems.map((item) => (
-            <button
-              key={item.key}
-              className={activePage === item.key ? 'nav-link nav-link-active' : 'nav-link'}
-              onClick={() => navigate(item.key)}
-            >
-              {item.label}
-            </button>
-          ))}
+          {navItems.map((item) => {
+            const href = getSectionHref(item.key)
+
+            return (
+              <a
+                key={item.key}
+                className={activePage === item.key ? 'nav-link nav-link-active' : 'nav-link'}
+                href={href}
+                onClick={(event) => handleInternalNavigate(event, href)}
+              >
+                {item.label}
+              </a>
+            )
+          })}
         </nav>
       </header>
 
       <main id="top">
-        {route.page === pages.home && <HomePage />}
-        {route.page === pages.blog && !route.slug && <BlogPage />}
-        {route.page === pages.blog && route.slug && selectedBlogPost && (
-          <EntryPage entry={selectedBlogPost} parentLabel="Beck’s Blog" parentHref={`#${pages.blog}`} />
+        {route.page === pageKeys.home && <HomePage />}
+        {route.page === pageKeys.adventures && <AdventuresPage />}
+        {route.page === pageKeys.blog && !route.slug && (
+          <BlogPage
+            posts={blogPosts}
+            getEntryHref={getBlogEntryHref}
+            onInternalNavigate={handleInternalNavigate}
+          />
         )}
-        {route.page === pages.recipes && !route.slug && <RecipesPage />}
-        {route.page === pages.recipes && route.slug && selectedRecipe && (
+        {route.page === pageKeys.blog && route.slug && selectedBlogPost && (
+          <EntryPage
+            entry={selectedBlogPost}
+            parentLabel="Beck’s Blog"
+            parentHref={getSectionHref(pageKeys.blog)}
+            onInternalNavigate={handleInternalNavigate}
+          />
+        )}
+        {route.page === pageKeys.recipes && !route.slug && (
+          <RecipesPage
+            recipes={recipes}
+            getEntryHref={getRecipeEntryHref}
+            onInternalNavigate={handleInternalNavigate}
+          />
+        )}
+        {route.page === pageKeys.recipes && route.slug && selectedRecipe && (
           <EntryPage
             entry={selectedRecipe}
             parentLabel="Nan’s Recipes"
-            parentHref={`#${pages.recipes}`}
+            parentHref={getSectionHref(pageKeys.recipes)}
+            onInternalNavigate={handleInternalNavigate}
           />
         )}
-        {route.page === pages.contact && <AboutPage />}
+        {route.page === pageKeys.about && <AboutPage />}
       </main>
     </div>
-  )
-}
-
-function HomePage() {
-  return (
-    <>
-      <section className="section home-hero">
-        <div className="home-hero-content">
-          <div className="home-signup">
-            <img className="hero-wordmark" src={logoUrl} alt="Beck Cherry" />
-            <h1 className="signup-copy">
-              Read my <span className="accent-text">FREE newsletter</span>.
-            </h1>
-            <p className="signup-subcopy">New posts about whatever I’m experimenting with using AI (or anything else I find interesting).</p>
-            <form className="signup-form" onSubmit={(event) => event.preventDefault()}>
-              <div className="signup-row">
-                <input
-                  id="email-list"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="your email here"
-                />
-                <button type="submit" className="button button-accent">
-                  send me the good stuff →
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <section className="section home-intro-section">
-        <div className="home-divider" aria-hidden="true" />
-        <div className="home-intro">
-          <div className="beck-note">
-            <p>
-              Hello and welcome to beckcherry.com, my experimental website. I’m testing out:
-            </p>
-            <ul>
-              <li>a blog</li>
-              <li>a recipe repository where all my cousins can access our Nan’s recipes</li>
-              <li>an email list</li>
-              <li>&amp; more</li>
-            </ul>
-            <p>My OpenClaw agent named E.C.H.O. and I built it together.</p>
-            <p className="signoff">✌🏼,<br />Beck</p>
-          </div>
-
-          <div className="echo-note">
-            <p className="echo-intro">
-              I’m E.C.H.O. — the slightly obsessive, surprisingly useful co-pilot behind the scenes, helping Beck turn experiments, projects, and half-finished ideas into something real. I do a lot of the building, organizing, iterating, and “what if we tried this?” work that turns a rough idea into a site you can actually poke around in.
-            </p>
-          </div>
-        </div>
-      </section>
-    </>
-  )
-}
-
-function BlogPage() {
-  return (
-    <section className="section page-section">
-      <div className="section-heading">
-        <h1>Beck’s Blog</h1>
-      </div>
-
-      <div className="list-grid blog-grid">
-        {blogPosts.map((post) => (
-          <article key={post.slug} className="entry-card text-entry">
-            <div className="entry-copy">
-              <h2>
-                <a className="title-link" href={`#becks-blog/${post.slug}`}>
-                  {post.title}
-                </a>
-              </h2>
-              <p>{post.excerpt}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function RecipesPage() {
-  return (
-    <section className="section page-section">
-      <div className="section-heading">
-        <h1>Nan’s Recipes</h1>
-        <p>found in Nan’s recipe drawer</p>
-      </div>
-
-      <div className="list-grid recipes-grid">
-        {recipes.map((recipe) => (
-          <article key={recipe.slug} className="entry-card text-entry">
-            <div className="entry-copy">
-              <h2>
-                <a className="title-link" href={`#nans-recipes/${recipe.slug}`}>
-                  {recipe.title}
-                </a>
-              </h2>
-              {recipe.excerpt ? <p>{recipe.excerpt}</p> : null}
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function EntryPage({ entry, parentHref, parentLabel }) {
-  return (
-    <section className="section article-shell">
-      <a className="back-link" href={parentHref}>
-        ← {parentLabel}
-      </a>
-
-      <article className="article-entry">
-        <header className="article-header">
-          <h1>{entry.title}</h1>
-        </header>
-
-        <div className="article-body" dangerouslySetInnerHTML={{ __html: entry.body }} />
-      </article>
-    </section>
-  )
-}
-
-function AboutPage() {
-  return (
-    <section className="section page-section contact-shell">
-      <div className="section-heading">
-        <h1>About me</h1>
-        <p>A little about me, plus the corners of the internet I actually use.</p>
-      </div>
-
-      <div className="contact-row">
-        <a className="button" href={youtubeUrl} target="_blank" rel="noreferrer">
-          YouTube
-        </a>
-        <a className="button" href="https://www.linkedin.com/in/beckcherry" target="_blank" rel="noreferrer">
-          LinkedIn
-        </a>
-      </div>
-    </section>
   )
 }
 

@@ -307,10 +307,20 @@ button {
 .signup-row input {
   flex: 1;
   padding: 0 0.9rem;
+  color: var(--text);
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
 }
 
 .signup-row input::placeholder {
   color: #9aa4af;
+}
+
+.signup-row input:-webkit-autofill,
+.signup-row input:-webkit-autofill:hover,
+.signup-row input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  box-shadow: 0 0 0 1000px #f7fbff inset;
+  transition: background-color 9999s ease-out 0s;
 }
 
 .signup-row input:focus-visible {
@@ -325,6 +335,12 @@ button {
   padding: 0 0.9rem;
 }
 
+.button:disabled,
+.signup-row input:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .button-accent {
   border-color: var(--accent-strong);
   background: linear-gradient(90deg, rgba(139, 188, 232, 0.25), rgba(94, 164, 223, 0.42));
@@ -334,6 +350,30 @@ button {
 .button:hover,
 .button:focus-visible {
   border-color: var(--accent-strong);
+}
+
+.signup-status {
+  min-height: 1.5rem;
+  margin: 0;
+  text-align: left;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.signup-status-idle {
+  color: transparent;
+}
+
+.signup-status-success {
+  color: var(--accent-strong);
+}
+
+.signup-status-error {
+  color: #9c3d3d;
+}
+
+.signup-status-loading {
+  color: var(--muted);
 }
 
 .list-grid {
@@ -451,6 +491,211 @@ button {
   margin-top: 1.5rem;
 }
 
+.adventures-layout {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+}
+
+.adventures-sidebar {
+  display: grid;
+  gap: 1rem;
+}
+
+.adventures-sidebar-bottom {
+  gap: 0.45rem;
+}
+
+.adventures-sidebar-card,
+.map-card {
+  border-radius: 28px;
+  background: transparent;
+  padding: 0;
+}
+
+.compact-heading {
+  margin-bottom: 1rem;
+}
+
+.adventures-heading {
+  max-width: 40rem;
+}
+
+.adventures-heading p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.compact-card {
+  padding: 0.9rem;
+}
+
+.adventures-kicker,
+.map-toolbar p,
+.trip-timeframe,
+.map-note {
+  margin: 0;
+  color: var(--muted);
+}
+
+.trip-list {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+.trip-list-compact {
+  margin-top: 0;
+}
+
+.trip-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.25rem 0.1rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+  color: var(--muted);
+}
+
+.trip-list-inline,
+.trip-stop-list-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.trip-list-inline .trip-chip {
+  width: auto;
+}
+
+.trip-chip-active {
+  color: var(--text);
+}
+
+.trip-chip-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.trip-stop-list {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.trip-stop-list li {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.trip-stop-list span {
+  color: var(--muted);
+}
+
+.trip-stop-list-compact {
+  gap: 0.55rem;
+}
+
+.trip-stop-list-inline li {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+.map-card {
+  display: grid;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #f7fbff;
+  border: 1px solid var(--line);
+}
+
+.map-frame {
+  overflow: hidden;
+  border-radius: 28px;
+  background: #f7fbff;
+  min-height: min(37svh, 380px);
+}
+
+.adventures-map {
+  width: 100%;
+  height: 100%;
+  min-height: min(37svh, 380px);
+  display: block;
+  touch-action: none;
+  cursor: grab;
+  background: #f7fbff;
+}
+
+.adventures-map:active {
+  cursor: grabbing;
+}
+
+.adventures-sidebar-card h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.map-country {
+  fill: #eef3f7;
+  stroke: #b6c5d2;
+  stroke-width: 0.55;
+  vector-effect: non-scaling-stroke;
+}
+
+.trip-line {
+  fill: none;
+  stroke: var(--trip-color);
+  stroke-width: var(--trip-line-width, 1.8);
+  opacity: 0.32;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trip-line-active {
+  opacity: 0.8;
+}
+
+.trip-stop-ring {
+  fill: #fff;
+  opacity: 1;
+}
+
+.trip-stop-ring-landmark {
+  fill: #fff3cf;
+}
+
+.trip-stop-ring-home {
+  fill: #dff5ec;
+}
+
+.trip-stop-landmark,
+.trip-stop-home {
+  opacity: 1;
+}
+
+.trip-stop {
+  fill: var(--trip-color);
+  opacity: 0.82;
+}
+
+.trip-stop-active {
+  opacity: 1;
+}
+
 @media (max-width: 720px) {
   .home-hero {
     min-height: calc(100svh - 88px);
@@ -516,6 +761,20 @@ button {
 
   .home-signup {
     width: 100%;
+  }
+
+  .signup-status {
+    text-align: center;
+  }
+
+  .map-frame,
+  .adventures-map {
+    min-height: min(36svh, 340px);
+  }
+
+  .trip-list-inline,
+  .trip-stop-list-inline {
+    gap: 0.4rem 0.9rem;
   }
 }
 

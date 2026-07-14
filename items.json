@@ -6,8 +6,8 @@
     "timestamp": "2026-07-09",
     "source": "2026-07-09 personal-site session + project repo state",
     "status": "active",
-    "lastAccessed": "2026-07-09T23:00:00-07:00",
-    "accessCount": 1
+    "lastAccessed": "2026-07-12T23:00:00-07:00",
+    "accessCount": 2
   },
   {
     "id": "beck-personal-site-002",
@@ -16,8 +16,8 @@
     "timestamp": "2026-07-09",
     "source": "2026-07-09 personal-site session",
     "status": "active",
-    "lastAccessed": "2026-07-09T23:00:00-07:00",
-    "accessCount": 1
+    "lastAccessed": "2026-07-12T23:00:00-07:00",
+    "accessCount": 2
   },
   {
     "id": "beck-personal-site-003",
@@ -26,8 +26,8 @@
     "timestamp": "2026-07-09",
     "source": "2026-07-09 personal-site session",
     "status": "active",
-    "lastAccessed": "2026-07-09T23:00:00-07:00",
-    "accessCount": 1
+    "lastAccessed": "2026-07-12T23:00:00-07:00",
+    "accessCount": 2
   },
   {
     "id": "beck-personal-site-004",
@@ -35,8 +35,61 @@
     "category": "content-decision",
     "timestamp": "2026-07-09",
     "source": "2026-07-09 personal-site session",
+    "status": "superseded",
+    "lastAccessed": "2026-07-12T23:00:00-07:00",
+    "accessCount": 2,
+    "supersededBy": "beck-personal-site-005"
+  },
+  {
+    "id": "beck-personal-site-005",
+    "fact": "On July 12, 2026, Beck changed the page plan so the site should keep Blog, Nan’s Recipes, About/Who I Am, YouTube, and LinkedIn in the new site, while the old Contact-page idea is replaced by an About Me / links-style page; X and Occupy Greenland should still be removed.",
+    "category": "content-decision",
+    "timestamp": "2026-07-12",
+    "source": "2026-07-12 personal-site session",
     "status": "active",
-    "lastAccessed": "2026-07-09T23:00:00-07:00",
+    "relatedEntities": ["beckcherry.com"],
+    "lastAccessed": "2026-07-12T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-006",
+    "fact": "On July 12, 2026, Beck set the current homepage/header rule to use the face-only image from beckcherry.com as the header/logo asset and not use the face+name version there.",
+    "category": "branding-decision",
+    "timestamp": "2026-07-12",
+    "source": "2026-07-12 personal-site session",
+    "status": "active",
+    "relatedEntities": ["beckcherry.com"],
+    "lastAccessed": "2026-07-12T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-007",
+    "fact": "On July 12, 2026, Beck required the homepage hero to fit fully within the first mobile screen even with browser toolbars visible, to stay properly centered, and to use a burger menu on mobile.",
+    "category": "ui-requirement",
+    "timestamp": "2026-07-12",
+    "source": "2026-07-12 personal-site session",
+    "status": "active",
+    "lastAccessed": "2026-07-12T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-008",
+    "fact": "On July 12, 2026, Beck decided not to use a site contact form for now and to prioritize getting the email signup flow working before other site forms.",
+    "category": "product-decision",
+    "timestamp": "2026-07-12",
+    "source": "2026-07-12 personal-site session",
+    "status": "active",
+    "lastAccessed": "2026-07-12T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-009",
+    "fact": "On July 13, 2026, Beck deferred email-signup setup until he is back at a laptop, and the preferred implementation path became a 100% free Google Apps Script + Google Sheet flow rather than Google Cloud service-account setup.",
+    "category": "implementation-decision",
+    "timestamp": "2026-07-13",
+    "source": "2026-07-13 personal-site session",
+    "status": "active",
+    "lastAccessed": "2026-07-13T11:39:00-07:00",
     "accessCount": 1
   }
 ]

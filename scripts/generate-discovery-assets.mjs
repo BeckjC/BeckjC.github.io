@@ -2,7 +2,7 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { blogPosts, recipes } from '../src/content.js'
+import { blogPosts, recipes } from '../src/content/contentData.js'
 import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL, siteSections } from '../src/siteConfig.js'
 import { getRoutePath } from '../src/lib/routes.js'
 

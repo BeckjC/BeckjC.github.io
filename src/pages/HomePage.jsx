@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { logoUrl } from '../content.js'
+import { logoUrl } from '../content/siteAssets.js'
 
 export default function HomePage() {
   const [email, setEmail] = useState('')

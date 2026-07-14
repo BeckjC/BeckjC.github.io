@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 
-import AdventuresPage from './AdventuresPage.jsx'
-import { blogPosts, homePortraitUrl, recipes } from './content.js'
+import { homePortraitUrl } from './content/siteAssets.js'
 import { applyRouteMetadata } from './lib/metadata.js'
 import { getRoutePath, parseLocation, shouldNormalizeLegacyHash } from './lib/routes.js'
 import { navItems, pageKeys } from './siteConfig.js'
@@ -10,6 +9,8 @@ import BlogPage from './pages/BlogPage.jsx'
 import EntryPage from './pages/EntryPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import RecipesPage from './pages/RecipesPage.jsx'
+
+const AdventuresPage = lazy(() => import('./AdventuresPage.jsx'))
 
 function canHandleClientNavigation(event) {
   return !(
@@ -33,9 +34,31 @@ function getRouteForCurrentLocation() {
   return createRouteState(parseLocation(window.location))
 }
 
+function LoadingPage() {
+  return <section className="section page-section" aria-live="polite" />
+}
+
 function App() {
   const [route, setRoute] = useState(() => getRouteForCurrentLocation())
   const [menuOpen, setMenuOpen] = useState(false)
+  const [contentData, setContentData] = useState({ blogPosts: [], recipes: [], loaded: false })
+  const contentImportRef = useRef(null)
+
+  const loadContentData = async () => {
+    if (!contentImportRef.current) {
+      contentImportRef.current = import('./content/contentData.js').then((module) => {
+        const nextData = {
+          blogPosts: module.blogPosts,
+          recipes: module.recipes,
+          loaded: true,
+        }
+        setContentData(nextData)
+        return nextData
+      })
+    }
+
+    return contentImportRef.current
+  }
 
   useEffect(() => {
     if (shouldNormalizeLegacyHash(window.location)) {
@@ -58,10 +81,35 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const needsContentData = route.page === pageKeys.blog || route.page === pageKeys.recipes
+
+    if (needsContentData && !contentData.loaded) {
+      loadContentData()
+    }
+  }, [contentData.loaded, route.page])
+
+  useEffect(() => {
+    const preload = () => {
+      void loadContentData()
+      void import('./AdventuresPage.jsx')
+    }
+
+    if (typeof window.requestIdleCallback === 'function') {
+      const idleId = window.requestIdleCallback(preload, { timeout: 1500 })
+      return () => window.cancelIdleCallback?.(idleId)
+    }
+
+    const timeoutId = window.setTimeout(preload, 600)
+    return () => window.clearTimeout(timeoutId)
+  }, [])
+
   const selectedBlogPost = route.slug
-    ? blogPosts.find((post) => post.slug === route.slug)
+    ? contentData.blogPosts.find((post) => post.slug === route.slug)
     : null
-  const selectedRecipe = route.slug ? recipes.find((recipe) => recipe.slug === route.slug) : null
+  const selectedRecipe = route.slug
+    ? contentData.recipes.find((recipe) => recipe.slug === route.slug)
+    : null
   const selectedEntry = selectedBlogPost || selectedRecipe || null
 
   useEffect(() => {
@@ -145,14 +193,19 @@ function App() {
 
       <main id="top">
         {route.page === pageKeys.home && <HomePage />}
-        {route.page === pageKeys.adventures && <AdventuresPage />}
-        {route.page === pageKeys.blog && !route.slug && (
+        {route.page === pageKeys.adventures && (
+          <Suspense fallback={<LoadingPage />}>
+            <AdventuresPage />
+          </Suspense>
+        )}
+        {route.page === pageKeys.blog && !route.slug && contentData.loaded && (
           <BlogPage
-            posts={blogPosts}
+            posts={contentData.blogPosts}
             getEntryHref={getBlogEntryHref}
             onInternalNavigate={handleInternalNavigate}
           />
         )}
+        {route.page === pageKeys.blog && !route.slug && !contentData.loaded && <LoadingPage />}
         {route.page === pageKeys.blog && route.slug && selectedBlogPost && (
           <EntryPage
             entry={selectedBlogPost}
@@ -161,13 +214,15 @@ function App() {
             onInternalNavigate={handleInternalNavigate}
           />
         )}
-        {route.page === pageKeys.recipes && !route.slug && (
+        {route.page === pageKeys.blog && route.slug && !selectedBlogPost && <LoadingPage />}
+        {route.page === pageKeys.recipes && !route.slug && contentData.loaded && (
           <RecipesPage
-            recipes={recipes}
+            recipes={contentData.recipes}
             getEntryHref={getRecipeEntryHref}
             onInternalNavigate={handleInternalNavigate}
           />
         )}
+        {route.page === pageKeys.recipes && !route.slug && !contentData.loaded && <LoadingPage />}
         {route.page === pageKeys.recipes && route.slug && selectedRecipe && (
           <EntryPage
             entry={selectedRecipe}
@@ -176,6 +231,7 @@ function App() {
             onInternalNavigate={handleInternalNavigate}
           />
         )}
+        {route.page === pageKeys.recipes && route.slug && !selectedRecipe && <LoadingPage />}
         {route.page === pageKeys.about && <AboutPage />}
       </main>
     </div>

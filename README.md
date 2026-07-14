@@ -20,17 +20,16 @@ npm run build
 ## Publishing
 - Vercel serves the current preview/build
 
-## Email signup → Google Sheets
-1. Create a Google Sheet.
-2. Create a Google Cloud service account with Google Sheets API enabled.
-3. Share the sheet with the service account email as an editor.
-4. Add these env vars in Vercel and locally in `.env.local`:
+## Email signup → Google Sheets via Google Apps Script
+1. Create a Google Sheet with a tab named `Signups`.
+2. In that sheet, open Extensions → Apps Script.
+3. Paste a small `doPost` handler that appends rows to the sheet.
+4. Deploy the script as a web app.
+5. Add these env vars in Vercel and locally in `.env.local`:
 
 ```bash
-GOOGLE_SHEETS_CLIENT_EMAIL=
-GOOGLE_SHEETS_PRIVATE_KEY=
-GOOGLE_SHEETS_SPREADSHEET_ID=
-GOOGLE_SHEETS_SHEET_NAME=Signups
+GOOGLE_APPS_SCRIPT_URL=
+GOOGLE_APPS_SCRIPT_SECRET=
 ```
 
-5. The homepage form posts to `/api/subscribe`, which appends each signup to the sheet.
+6. The homepage form posts to `/api/subscribe`, which forwards each signup to your Apps Script web app.

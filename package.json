@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "generate:discovery": "node scripts/generate-discovery-assets.mjs",
+    "prebuild": "npm run generate:discovery",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test"
   },
   "dependencies": {
     "d3-geo": "^3.1.1",

@@ -4,7 +4,7 @@ import { select } from 'd3-selection'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { feature } from 'topojson-client'
 import worldAtlas from 'world-atlas/countries-50m.json'
-import { homeBase, travelLog } from './adventuresData'
+import { homeBase, travelLog } from './adventuresData.js'
 
 const MAP_WIDTH = 960
 const MAP_HEIGHT = 360

@@ -157,7 +157,10 @@ function HomePage() {
       }
 
       setEmail('')
-      setSubmitState({ status: 'success', message: 'You’re in. I saved your email.' })
+      setSubmitState({
+        status: 'success',
+        message: result.duplicate ? 'You’re already on the list.' : 'You’re in. I saved your email.',
+      })
     } catch (error) {
       setSubmitState({
         status: 'error',

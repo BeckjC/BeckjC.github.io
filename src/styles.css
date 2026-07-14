@@ -307,10 +307,20 @@ button {
 .signup-row input {
   flex: 1;
   padding: 0 0.9rem;
+  color: var(--text);
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
 }
 
 .signup-row input::placeholder {
   color: #9aa4af;
+}
+
+.signup-row input:-webkit-autofill,
+.signup-row input:-webkit-autofill:hover,
+.signup-row input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  box-shadow: 0 0 0 1000px #f7fbff inset;
+  transition: background-color 9999s ease-out 0s;
 }
 
 .signup-row input:focus-visible {
@@ -355,11 +365,11 @@ button {
 }
 
 .signup-status-success {
-  color: #1f7a3d;
+  color: var(--accent-strong);
 }
 
 .signup-status-error {
-  color: #b42318;
+  color: #9c3d3d;
 }
 
 .signup-status-loading {

@@ -39,8 +39,12 @@ async function appendSignupRow({ email, source, userAgent, referrer }) {
   const result = await response.json().catch(() => ({}))
 
   if (!response.ok || result?.ok !== true) {
-    throw new Error(result?.error || 'Apps Script request failed.')
+    const error = new Error(result?.error || 'Apps Script request failed.')
+    error.code = result?.code || 'script_error'
+    throw error
   }
+
+  return result
 }
 
 export default async function handler(req, res) {
@@ -66,14 +70,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    await appendSignupRow({
+    const result = await appendSignupRow({
       email,
       source: body?.source || 'homepage',
       referrer: req.headers.referer || '',
       userAgent: req.headers['user-agent'] || '',
     })
 
-    return res.status(200).json({ ok: true })
+    return res.status(200).json({ ok: true, duplicate: result?.duplicate === true })
   } catch (error) {
     console.error('Newsletter signup failed:', error)
     return res.status(500).json({ error: 'Could not save your email right now.' })

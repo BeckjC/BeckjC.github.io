@@ -3,7 +3,8 @@ import { geoNaturalEarth1, geoPath } from 'd3-geo'
 import { select } from 'd3-selection'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { feature } from 'topojson-client'
-import worldAtlas from 'world-atlas/countries-50m.json'
+import worldAtlasUrl from 'world-atlas/countries-50m.json?url'
+
 import { homeBase, travelLog } from './adventuresData.js'
 
 const MAP_WIDTH = 960
@@ -14,10 +15,7 @@ const INITIAL_TRANSFORM = zoomIdentity
   .translate((MAP_WIDTH * (1 - MIN_SCALE)) / 2, (MAP_HEIGHT * (1 - MIN_SCALE)) / 2)
   .scale(MIN_SCALE)
 
-const worldFeatures = feature(worldAtlas, worldAtlas.objects.countries).features
-const worldFeatureCollection = { type: 'FeatureCollection', features: worldFeatures }
-
-function buildProjection() {
+function buildProjection(worldFeatureCollection) {
   return geoNaturalEarth1().fitExtent(
     [
       [2, -2],
@@ -55,62 +53,91 @@ function clampTransform(transform, bounds) {
 export default function AdventuresPage() {
   const [selectedTripId, setSelectedTripId] = useState(travelLog[0]?.id ?? null)
   const [transform, setTransform] = useState(INITIAL_TRANSFORM)
+  const [worldFeatureCollection, setWorldFeatureCollection] = useState(null)
   const svgRef = useRef(null)
 
-  const projection = useMemo(() => buildProjection(), [])
-  const pathGenerator = useMemo(() => geoPath(projection), [projection])
-  const worldBounds = useMemo(() => pathGenerator.bounds(worldFeatureCollection), [pathGenerator])
+  useEffect(() => {
+    let cancelled = false
+
+    fetch(worldAtlasUrl)
+      .then((response) => response.json())
+      .then((worldAtlas) => {
+        if (cancelled) return
+
+        const worldFeatures = feature(worldAtlas, worldAtlas.objects.countries).features
+        setWorldFeatureCollection({ type: 'FeatureCollection', features: worldFeatures })
+      })
+      .catch((error) => {
+        console.error('Could not load world atlas:', error)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const projection = useMemo(
+    () => (worldFeatureCollection ? buildProjection(worldFeatureCollection) : null),
+    [worldFeatureCollection],
+  )
+  const pathGenerator = useMemo(() => (projection ? geoPath(projection) : null), [projection])
+  const worldBounds = useMemo(
+    () => (pathGenerator && worldFeatureCollection ? pathGenerator.bounds(worldFeatureCollection) : null),
+    [pathGenerator, worldFeatureCollection],
+  )
   const selectedTrip = travelLog.find((trip) => trip.id === selectedTripId) ?? travelLog[0] ?? null
   const projectedHomeBase = useMemo(() => {
+    if (!projection) return null
+
     const point = projection(homeBase.coordinates)
     if (!point) return null
     return { ...homeBase, x: point[0], y: point[1] }
   }, [projection])
 
-  const projectedTrips = useMemo(
-    () =>
-      travelLog.map((trip) => {
-        const projectedStops = trip.stops
-          .map((stop) => {
-            const point = projection(stop.coordinates)
-            if (!point) return null
-            return { ...stop, x: point[0], y: point[1] }
-          })
-          .filter(Boolean)
+  const projectedTrips = useMemo(() => {
+    if (!projection) return []
 
-        const projectedRoutePoints = (trip.routePoints || trip.stops.map((stop) => stop.coordinates))
-          .map((coordinates) => {
-            const point = projection(coordinates)
-            if (!point) return null
-            return { x: point[0], y: point[1] }
-          })
-          .filter(Boolean)
+    return travelLog.map((trip) => {
+      const projectedStops = trip.stops
+        .map((stop) => {
+          const point = projection(stop.coordinates)
+          if (!point) return null
+          return { ...stop, x: point[0], y: point[1] }
+        })
+        .filter(Boolean)
 
-        const projectedLandmarks = (trip.landmarks || [])
-          .map((landmark) => {
-            const point = projection(landmark.coordinates)
-            if (!point) return null
-            return { ...landmark, x: point[0], y: point[1] }
-          })
-          .filter(Boolean)
+      const projectedRoutePoints = (trip.routePoints || trip.stops.map((stop) => stop.coordinates))
+        .map((coordinates) => {
+          const point = projection(coordinates)
+          if (!point) return null
+          return { x: point[0], y: point[1] }
+        })
+        .filter(Boolean)
 
-        return {
-          ...trip,
-          projectedStops,
-          projectedLandmarks,
-          linePath:
-            projectedRoutePoints.length > 1
-              ? projectedRoutePoints
-                  .map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`)
-                  .join(' ')
-              : '',
-        }
-      }),
-    [projection],
-  )
+      const projectedLandmarks = (trip.landmarks || [])
+        .map((landmark) => {
+          const point = projection(landmark.coordinates)
+          if (!point) return null
+          return { ...landmark, x: point[0], y: point[1] }
+        })
+        .filter(Boolean)
+
+      return {
+        ...trip,
+        projectedStops,
+        projectedLandmarks,
+        linePath:
+          projectedRoutePoints.length > 1
+            ? projectedRoutePoints
+                .map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`)
+                .join(' ')
+            : '',
+      }
+    })
+  }, [projection])
 
   useEffect(() => {
-    if (!svgRef.current) return
+    if (!svgRef.current || !worldBounds) return
 
     const selection = select(svgRef.current)
     const zoomBehavior = zoom()
@@ -171,103 +198,105 @@ export default function AdventuresPage() {
               aria-label="World map showing Beck's travel log"
             >
               <rect width={MAP_WIDTH} height={MAP_HEIGHT} fill="#f7fbff" rx="28" />
-              <g transform={transform.toString()}>
-                {worldFeatures.map((shape) => (
-                  <path key={shape.id} d={pathGenerator(shape)} className="map-country" />
-                ))}
+              {worldFeatureCollection ? (
+                <g transform={transform.toString()}>
+                  {worldFeatureCollection.features.map((shape) => (
+                    <path key={shape.id} d={pathGenerator(shape)} className="map-country" />
+                  ))}
 
-                {projectedTrips.map((trip) =>
-                  trip.linePath ? (
-                    <path
-                      key={`${trip.id}-line`}
-                      d={trip.linePath}
-                      className={selectedTrip?.id === trip.id ? 'trip-line trip-line-active' : 'trip-line'}
-                      style={{
-                        '--trip-color': trip.color,
-                        '--trip-line-width': `${(selectedTrip?.id === trip.id ? 1.45 : 1.15) / Math.max(transform.k ** 1.05, 1)}`,
-                      }}
-                    />
-                  ) : null,
-                )}
+                  {projectedTrips.map((trip) =>
+                    trip.linePath ? (
+                      <path
+                        key={`${trip.id}-line`}
+                        d={trip.linePath}
+                        className={selectedTrip?.id === trip.id ? 'trip-line trip-line-active' : 'trip-line'}
+                        style={{
+                          '--trip-color': trip.color,
+                          '--trip-line-width': `${(selectedTrip?.id === trip.id ? 1.45 : 1.15) / Math.max(transform.k ** 1.05, 1)}`,
+                        }}
+                      />
+                    ) : null,
+                  )}
 
-                {projectedTrips.flatMap((trip) =>
-                  trip.projectedStops.flatMap((stop) => {
-                    const scale = Math.max(transform.k, 1)
-                    const innerRadius = (selectedTrip?.id === trip.id ? 5.25 : 4.35) / scale
-                    const outerRadius = (selectedTrip?.id === trip.id ? 5.95 : 5.05) / scale
-
-                    return [
-                      <circle
-                        key={`${trip.id}-${stop.id}-ring`}
-                        cx={stop.x}
-                        cy={stop.y}
-                        r={outerRadius}
-                        className="trip-stop-ring"
-                      />,
-                      <circle
-                        key={`${trip.id}-${stop.id}`}
-                        cx={stop.x}
-                        cy={stop.y}
-                        r={innerRadius}
-                        className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
-                        style={{ '--trip-color': trip.color }}
-                      />,
-                    ]
-                  }),
-                )}
-
-                {projectedTrips.flatMap((trip) =>
-                  (trip.projectedLandmarks || []).flatMap((landmark) => {
-                    const scale = Math.max(transform.k, 1)
-                    const innerRadius = 6.2 / scale
-                    const outerRadius = 7.2 / scale
-
-                    return [
-                      <circle
-                        key={`${trip.id}-${landmark.id}-ring`}
-                        cx={landmark.x}
-                        cy={landmark.y}
-                        r={outerRadius}
-                        className="trip-stop-ring trip-stop-ring-landmark"
-                      />,
-                      <circle
-                        key={`${trip.id}-${landmark.id}`}
-                        cx={landmark.x}
-                        cy={landmark.y}
-                        r={innerRadius}
-                        className="trip-stop trip-stop-landmark"
-                        style={{ '--trip-color': '#e2a93b' }}
-                      />,
-                    ]
-                  }),
-                )}
-
-                {projectedHomeBase
-                  ? (() => {
+                  {projectedTrips.flatMap((trip) =>
+                    trip.projectedStops.flatMap((stop) => {
                       const scale = Math.max(transform.k, 1)
-                      const innerRadius = 6.8 / scale
-                      const outerRadius = 8.1 / scale
+                      const innerRadius = (selectedTrip?.id === trip.id ? 5.25 : 4.35) / scale
+                      const outerRadius = (selectedTrip?.id === trip.id ? 5.95 : 5.05) / scale
 
                       return [
                         <circle
-                          key="home-base-ring"
-                          cx={projectedHomeBase.x}
-                          cy={projectedHomeBase.y}
+                          key={`${trip.id}-${stop.id}-ring`}
+                          cx={stop.x}
+                          cy={stop.y}
                           r={outerRadius}
-                          className="trip-stop-ring trip-stop-ring-home"
+                          className="trip-stop-ring"
                         />,
                         <circle
-                          key="home-base-dot"
-                          cx={projectedHomeBase.x}
-                          cy={projectedHomeBase.y}
+                          key={`${trip.id}-${stop.id}`}
+                          cx={stop.x}
+                          cy={stop.y}
                           r={innerRadius}
-                          className="trip-stop trip-stop-home"
-                          style={{ '--trip-color': '#2d7c68' }}
+                          className={selectedTrip?.id === trip.id ? 'trip-stop trip-stop-active' : 'trip-stop'}
+                          style={{ '--trip-color': trip.color }}
                         />,
                       ]
-                    })()
-                  : null}
-              </g>
+                    }),
+                  )}
+
+                  {projectedTrips.flatMap((trip) =>
+                    (trip.projectedLandmarks || []).flatMap((landmark) => {
+                      const scale = Math.max(transform.k, 1)
+                      const innerRadius = 6.2 / scale
+                      const outerRadius = 7.2 / scale
+
+                      return [
+                        <circle
+                          key={`${trip.id}-${landmark.id}-ring`}
+                          cx={landmark.x}
+                          cy={landmark.y}
+                          r={outerRadius}
+                          className="trip-stop-ring trip-stop-ring-landmark"
+                        />,
+                        <circle
+                          key={`${trip.id}-${landmark.id}`}
+                          cx={landmark.x}
+                          cy={landmark.y}
+                          r={innerRadius}
+                          className="trip-stop trip-stop-landmark"
+                          style={{ '--trip-color': '#e2a93b' }}
+                        />,
+                      ]
+                    }),
+                  )}
+
+                  {projectedHomeBase
+                    ? (() => {
+                        const scale = Math.max(transform.k, 1)
+                        const innerRadius = 6.8 / scale
+                        const outerRadius = 8.1 / scale
+
+                        return [
+                          <circle
+                            key="home-base-ring"
+                            cx={projectedHomeBase.x}
+                            cy={projectedHomeBase.y}
+                            r={outerRadius}
+                            className="trip-stop-ring trip-stop-ring-home"
+                          />,
+                          <circle
+                            key="home-base-dot"
+                            cx={projectedHomeBase.x}
+                            cy={projectedHomeBase.y}
+                            r={innerRadius}
+                            className="trip-stop trip-stop-home"
+                            style={{ '--trip-color': '#2d7c68' }}
+                          />,
+                        ]
+                      })()
+                    : null}
+                </g>
+              ) : null}
             </svg>
           </div>
         </div>

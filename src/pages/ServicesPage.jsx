@@ -127,6 +127,16 @@ export default function ServicesPage() {
   return (
     <section className="section page-section services-shell">
       <section className="services-hero" aria-labelledby="sites-hero-title">
+        <div className="services-hero-marquee services-hero-marquee-full" aria-hidden="true">
+          <div className="services-hero-marquee-track">
+            {[...heroPills, ...heroPills].map((pill, index) => (
+              <span key={`${pill}-${index}`} className="services-hero-pill">
+                {pill}
+              </span>
+            ))}
+          </div>
+        </div>
+
         <div className="services-hero-layout">
           <div className="services-hero-copy">
             <p className="services-kicker">Sites</p>
@@ -152,32 +162,6 @@ export default function ServicesPage() {
 
             <div className="services-hero-actions">
               <a className="button button-accent" href="/sign-me-up">Sign me up!</a>
-            </div>
-          </div>
-
-          <div className="services-hero-motion" aria-hidden="true">
-            <div className="services-hero-motion-card">
-              <div className="services-hero-marquee">
-                <div className="services-hero-marquee-track">
-                  {[...heroPills, ...heroPills].map((pill, index) => (
-                    <span key={`${pill}-${index}`} className="services-hero-pill">
-                      {pill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="services-hero-note-stack">
-                <div className="services-hero-note services-hero-note-primary">cheap</div>
-                <div className="services-hero-note">clean</div>
-                <div className="services-hero-note">yours</div>
-              </div>
-
-              <div className="services-hero-orbit" aria-hidden="true">
-                <span>simple</span>
-                <span>fast</span>
-                <span>clear</span>
-              </div>
             </div>
           </div>
         </div>

@@ -546,15 +546,17 @@ button {
   grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.2fr);
   gap: 1.5rem;
   align-items: start;
+  position: relative;
   border-top: 1px solid var(--line);
   padding-top: 1rem;
 }
 
 .services-rail {
+  position: -webkit-sticky;
   position: sticky;
   top: 0.85rem;
   align-self: start;
-  height: fit-content;
+  display: block;
 }
 
 .services-step-nav {
@@ -910,6 +912,7 @@ button {
   }
 
   .services-rail {
+    position: -webkit-sticky;
     position: sticky;
     top: 0.65rem;
   }

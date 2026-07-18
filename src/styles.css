@@ -546,12 +546,15 @@ button {
   grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.2fr);
   gap: 1.5rem;
   align-items: start;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
 }
 
 .services-rail {
   position: sticky;
-  top: 5.75rem;
+  top: 0.85rem;
   align-self: start;
+  height: fit-content;
 }
 
 .services-step-nav {
@@ -564,6 +567,11 @@ button {
 .services-step-nav-item,
 .services-step-card {
   border-top: 1px solid var(--line);
+}
+
+.services-step-nav-item:first-child,
+.services-step-card:first-child {
+  border-top: 0;
 }
 
 .services-step-nav-item {
@@ -903,7 +911,7 @@ button {
 
   .services-rail {
     position: sticky;
-    top: 4.5rem;
+    top: 0.65rem;
   }
 
   .services-step-card {

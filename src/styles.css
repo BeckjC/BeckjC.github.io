@@ -499,6 +499,20 @@ button {
 .services-hero {
   display: grid;
   gap: 1rem;
+  min-height: calc(100svh - 140px);
+  align-items: center;
+}
+
+.services-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.services-hero-copy {
+  display: grid;
+  gap: 1rem;
 }
 
 .services-kicker {
@@ -514,10 +528,113 @@ button {
   margin-bottom: 0;
 }
 
-.services-cta-row {
-  display: flex;
-  flex-wrap: wrap;
+.services-hero-title {
+  margin: 0;
+  font-size: clamp(3.4rem, 10vw, 7.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+}
+
+.services-hero-lead,
+.services-hero-support {
+  margin: 0;
+}
+
+.services-hero-lead {
+  max-width: 14ch;
+  font-size: clamp(1.35rem, 2.3vw, 2rem);
+  line-height: 1.1;
+}
+
+.services-hero-support {
+  max-width: 38rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.services-hero-pricing {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.services-price-chip {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.services-price-chip p,
+.services-price-chip strong {
+  margin: 0;
+}
+
+.services-price-chip p {
+  color: var(--muted);
+}
+
+.services-price-chip strong {
+  font-size: 1.05rem;
+}
+
+.services-hero-motion {
+  min-height: 100%;
+}
+
+.services-hero-motion-card {
+  display: grid;
+  gap: 1rem;
+  align-content: center;
+  min-height: min(66svh, 620px);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(139, 188, 232, 0.1), rgba(255, 255, 255, 0.92) 35%, #ffffff 100%);
+  overflow: hidden;
+}
+
+.services-hero-marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 0.85rem 0;
+}
+
+.services-hero-marquee-track {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+  animation: services-marquee 22s linear infinite;
+}
+
+.services-hero-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0 0.8rem;
+  border: 1px solid rgba(94, 164, 223, 0.35);
+  background: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+}
+
+.services-hero-note-stack {
+  display: grid;
+  gap: 0.9rem;
+  justify-items: end;
+}
+
+.services-hero-note {
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  transform: translateX(0);
+  animation: hero-rise 700ms ease both;
+}
+
+.services-hero-note-primary {
+  color: var(--text);
 }
 
 .services-workflow {
@@ -610,13 +727,6 @@ button {
   font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.14em;
-}
-
-.services-step-label {
-  margin: 0 0 0.2rem;
-  font-size: 0.82rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
 }
 
 .services-step-title,
@@ -931,8 +1041,22 @@ button {
     gap: 1.5rem;
   }
 
+  .services-hero {
+    min-height: auto;
+  }
+
+  .services-hero-layout,
+  .services-hero-pricing,
   .services-workflow-columns {
     grid-template-columns: 1fr;
+  }
+
+  .services-hero-motion-card {
+    min-height: auto;
+  }
+
+  .services-workflow-columns {
+    gap: 1.25rem;
   }
 
   .services-rail-slot {
@@ -988,6 +1112,15 @@ button {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+@keyframes services-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 

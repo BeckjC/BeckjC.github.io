@@ -1,5 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 
+const heroPills = [
+  'simple static sites',
+  '$10 build',
+  '$10/mo maintenance',
+  'you own the files',
+  'free hosting path',
+  'good-lookin’ by default',
+]
+
+const heroPricing = [
+  { label: 'Build', value: '$10 one time' },
+  { label: 'Maintenance', value: '$10/mo if you want it' },
+  { label: 'Ownership', value: 'You host it. You keep it.' },
+]
+
 const steps = [
   {
     number: '01',
@@ -111,17 +126,52 @@ export default function ServicesPage() {
 
   return (
     <section className="section page-section services-shell">
-      <div className="services-hero">
-        <p className="services-kicker">Sites</p>
-        <div className="section-heading services-heading">
-          <h1>$10 Websites</h1>
-          <p>
-            Echo and I will build your simple site for a really good deal because I hate when people
-            overpay for web services, have ugly sites, or — worse — have no website at all. Every
-            person and business should have a good lookin’ site.
-          </p>
+      <section className="services-hero" aria-labelledby="sites-hero-title">
+        <div className="services-hero-layout">
+          <div className="services-hero-copy">
+            <p className="services-kicker">Sites</p>
+            <h1 id="sites-hero-title" className="services-hero-title">$10 Websites</h1>
+            <p className="services-hero-lead">
+              Good-lookin’ simple sites for people and small businesses that should already have a
+              real corner of the internet.
+            </p>
+            <p className="services-hero-support">
+              Echo and I will build your site for a really good deal because I hate when people
+              overpay for web services, have ugly sites, or — worse — have no website at all.
+              Every person and business should have a site that feels sharp, clear, and legit.
+            </p>
+
+            <div className="services-hero-pricing" aria-label="Offer details">
+              {heroPricing.map((item) => (
+                <article key={item.label} className="services-price-chip">
+                  <p>{item.label}</p>
+                  <strong>{item.value}</strong>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="services-hero-motion" aria-hidden="true">
+            <div className="services-hero-motion-card">
+              <div className="services-hero-marquee">
+                <div className="services-hero-marquee-track">
+                  {[...heroPills, ...heroPills].map((pill, index) => (
+                    <span key={`${pill}-${index}`} className="services-hero-pill">
+                      {pill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="services-hero-note-stack">
+                <div className="services-hero-note services-hero-note-primary">cheap</div>
+                <div className="services-hero-note">clean</div>
+                <div className="services-hero-note">yours</div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       <section className="services-workflow" aria-labelledby="services-how-it-works-title">
         <div className="services-workflow-heading">
@@ -143,10 +193,7 @@ export default function ServicesPage() {
                   return (
                     <li key={step.number} className={isActive ? 'services-step-nav-item is-active' : 'services-step-nav-item'}>
                       <span className="services-step-number">{step.number}</span>
-                      <div>
-                        <p className="services-step-label">Step {index + 1}</p>
-                        <p className="services-step-title">{step.title}</p>
-                      </div>
+                      <p className="services-step-title">{step.title}</p>
                     </li>
                   )
                 })}

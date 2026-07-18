@@ -540,19 +540,20 @@ button {
 
 .services-hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 760px) auto;
   grid-template-areas:
     'intro actions'
     'pricing pricing';
   gap: 1.25rem 1.5rem;
   align-items: end;
+  justify-content: space-between;
 }
 
 .services-hero-intro {
   grid-area: intro;
   display: grid;
   gap: 1rem;
-  max-width: 900px;
+  max-width: 760px;
 }
 
 .services-kicker {
@@ -614,6 +615,8 @@ button {
 }
 
 .services-workflow-cta {
+  display: flex;
+  justify-content: center;
   margin-top: 0.75rem;
 }
 

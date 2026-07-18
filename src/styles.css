@@ -520,18 +520,8 @@ button {
   gap: 0.85rem;
 }
 
-.services-grid,
-.services-detail-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-.services-grid {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-.services-detail-grid {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+.services-how-it-works {
+  max-width: 760px;
 }
 
 .services-card,

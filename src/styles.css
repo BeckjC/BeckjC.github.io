@@ -520,39 +520,113 @@ button {
   gap: 0.85rem;
 }
 
-.services-how-it-works {
-  max-width: 760px;
+.services-workflow {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.2fr);
+  gap: 1.5rem;
+  align-items: start;
 }
 
-.services-card,
-.services-panel {
+.services-rail {
+  position: sticky;
+  top: 6rem;
   display: grid;
-  gap: 0.85rem;
-  padding: 1.25rem;
+  gap: 1rem;
+}
+
+.services-rail h2,
+.services-step-card h3 {
+  margin: 0;
+  line-height: 1.05;
+}
+
+.services-rail h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+}
+
+.services-step-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.services-step-nav-item,
+.services-step-card {
   border: 1px solid var(--line);
   background: #fbfdff;
 }
 
-.services-card h2,
-.services-panel h2 {
-  margin: 0;
-  font-size: 1.2rem;
-  line-height: 1.2;
+.services-step-nav-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  padding: 1rem;
+  color: var(--muted);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease, color 180ms ease;
 }
 
-.services-card p,
-.services-panel li {
+.services-step-nav-item.is-active,
+.services-step-card.is-active {
+  border-color: var(--accent-strong);
+  box-shadow: 0 18px 40px rgba(94, 164, 223, 0.12);
+  background: linear-gradient(180deg, rgba(139, 188, 232, 0.12), #fbfdff 55%);
+}
+
+.services-step-number,
+.services-step-card-number {
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.services-step-label {
+  margin: 0 0 0.2rem;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.services-step-title,
+.services-step-card p {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
 }
 
-.services-panel ul,
-.services-panel ol {
-  margin: 0;
-  padding-left: 1.25rem;
+.services-step-nav-item.is-active .services-step-title,
+.services-step-nav-item.is-active .services-step-label,
+.services-step-card.is-active h3 {
+  color: var(--text);
+}
+
+.services-scroll-list {
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
+}
+
+.services-step-card {
+  min-height: 62svh;
+  display: grid;
+  align-content: center;
+  gap: 0.9rem;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  transform: translateY(0);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+.services-step-card.is-active {
+  transform: translateY(-4px);
+}
+
+.services-step-card h3 {
+  font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+}
+
+.services-step-card p {
+  max-width: 34rem;
 }
 
 .adventures-layout {
@@ -817,6 +891,18 @@ button {
   .home-intro {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .services-workflow {
+    grid-template-columns: 1fr;
+  }
+
+  .services-rail {
+    position: static;
+  }
+
+  .services-step-card {
+    min-height: auto;
   }
 
   .signup-row {

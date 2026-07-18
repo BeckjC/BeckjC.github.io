@@ -526,7 +526,8 @@ button {
 }
 
 .services-workflow-heading,
-.services-step-card {
+.services-step-card,
+.services-step-card-copy {
   display: grid;
   gap: 0.9rem;
 }
@@ -551,12 +552,25 @@ button {
   padding-top: 1rem;
 }
 
+.services-rail-slot {
+  position: relative;
+  align-self: stretch;
+}
+
 .services-rail {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0.85rem;
-  align-self: start;
   display: block;
+}
+
+.services-rail-fixed {
+  position: fixed;
+  z-index: 2;
+}
+
+.services-rail-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .services-step-nav {
@@ -625,7 +639,7 @@ button {
 .services-step-card {
   min-height: 62svh;
   align-content: center;
-  padding: clamp(1.2rem, 3vw, 2.2rem) 0;
+  padding: 1rem 0;
   background: transparent;
   transform: translateY(0);
   transition: transform 220ms ease, opacity 220ms ease;
@@ -637,6 +651,11 @@ button {
 
 .services-step-card h3 {
   font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+}
+
+.services-step-card-copy {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
 }
 
 .services-step-card p {
@@ -911,10 +930,16 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .services-rail {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0.65rem;
+  .services-rail-slot {
+    position: static;
+  }
+
+  .services-rail,
+  .services-rail-fixed,
+  .services-rail-bottom {
+    position: static;
+    inset: auto;
+    width: auto !important;
   }
 
   .services-step-card {

@@ -25,7 +25,12 @@ const steps = [
 
 export default function ServicesPage() {
   const [activeStep, setActiveStep] = useState(0)
+  const [railMode, setRailMode] = useState('static')
+  const [railStyle, setRailStyle] = useState({})
   const stepRefs = useRef([])
+  const columnsRef = useRef(null)
+  const railSlotRef = useRef(null)
+  const railRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,6 +56,59 @@ export default function ServicesPage() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    const updateRailPosition = () => {
+      const columns = columnsRef.current
+      const railSlot = railSlotRef.current
+      const rail = railRef.current
+
+      if (!columns || !railSlot || !rail) return
+
+      if (window.innerWidth <= 720) {
+        setRailMode('static')
+        setRailStyle({})
+        return
+      }
+
+      const offset = 14
+      const columnsRect = columns.getBoundingClientRect()
+      const slotRect = railSlot.getBoundingClientRect()
+      const railHeight = rail.offsetHeight
+      const columnsTop = window.scrollY + columnsRect.top
+      const columnsBottom = columnsTop + columns.offsetHeight
+      const start = columnsTop - offset
+      const end = columnsBottom - railHeight - offset
+
+      if (window.scrollY <= start) {
+        setRailMode('static')
+        setRailStyle({})
+        return
+      }
+
+      if (window.scrollY >= end) {
+        setRailMode('bottom')
+        setRailStyle({})
+        return
+      }
+
+      setRailMode('fixed')
+      setRailStyle({
+        top: `${offset}px`,
+        left: `${slotRect.left}px`,
+        width: `${slotRect.width}px`,
+      })
+    }
+
+    updateRailPosition()
+    window.addEventListener('scroll', updateRailPosition, { passive: true })
+    window.addEventListener('resize', updateRailPosition)
+
+    return () => {
+      window.removeEventListener('scroll', updateRailPosition)
+      window.removeEventListener('resize', updateRailPosition)
+    }
+  }, [])
+
   return (
     <section className="section page-section services-shell">
       <div className="services-hero">
@@ -71,23 +129,29 @@ export default function ServicesPage() {
           <h2 id="services-how-it-works-title">A tiny deal, start to finish.</h2>
         </div>
 
-        <div className="services-workflow-columns">
-          <div className="services-rail">
-            <ol className="services-step-nav">
-              {steps.map((step, index) => {
-                const isActive = index === activeStep
+        <div ref={columnsRef} className="services-workflow-columns">
+          <div ref={railSlotRef} className="services-rail-slot">
+            <div
+              ref={railRef}
+              className={`services-rail services-rail-${railMode}`}
+              style={railStyle}
+            >
+              <ol className="services-step-nav">
+                {steps.map((step, index) => {
+                  const isActive = index === activeStep
 
-                return (
-                  <li key={step.number} className={isActive ? 'services-step-nav-item is-active' : 'services-step-nav-item'}>
-                    <span className="services-step-number">{step.number}</span>
-                    <div>
-                      <p className="services-step-label">Step {index + 1}</p>
-                      <p className="services-step-title">{step.title}</p>
-                    </div>
-                  </li>
-                )
-              })}
-            </ol>
+                  return (
+                    <li key={step.number} className={isActive ? 'services-step-nav-item is-active' : 'services-step-nav-item'}>
+                      <span className="services-step-number">{step.number}</span>
+                      <div>
+                        <p className="services-step-label">Step {index + 1}</p>
+                        <p className="services-step-title">{step.title}</p>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ol>
+            </div>
           </div>
 
           <div className="services-scroll-list">
@@ -103,9 +167,13 @@ export default function ServicesPage() {
                   data-step-index={index}
                   className={isActive ? 'services-step-card is-active' : 'services-step-card'}
                 >
-                  <p className="services-step-card-number">{step.number}</p>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
+                  <div className="services-step-card-copy">
+                    <span className="services-step-card-number">{step.number}</span>
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.body}</p>
+                    </div>
+                  </div>
                 </article>
               )
             })}

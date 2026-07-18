@@ -138,7 +138,7 @@ export default function ServicesPage() {
         </div>
 
         <div className="services-hero-layout">
-          <div className="services-hero-copy">
+          <div className="services-hero-intro">
             <p className="services-kicker">Sites</p>
             <h1 id="sites-hero-title" className="services-hero-title">$10 Websites</h1>
             <p className="services-hero-lead">
@@ -150,19 +150,19 @@ export default function ServicesPage() {
               overpay for web services, have ugly sites, or — worse — have no website at all.
               Every person and business should have a site that feels sharp, clear, and legit.
             </p>
+          </div>
 
-            <div className="services-hero-pricing" aria-label="Offer details">
-              {heroPricing.map((item) => (
-                <article key={item.label} className="services-price-chip">
-                  <p>{item.label}</p>
-                  <strong>{item.value}</strong>
-                </article>
-              ))}
-            </div>
+          <div className="services-hero-actions">
+            <a className="button button-accent" href="/sign-me-up">Sign me up!</a>
+          </div>
 
-            <div className="services-hero-actions">
-              <a className="button button-accent" href="/sign-me-up">Sign me up!</a>
-            </div>
+          <div className="services-hero-pricing" aria-label="Offer details">
+            {heroPricing.map((item) => (
+              <article key={item.label} className="services-price-chip">
+                <p>{item.label}</p>
+                <strong>{item.value}</strong>
+              </article>
+            ))}
           </div>
         </div>
       </section>

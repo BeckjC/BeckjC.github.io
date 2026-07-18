@@ -540,12 +540,16 @@ button {
 
 .services-hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 1.25rem;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'intro actions'
+    'pricing pricing';
+  gap: 1.25rem 1.5rem;
+  align-items: end;
 }
 
-.services-hero-copy {
+.services-hero-intro {
+  grid-area: intro;
   display: grid;
   gap: 1rem;
   max-width: 900px;
@@ -595,7 +599,20 @@ button {
   margin-top: 0.5rem;
 }
 
-.services-hero-actions,
+.services-hero-actions {
+  grid-area: actions;
+  align-self: center;
+  justify-self: start;
+}
+
+.services-hero-actions .button {
+  white-space: nowrap;
+}
+
+.services-hero-pricing {
+  grid-area: pricing;
+}
+
 .services-workflow-cta {
   margin-top: 0.75rem;
 }
@@ -706,7 +723,7 @@ button {
 
 .services-workflow-columns {
   display: grid;
-  grid-template-columns: minmax(210px, 0.68fr) minmax(0, 1.32fr);
+  grid-template-columns: 240px minmax(0, 1fr);
   gap: 1.5rem;
   align-items: start;
   position: relative;
@@ -753,12 +770,23 @@ button {
 }
 
 .services-step-nav-item {
+  position: relative;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 0.9rem;
-  padding: 1rem 0;
+  padding: 1rem 0 1rem 1rem;
   color: var(--muted);
-  transition: padding-left 180ms ease, color 180ms ease;
+  transition: color 180ms ease;
+}
+
+.services-step-nav-item::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  left: 0;
+  width: 2px;
+  background: transparent;
 }
 
 .services-step-number,
@@ -776,12 +804,11 @@ button {
   line-height: 1.7;
 }
 
-.services-step-nav-item.is-active {
-  padding-left: 0.45rem;
+.services-step-nav-item.is-active::before {
+  background: var(--accent-strong);
 }
 
 .services-step-nav-item.is-active .services-step-title,
-.services-step-nav-item.is-active .services-step-label,
 .services-step-card.is-active h3 {
   color: var(--text);
 }
@@ -1093,10 +1120,14 @@ button {
   }
 
   .services-hero-layout {
+    grid-template-areas:
+      'intro'
+      'pricing'
+      'actions';
     gap: 0.9rem;
   }
 
-  .services-hero-copy {
+  .services-hero-intro {
     gap: 0.72rem;
   }
 

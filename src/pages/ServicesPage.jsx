@@ -218,11 +218,11 @@ export default function ServicesPage() {
                 </article>
               )
             })}
-
-            <div className="services-workflow-cta">
-              <a className="button button-accent" href="/sign-me-up">Okay, make me look legit</a>
-            </div>
           </div>
+        </div>
+
+        <div className="services-workflow-cta">
+          <a className="button button-accent" href="/sign-me-up">Okay, make me look legit</a>
         </div>
       </section>
     </section>

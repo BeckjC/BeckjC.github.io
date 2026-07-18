@@ -540,20 +540,21 @@ button {
 
 .services-hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 760px) auto;
+  width: 100%;
+  max-width: 1040px;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
   grid-template-areas:
     'intro actions'
     'pricing pricing';
-  gap: 1.25rem 1.5rem;
-  align-items: end;
-  justify-content: space-between;
+  gap: 1.25rem 1.75rem;
+  align-items: center;
 }
 
 .services-hero-intro {
   grid-area: intro;
   display: grid;
   gap: 1rem;
-  max-width: 760px;
+  min-width: 0;
 }
 
 .services-kicker {
@@ -602,11 +603,15 @@ button {
 
 .services-hero-actions {
   grid-area: actions;
+  width: 100%;
+  max-width: 220px;
   align-self: center;
-  justify-self: start;
+  justify-self: end;
 }
 
 .services-hero-actions .button {
+  width: 100%;
+  text-align: center;
   white-space: nowrap;
 }
 
@@ -1123,6 +1128,8 @@ button {
   }
 
   .services-hero-layout {
+    max-width: none;
+    grid-template-columns: 1fr;
     grid-template-areas:
       'intro'
       'pricing'
@@ -1177,6 +1184,11 @@ button {
   .services-hero-actions,
   .services-workflow-cta {
     margin-top: 0.35rem;
+  }
+
+  .services-hero-actions {
+    max-width: none;
+    justify-self: stretch;
   }
 
   .services-hero-actions .button,

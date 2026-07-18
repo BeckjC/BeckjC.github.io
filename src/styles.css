@@ -544,7 +544,7 @@ button {
 
 .services-workflow-columns {
   display: grid;
-  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(210px, 0.68fr) minmax(0, 1.32fr);
   gap: 1.5rem;
   align-items: start;
   position: relative;
@@ -558,7 +558,18 @@ button {
 }
 
 .services-rail {
+  position: relative;
   display: block;
+}
+
+.services-rail::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -0.75rem;
+  width: 1px;
+  height: 100%;
+  background: var(--line);
 }
 
 .services-rail-fixed {
@@ -578,14 +589,13 @@ button {
   padding: 0;
   list-style: none;
   display: grid;
+  gap: 0.4rem;
 }
 
-.services-step-nav-item,
 .services-step-card {
   border-top: 1px solid var(--line);
 }
 
-.services-step-nav-item:first-child,
 .services-step-card:first-child {
   border-top: 0;
 }
@@ -932,6 +942,10 @@ button {
 
   .services-rail-slot {
     position: static;
+  }
+
+  .services-rail::after {
+    display: none;
   }
 
   .services-rail,

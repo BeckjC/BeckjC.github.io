@@ -6,8 +6,8 @@
     "timestamp": "2026-07-09",
     "source": "2026-07-09 personal-site session + project repo state",
     "status": "active",
-    "lastAccessed": "2026-07-12T23:00:00-07:00",
-    "accessCount": 2
+    "lastAccessed": "2026-07-15T23:00:00-07:00",
+    "accessCount": 4
   },
   {
     "id": "beck-personal-site-002",
@@ -16,8 +16,8 @@
     "timestamp": "2026-07-09",
     "source": "2026-07-09 personal-site session",
     "status": "active",
-    "lastAccessed": "2026-07-12T23:00:00-07:00",
-    "accessCount": 2
+    "lastAccessed": "2026-07-14T23:00:00-07:00",
+    "accessCount": 3
   },
   {
     "id": "beck-personal-site-003",
@@ -31,7 +31,7 @@
   },
   {
     "id": "beck-personal-site-004",
-    "fact": "The new personal site should include Who I Am, Nan’s Recipes, Contact, LinkedIn, YouTube, and Blog, with Blog, Nan’s Recipes, and Contact living inside the new site; X and Occupy Greenland should be removed.",
+    "fact": "The new personal site should include Who I Am, Nan\u2019s Recipes, Contact, LinkedIn, YouTube, and Blog, with Blog, Nan\u2019s Recipes, and Contact living inside the new site; X and Occupy Greenland should be removed.",
     "category": "content-decision",
     "timestamp": "2026-07-09",
     "source": "2026-07-09 personal-site session",
@@ -42,12 +42,14 @@
   },
   {
     "id": "beck-personal-site-005",
-    "fact": "On July 12, 2026, Beck changed the page plan so the site should keep Blog, Nan’s Recipes, About/Who I Am, YouTube, and LinkedIn in the new site, while the old Contact-page idea is replaced by an About Me / links-style page; X and Occupy Greenland should still be removed.",
+    "fact": "On July 12, 2026, Beck changed the page plan so the site should keep Blog, Nan\u2019s Recipes, About/Who I Am, YouTube, and LinkedIn in the new site, while the old Contact-page idea is replaced by an About Me / links-style page; X and Occupy Greenland should still be removed.",
     "category": "content-decision",
     "timestamp": "2026-07-12",
     "source": "2026-07-12 personal-site session",
     "status": "active",
-    "relatedEntities": ["beckcherry.com"],
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
     "lastAccessed": "2026-07-12T23:00:00-07:00",
     "accessCount": 1
   },
@@ -58,7 +60,9 @@
     "timestamp": "2026-07-12",
     "source": "2026-07-12 personal-site session",
     "status": "active",
-    "relatedEntities": ["beckcherry.com"],
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
     "lastAccessed": "2026-07-12T23:00:00-07:00",
     "accessCount": 1
   },
@@ -79,8 +83,8 @@
     "timestamp": "2026-07-12",
     "source": "2026-07-12 personal-site session",
     "status": "active",
-    "lastAccessed": "2026-07-12T23:00:00-07:00",
-    "accessCount": 1
+    "lastAccessed": "2026-07-15T23:00:00-07:00",
+    "accessCount": 2
   },
   {
     "id": "beck-personal-site-009",
@@ -89,7 +93,80 @@
     "timestamp": "2026-07-13",
     "source": "2026-07-13 personal-site session",
     "status": "active",
-    "lastAccessed": "2026-07-13T11:39:00-07:00",
+    "lastAccessed": "2026-07-15T23:00:00-07:00",
+    "accessCount": 3
+  },
+  {
+    "id": "beck-personal-site-010",
+    "fact": "On July 14, 2026, beckcherry.com finished its custom-domain cutover and now resolves to the Vercel deployment of the React personal site.",
+    "category": "status",
+    "timestamp": "2026-07-14",
+    "source": "2026-07-14 personal-site domain cutover session",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com",
+      "vercel",
+      "squarespace"
+    ],
+    "lastAccessed": "2026-07-15T23:00:00-07:00",
+    "accessCount": 2
+  },
+  {
+    "id": "beck-personal-site-011",
+    "fact": "On July 14, 2026, Beck chose MailerLite as the simplest reliable reusable newsletter-sending tool; Google Sheets + Apps Script can remain the lightweight signup-capture path.",
+    "category": "tooling-decision",
+    "timestamp": "2026-07-14",
+    "source": "2026-07-14 personal-site project thread",
+    "status": "superseded",
+    "relatedEntities": [
+      "MailerLite",
+      "Google Apps Script",
+      "Google Sheets"
+    ],
+    "lastAccessed": "2026-07-15T23:00:00-07:00",
+    "accessCount": 2,
+    "supersededBy": "beck-personal-site-013"
+  },
+  {
+    "id": "beck-personal-site-012",
+    "fact": "On July 14, 2026, the personal site cleanup/performance pass reduced the initial app JavaScript from about 1.07 MB to about 15.8 KB by splitting content data, lazy-loading the Adventures page, and moving atlas data out of the main bundle before redeploying to beckcherry.com.",
+    "category": "status",
+    "timestamp": "2026-07-14",
+    "source": "2026-07-14 personal-site cleanup + JS bundle optimization session",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-15T23:00:00-07:00",
+    "accessCount": 2
+  },
+  {
+    "id": "beck-personal-site-013",
+    "fact": "On July 15, 2026, Beck kept the existing signup-capture flow in place for now and moved the preferred outbound newsletter path to Resend on a sending subdomain, with own-branding only, no mailbox requirement, and a no-reply sender.",
+    "category": "tooling-decision",
+    "timestamp": "2026-07-15",
+    "source": "2026-07-15 personal-site newsletter thread",
+    "status": "active",
+    "relatedEntities": [
+      "Resend",
+      "Google Apps Script",
+      "Google Sheets",
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-15T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-014",
+    "fact": "On July 15, 2026, Beck required newsletter emails for the personal site to use only his own branding and to be maintained as a repo-owned template rather than relying on third-party branding.",
+    "category": "branding-decision",
+    "timestamp": "2026-07-15",
+    "source": "2026-07-15 personal-site newsletter thread",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-15T23:00:00-07:00",
     "accessCount": 1
   }
 ]

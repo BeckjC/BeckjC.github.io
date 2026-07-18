@@ -1,10 +1,9 @@
 # TASKS
 
-- [x] Create the React site scaffold and migration plan
-- [x] Extract current Squarespace content worth keeping
-- [x] Design the new visual direction for the homepage and core pages
-- [x] Set up GitHub Pages preview repo so Beck can review the site in-browser during the build
-- [x] Set up deployment target for the preview build on GitHub Pages
-- [ ] Point `beckcherry.com` at the approved GitHub Pages site when the replacement is ready
-- [ ] Migrate or replace Squarespace-only pages (blog, recipes, contact)
-- [ ] Cut over the domain from Squarespace after the replacement is approved
+- [x] Rebuild the personal site as a React + Vite app in this repo
+- [x] Standardize deployment around Vercel and `dist/`
+- [x] Preserve core sections: Home, Adventures, Blog, Recipes, About
+- [x] Add route metadata plus crawl/discovery files
+- [ ] Create a reusable branded newsletter template
+- [ ] Choose and wire a simple sending workflow for the email list
+- [ ] Document the newsletter send checklist in the repo once the tool choice is approved

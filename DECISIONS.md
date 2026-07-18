@@ -1,21 +1,25 @@
 # DECISIONS
 
 ## 2026-07-09 — Rebuild personal site in React
-- Decision: The personal site will be rebuilt and maintained by ECHO in React.
-- Why: Beck wants to replace the Squarespace site builder with a code-owned site that we can evolve directly.
+- Decision: The personal site will be rebuilt and maintained as a React app in this repo.
+- Why: Beck wants a code-owned site we can evolve directly.
 
 ## 2026-07-09 — Keep `beckcherry.com` as the production domain
 - Decision: The rebuilt site should continue using `beckcherry.com`.
 - Why: Existing brand/domain continuity matters more than changing URLs.
 
 ## 2026-07-09 — Avoid ongoing site-builder fees
-- Decision: Hosting should not require paying for a separate visual site-builder subscription.
-- Why: Goal is cheap, simple hosting with full code control.
+- Decision: Hosting should stay cheap and simple without a paid site-builder dependency.
+- Why: The goal is full control with minimal recurring cost.
 
-## 2026-07-12 — Use GitHub Pages for preview and final hosting path
-- Decision: The site will preview on GitHub Pages at `https://beckjc.github.io/`, with the custom domain added later after approval.
-- Why: It gives Beck a browser-viewable URL during the build and preserves a simple path to the final custom domain.
+## 2026-07-12 — Reuse live-site copy and structure selectively
+- Decision: Reuse content from the live site where it still serves the project, while dropping sections Beck has already rejected.
+- Why: The rebuild should stay grounded in real source material instead of invented copy.
 
-## 2026-07-12 — Reuse live-site copy and match live-site structure
-- Decision: The rebuild should reuse copy from `beckcherry.com` only and should mirror the current live-site structure, minus the pages Beck has already rejected.
-- Why: Beck wants the rebuild grounded in the existing site, not fresh invented copy.
+## 2026-07-14 — Standardize around Vercel + Vite dist output
+- Decision: The deploy target is Vercel, with standard Vite `dist/` output and SPA rewrites for canonical paths.
+- Why: This matches the current app architecture and removes stale GitHub Pages assumptions.
+
+## 2026-07-14 — Keep email signup lightweight
+- Decision: Email signup should stay simple and inexpensive, with the current implementation forwarding to Google Apps Script / Google Sheets.
+- Why: Beck prefers a reliable, self-owned, low-overhead path over extra platform complexity.

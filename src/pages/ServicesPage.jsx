@@ -66,45 +66,50 @@ export default function ServicesPage() {
       </div>
 
       <section className="services-workflow" aria-labelledby="services-how-it-works-title">
-        <div className="services-rail">
+        <div className="services-workflow-heading">
           <p className="services-kicker">How it works</p>
           <h2 id="services-how-it-works-title">A tiny deal, start to finish.</h2>
-          <ol className="services-step-nav">
+        </div>
+
+        <div className="services-workflow-columns">
+          <div className="services-rail">
+            <ol className="services-step-nav">
+              {steps.map((step, index) => {
+                const isActive = index === activeStep
+
+                return (
+                  <li key={step.number} className={isActive ? 'services-step-nav-item is-active' : 'services-step-nav-item'}>
+                    <span className="services-step-number">{step.number}</span>
+                    <div>
+                      <p className="services-step-label">Step {index + 1}</p>
+                      <p className="services-step-title">{step.title}</p>
+                    </div>
+                  </li>
+                )
+              })}
+            </ol>
+          </div>
+
+          <div className="services-scroll-list">
             {steps.map((step, index) => {
               const isActive = index === activeStep
 
               return (
-                <li key={step.number} className={isActive ? 'services-step-nav-item is-active' : 'services-step-nav-item'}>
-                  <span className="services-step-number">{step.number}</span>
-                  <div>
-                    <p className="services-step-label">Step {index + 1}</p>
-                    <p className="services-step-title">{step.title}</p>
-                  </div>
-                </li>
+                <article
+                  key={step.number}
+                  ref={(node) => {
+                    stepRefs.current[index] = node
+                  }}
+                  data-step-index={index}
+                  className={isActive ? 'services-step-card is-active' : 'services-step-card'}
+                >
+                  <p className="services-step-card-number">{step.number}</p>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </article>
               )
             })}
-          </ol>
-        </div>
-
-        <div className="services-scroll-list">
-          {steps.map((step, index) => {
-            const isActive = index === activeStep
-
-            return (
-              <article
-                key={step.number}
-                ref={(node) => {
-                  stepRefs.current[index] = node
-                }}
-                data-step-index={index}
-                className={isActive ? 'services-step-card is-active' : 'services-step-card'}
-              >
-                <p className="services-step-card-number">{step.number}</p>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </article>
-            )
-          })}
+          </div>
         </div>
       </section>
     </section>

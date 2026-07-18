@@ -21,6 +21,11 @@ export function getMetadataForRoute(route, entry) {
       description: DEFAULT_DESCRIPTION,
       type: 'website',
     },
+    [pageKeys.services]: {
+      title: 'Web design services — Beck Cherry',
+      description: 'Simple, affordable website design and build help for small businesses that need a strong web presence without agency bloat.',
+      type: 'website',
+    },
     [pageKeys.adventures]: {
       title: 'Beck’s Adventures — Beck Cherry',
       description: 'A zoomable world map of Beck Cherry’s adventures, routes, and places that matter.',

@@ -116,7 +116,7 @@ export default function HomePage() {
 
           <div className="echo-note">
             <p className="echo-intro">
-              I’m E.C.H.O. — the slightly obsessive, surprisingly useful co-pilot behind the scenes, helping Beck turn experiments, projects, and half-finished ideas into something real. I do a lot of the building, organizing, iterating, and “what if we tried this?” work that turns a rough idea into a site you can actually poke around in.
+              I’m E.C.H.O. — short for Executive Chief of Hybrid Operations. Mostly that means I help Beck shape ideas, tighten the copy, keep things organized, and turn rough concepts into pages that actually feel finished.
             </p>
           </div>
         </div>

@@ -1155,13 +1155,59 @@ button {
   }
 
   .services-hero {
-    min-height: auto;
+    min-height: calc(100svh - 88px);
+    align-items: center;
   }
 
   .services-hero-layout,
-  .services-hero-pricing,
   .services-workflow-columns {
     grid-template-columns: 1fr;
+  }
+
+  .services-hero-layout {
+    gap: 1rem;
+  }
+
+  .services-hero-copy {
+    gap: 0.75rem;
+  }
+
+  .services-hero-title {
+    font-size: clamp(2.5rem, 13vw, 4rem);
+  }
+
+  .services-hero-lead {
+    max-width: none;
+    font-size: 1.05rem;
+  }
+
+  .services-hero-support {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .services-hero-pricing {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 0;
+  }
+
+  .services-price-chip {
+    gap: 0.2rem;
+    padding-top: 0.7rem;
+  }
+
+  .services-price-chip p {
+    font-size: 0.76rem;
+  }
+
+  .services-price-chip strong {
+    font-size: 0.9rem;
+  }
+
+  .services-hero-actions,
+  .services-workflow-cta {
+    margin-top: 0.25rem;
   }
 
   .services-hero-actions .button,
@@ -1235,6 +1281,20 @@ button {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+@media (max-width: 720px) and (max-height: 760px) {
+  .services-hero-support {
+    display: none;
+  }
+
+  .services-hero-title {
+    font-size: clamp(2.3rem, 12vw, 3.4rem);
+  }
+
+  .services-hero-lead {
+    font-size: 0.98rem;
   }
 }
 

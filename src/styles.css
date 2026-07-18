@@ -532,6 +532,11 @@ button {
   gap: 0.9rem;
 }
 
+.services-workflow-heading {
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+}
+
 .services-workflow-heading h2,
 .services-step-card h3 {
   margin: 0;
@@ -548,8 +553,6 @@ button {
   gap: 1.5rem;
   align-items: start;
   position: relative;
-  border-top: 1px solid var(--line);
-  padding-top: 1rem;
 }
 
 .services-rail-slot {
@@ -590,14 +593,6 @@ button {
   list-style: none;
   display: grid;
   gap: 0.4rem;
-}
-
-.services-step-card {
-  border-top: 1px solid var(--line);
-}
-
-.services-step-card:first-child {
-  border-top: 0;
 }
 
 .services-step-nav-item {
@@ -643,7 +638,7 @@ button {
 
 .services-scroll-list {
   display: grid;
-  gap: 0;
+  gap: 1.5rem;
 }
 
 .services-step-card {

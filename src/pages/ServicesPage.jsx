@@ -70,7 +70,7 @@ export default function ServicesPage() {
         return
       }
 
-      const offset = 32
+      const offset = Math.max(32, Math.round(window.innerHeight * 0.24))
       const columnsRect = columns.getBoundingClientRect()
       const slotRect = railSlot.getBoundingClientRect()
       const railHeight = rail.offsetHeight

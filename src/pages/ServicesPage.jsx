@@ -2,42 +2,42 @@ import { LINKEDIN_URL } from '../siteConfig.js'
 
 const offerings = [
   {
-    title: 'Simple sites that look legit',
-    body: 'Clean, fast brochure-style websites for solo operators, local businesses, and people who need a real web presence without a giant process.',
+    title: 'Simple and good lookin’',
+    body: 'Clean, fast sites for people, projects, and small businesses that just need something solid online.',
   },
   {
     title: 'Built by Beck + E.C.H.O.',
-    body: 'You get Beck’s taste, direction, and stubbornness about quality, plus E.C.H.O. handling much of the design/build work so the price stays sane.',
+    body: 'You get Beck’s taste and direction, with me doing a lot of the design/build work so the price stays tiny.',
   },
   {
-    title: 'No bloated agency package',
-    body: 'This is for straightforward sites, not enterprise nonsense. The point is to help good small businesses stop overpaying, shipping ugly sites, or having no site at all.',
+    title: 'No bloated package',
+    body: 'This is for straightforward sites that should exist already — not giant retainers, fake complexity, or agency theater.',
   },
 ]
 
 const process = [
-  'You send the basics: what you do, what you want people to feel, and a few examples you like.',
-  'We turn that into a sharp single-page or small multi-page site with strong mobile design and clear copy.',
-  'You review, we tighten it up, and we launch something you’re actually proud to send people to.',
+  'You send the basics and a couple examples you like.',
+  'We turn that into a sharp one-page or small multi-page site.',
+  'You review it, we tighten it up, and we launch it.',
 ]
 
 export default function ServicesPage() {
   return (
     <section className="section page-section services-shell">
       <div className="services-hero">
-        <p className="services-kicker">Web design services</p>
+        <p className="services-kicker">Sites</p>
         <div className="section-heading services-heading">
-          <h1>Good websites for small businesses that should not be getting ripped off.</h1>
+          <h1>$10 Websites</h1>
           <p>
-            Beck hates when someone pays too much for a bad website — or worse, has no website at all.
-            So this offer is simple: thoughtful, custom, lightweight sites at a very fair price, with
-            E.C.H.O. doing a lot of the building behind the scenes.
+            Echo and I will build your simple site for a really good deal because I hate when people
+            overpay for web services, have ugly sites, or — worse — have no website at all. Every
+            person and business should have a good lookin’ site.
           </p>
         </div>
 
         <div className="services-cta-row">
           <a className="button button-accent" href={LINKEDIN_URL} target="_blank" rel="noreferrer">
-            Ask Beck on LinkedIn
+            Ask Beck about your site
           </a>
           <a className="button" href="/about-me">
             See who you’d be working with
@@ -59,8 +59,8 @@ export default function ServicesPage() {
           <h2>Best fit</h2>
           <ul>
             <li>Local businesses that need a clean, trustworthy online home</li>
-            <li>Solo operators who want something better than a generic template</li>
-            <li>People who value taste, speed, and clarity over meetings and fluff</li>
+            <li>Solo people who need a legit place to send clients, customers, or curious strangers</li>
+            <li>Anybody who wants something simple, tasteful, and affordable</li>
           </ul>
         </section>
 

@@ -10,7 +10,7 @@ test('parseLocation supports root path routes', () => {
     source: 'path',
   })
 
-  assert.deepEqual(parseLocation({ pathname: '/web-design-services', hash: '' }), {
+  assert.deepEqual(parseLocation({ pathname: '/sites', hash: '' }), {
     page: pageKeys.services,
     source: 'path',
   })
@@ -43,7 +43,7 @@ test('legacy hashes still resolve and normalize', () => {
 
   assert.equal(shouldNormalizeLegacyHash({ pathname: '/', hash: '#contact' }), true)
   assert.equal(getRoutePath({ page: pageKeys.about }), '/about-me')
-  assert.equal(getRoutePath({ page: pageKeys.services }), '/web-design-services')
+  assert.equal(getRoutePath({ page: pageKeys.services }), '/sites')
   assert.equal(getLegacyHash({ page: pageKeys.about }), '#contact')
 })
 

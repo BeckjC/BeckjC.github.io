@@ -22,8 +22,8 @@ export function getMetadataForRoute(route, entry) {
       type: 'website',
     },
     [pageKeys.services]: {
-      title: 'Web design services — Beck Cherry',
-      description: 'Simple, affordable website design and build help for small businesses that need a strong web presence without agency bloat.',
+      title: 'Sites',
+      description: 'Simple, affordable websites from Beck and E.C.H.O. for people and small businesses that need a good-looking site without overpaying.',
       type: 'website',
     },
     [pageKeys.adventures]: {

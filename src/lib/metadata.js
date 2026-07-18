@@ -26,6 +26,11 @@ export function getMetadataForRoute(route, entry) {
       description: 'Simple, affordable websites from Beck and E.C.H.O. for people and small businesses that need a good-looking site without overpaying.',
       type: 'website',
     },
+    [pageKeys.siteSignup]: {
+      title: 'Sign me up!',
+      description: 'Site intake form for Beck and E.C.H.O.’s simple website offer.',
+      type: 'website',
+    },
     [pageKeys.adventures]: {
       title: 'Beck’s Adventures — Beck Cherry',
       description: 'A zoomable world map of Beck Cherry’s adventures, routes, and places that matter.',

@@ -47,6 +47,41 @@ button {
   cursor: pointer;
 }
 
+.site-intake-shell {
+  max-width: 760px;
+}
+
+.site-intake-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.site-intake-form label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.site-intake-form span {
+  font-weight: 600;
+}
+
+.site-intake-form input,
+.site-intake-form textarea {
+  width: 100%;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.site-intake-form textarea {
+  resize: vertical;
+}
+
+.site-intake-status {
+  margin: 0;
+  color: var(--muted);
+}
+
 .topbar,
 .section {
   width: min(calc(100% - 2rem), var(--container));
@@ -559,6 +594,11 @@ button {
   margin-top: 0.5rem;
 }
 
+.services-hero-actions,
+.services-workflow-cta {
+  margin-top: 0.75rem;
+}
+
 .services-price-chip {
   position: relative;
   display: grid;
@@ -660,6 +700,32 @@ button {
   display: grid;
   gap: 0.9rem;
   justify-items: end;
+}
+
+.services-hero-orbit {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.services-hero-orbit span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0 0.8rem;
+  color: var(--accent-strong);
+  animation: services-float 5s ease-in-out infinite;
+}
+
+.services-hero-orbit span:nth-child(2) {
+  animation-delay: 700ms;
+}
+
+.services-hero-orbit span:nth-child(3) {
+  animation-delay: 1400ms;
 }
 
 .services-hero-note {
@@ -1098,6 +1164,11 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .services-hero-actions .button,
+  .services-workflow-cta .button {
+    width: 100%;
+  }
+
   .services-hero-motion {
     display: none;
   }
@@ -1173,6 +1244,16 @@ button {
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes services-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
 

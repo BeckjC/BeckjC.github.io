@@ -149,6 +149,10 @@ export default function ServicesPage() {
                 </article>
               ))}
             </div>
+
+            <div className="services-hero-actions">
+              <a className="button button-accent" href="/sign-me-up">Sign me up!</a>
+            </div>
           </div>
 
           <div className="services-hero-motion" aria-hidden="true">
@@ -167,6 +171,12 @@ export default function ServicesPage() {
                 <div className="services-hero-note services-hero-note-primary">cheap</div>
                 <div className="services-hero-note">clean</div>
                 <div className="services-hero-note">yours</div>
+              </div>
+
+              <div className="services-hero-orbit" aria-hidden="true">
+                <span>simple</span>
+                <span>fast</span>
+                <span>clear</span>
               </div>
             </div>
           </div>
@@ -224,6 +234,10 @@ export default function ServicesPage() {
                 </article>
               )
             })}
+
+            <div className="services-workflow-cta">
+              <a className="button button-accent" href="/sign-me-up">Okay, make me look legit</a>
+            </div>
           </div>
         </div>
       </section>

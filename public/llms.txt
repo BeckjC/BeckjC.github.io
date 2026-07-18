@@ -7,6 +7,7 @@ Canonical site: https://beckcherry.com
 ## Important URLs
 - https://beckcherry.com/
 - https://beckcherry.com/sites
+- https://beckcherry.com/sign-me-up
 - https://beckcherry.com/becks-adventures
 - https://beckcherry.com/becks-blog
 - https://beckcherry.com/nans-recipes

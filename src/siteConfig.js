@@ -9,6 +9,7 @@ export const YOUTUBE_URL = 'https://www.youtube.com/channel/UCPQhzI658eyysG0UwP9
 export const pageKeys = {
   home: 'home',
   services: 'sites',
+  siteSignup: 'sign-me-up',
   adventures: 'becks-adventures',
   blog: 'becks-blog',
   recipes: 'nans-recipes',
@@ -32,6 +33,7 @@ export const navItems = [
 export const siteSections = [
   { key: pageKeys.home, label: 'Home', path: '/' },
   { key: pageKeys.services, label: 'Sites', path: '/sites' },
+  { key: pageKeys.siteSignup, label: 'Sign me up', path: '/sign-me-up' },
   { key: pageKeys.adventures, label: 'Beck’s Adventures', path: '/becks-adventures' },
   { key: pageKeys.blog, label: 'Beck’s Blog', path: '/becks-blog' },
   { key: pageKeys.recipes, label: 'Nan’s Recipes', path: '/nans-recipes' },

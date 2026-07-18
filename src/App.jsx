@@ -10,6 +10,7 @@ import EntryPage from './pages/EntryPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import RecipesPage from './pages/RecipesPage.jsx'
 import ServicesPage from './pages/ServicesPage.jsx'
+import SitesSignupPage from './pages/SitesSignupPage.jsx'
 
 const AdventuresPage = lazy(() => import('./AdventuresPage.jsx'))
 
@@ -195,6 +196,7 @@ function App() {
       <main id="top">
         {route.page === pageKeys.home && <HomePage />}
         {route.page === pageKeys.services && <ServicesPage />}
+        {route.page === pageKeys.siteSignup && <SitesSignupPage />}
         {route.page === pageKeys.adventures && (
           <Suspense fallback={<LoadingPage />}>
             <AdventuresPage />

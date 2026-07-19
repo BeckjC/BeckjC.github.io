@@ -23,7 +23,7 @@ export const legacyHashAliases = {
 
 export const navItems = [
   { key: pageKeys.home, label: 'Home' },
-  { key: pageKeys.services, label: 'Sites' },
+  { key: pageKeys.services, label: '$10 Sites' },
   { key: pageKeys.adventures, label: 'Beck’s Adventures' },
   { key: pageKeys.blog, label: 'Beck’s Blog' },
   { key: pageKeys.recipes, label: 'Nan’s Recipes' },

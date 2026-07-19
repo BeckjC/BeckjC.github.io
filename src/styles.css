@@ -796,9 +796,9 @@ button {
 
 .services-hero-marquee {
   position: relative;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  width: 100%;
   overflow: hidden;
+  overflow: clip;
   padding: 1rem 0;
 }
 
@@ -822,9 +822,9 @@ button {
 
 .services-hero-marquee-track {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
-  width: max-content;
-  animation: services-marquee 22s linear infinite;
+  width: 100%;
 }
 
 .services-hero-pill {
@@ -835,6 +835,10 @@ button {
   border: 1px solid rgba(94, 164, 223, 0.35);
   background: rgba(255, 255, 255, 0.82);
   white-space: nowrap;
+}
+
+.services-hero-marquee-track .services-hero-pill {
+  max-width: 100%;
 }
 
 .services-hero-marquee-full {
@@ -963,12 +967,10 @@ button {
   align-content: center;
   padding: 1rem 0;
   background: transparent;
-  transform: translateY(0);
-  transition: transform 220ms ease, opacity 220ms ease;
 }
 
 .services-step-card.is-active {
-  transform: translateY(-4px);
+  transform: none;
 }
 
 .services-step-card h3 {
@@ -1432,15 +1434,6 @@ button {
 
   .services-price-chip strong {
     font-size: 0.86rem;
-  }
-}
-
-@keyframes services-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
   }
 }
 

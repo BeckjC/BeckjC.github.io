@@ -24,13 +24,6 @@ npm run build
 - Production build output is standard Vite `dist/`
 - `vercel.json` rewrites app routes to the SPA entry so canonical page paths work on the custom domain
 
-## Workflow
-- This project uses a linear `main`-only workflow.
-- Do not create or keep multiple local branches or worktrees for normal project updates.
-- Make one bounded change at a time, verify it locally, push it to GitHub `main`, then deploy it to production.
-- Keep the repo clean between updates so there is no ambiguity about what is live or ready to ship.
-- If a future change is unusually risky or large enough to need isolation, stop and get Beck’s approval before using any branch-based workflow.
-
 ## Email signup → Google Sheets via Google Apps Script
 1. Create a Google Sheet with a tab named `Signups`.
 2. In that sheet, open Extensions → Apps Script.

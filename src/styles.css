@@ -463,9 +463,8 @@ button {
 
 .motion-card {
   padding: 0.4rem 0;
-  border-top: 1px solid rgba(139, 188, 232, 0.3);
   animation: page-card-rise 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  transition: transform 180ms ease, border-color 180ms ease;
+  transition: transform 180ms ease;
 }
 
 .motion-card:nth-child(2) {
@@ -487,7 +486,6 @@ button {
 
 .motion-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(94, 164, 223, 0.55);
 }
 
 .text-entry {

@@ -24,6 +24,12 @@ npm run build
 - Production build output is standard Vite `dist/`
 - `vercel.json` rewrites app routes to the SPA entry so canonical page paths work on the custom domain
 
+## Workflow
+- This repo is intentionally run linearly on `main`.
+- Make changes locally on `main`, verify with `npm test` and `npm run build`, then commit and push `main`.
+- Deploy production from the exact verified working tree so the live site matches the approved local state.
+- Do not create side branches for routine site edits unless Beck explicitly asks for a branch-based exception.
+
 ## Email signup → Google Sheets via Google Apps Script
 1. Create a Google Sheet with a tab named `Signups`.
 2. In that sheet, open Extensions → Apps Script.

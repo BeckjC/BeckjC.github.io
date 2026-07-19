@@ -16,6 +16,7 @@
 html {
   width: 100%;
   overflow-x: hidden;
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
@@ -24,6 +25,7 @@ body {
   margin: 0;
   min-width: 320px;
   overflow-x: hidden;
+  overflow-x: clip;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: var(--bg);
   color: var(--text);
@@ -45,6 +47,18 @@ button {
   border: 0;
   padding: 0;
   cursor: pointer;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .site-intake-shell {
@@ -327,9 +341,18 @@ button {
   animation: hero-rise 680ms ease 220ms both;
 }
 
+.signup-form-compact {
+  width: 100%;
+  margin-top: 0;
+}
+
 .signup-row {
   display: flex;
   gap: 0.75rem;
+}
+
+.signup-row-inline {
+  align-items: stretch;
 }
 
 .signup-row input,
@@ -624,7 +647,7 @@ button {
   display: grid;
   width: 100%;
   max-width: 1040px;
-  grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
   grid-template-areas:
     'intro actions'
     'pricing pricing';
@@ -686,15 +709,44 @@ button {
 .services-hero-actions {
   grid-area: actions;
   width: 100%;
-  max-width: 220px;
+  max-width: 100%;
   align-self: center;
-  justify-self: end;
+  justify-self: stretch;
 }
 
-.services-hero-actions .button {
-  width: 100%;
+.services-hero-actions .signup-row,
+.services-workflow-cta .signup-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+}
+
+.services-hero-actions input,
+.services-workflow-cta input {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.services-hero-actions .button,
+.services-workflow-cta .button {
+  width: auto;
+  max-width: 100%;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.services-inline-signup {
+  width: min(100%, 340px);
+  max-width: 100%;
+}
+
+.services-hero-actions .services-inline-signup {
+  margin-left: auto;
+}
+
+.services-workflow-cta .services-inline-signup {
+  margin-inline: auto;
 }
 
 .services-hero-pricing {
@@ -702,9 +754,14 @@ button {
 }
 
 .services-workflow-cta {
-  display: flex;
+  display: grid;
+  width: 100%;
   justify-content: center;
   margin-top: 0.75rem;
+}
+
+.services-workflow-cta .signup-form {
+  width: 100%;
 }
 
 .services-price-chip {
@@ -821,7 +878,12 @@ button {
 
 .services-rail-slot {
   position: relative;
-  align-self: stretch;
+  align-self: start;
+}
+
+.services-rail-sticky {
+  position: sticky;
+  top: max(32px, 24svh);
 }
 
 .services-rail {
@@ -837,18 +899,6 @@ button {
   width: 1px;
   height: 100%;
   background: var(--line);
-}
-
-.services-rail-fixed {
-  position: fixed;
-  z-index: 2;
-}
-
-.services-rail-bottom {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
 }
 
 .services-step-nav {
@@ -1273,9 +1323,24 @@ button {
     justify-self: stretch;
   }
 
-  .services-hero-actions .button,
-  .services-workflow-cta .button {
+  .services-hero-actions .services-inline-signup,
+  .services-workflow-cta .services-inline-signup,
+  .services-workflow-cta .signup-form {
     width: 100%;
+    max-width: 100%;
+  }
+
+  .services-hero-actions .signup-row,
+  .services-workflow-cta .signup-row {
+    grid-template-columns: 1fr;
+  }
+
+  .services-hero-actions .button,
+  .services-workflow-cta .button,
+  .services-hero-actions input,
+  .services-workflow-cta input {
+    width: 100%;
+    max-width: 100%;
   }
 
   .services-workflow-columns {

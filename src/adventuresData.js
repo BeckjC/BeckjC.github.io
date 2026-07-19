@@ -308,4 +308,178 @@ export const travelLog = [
       [-21.9426, 64.1466]
     ]
   },
+  {
+    id: 'ast-la-barra-stays',
+    title: 'AST La Barra',
+    timeframe: 'Miramar, Nicaragua — twice',
+    color: '#2d7c68',
+    provisional: false,
+    summary: 'Two separate stays at AST’s La Barra spot in Miramar, so this one shows as a single-location dot.',
+    stops: [
+      {
+        id: 'la-barra-miramar',
+        name: 'La Barra, Miramar',
+        coordinates: [-86.7622, 12.16921],
+        note: 'Approximate AST La Barra location in Miramar / Puerto Sandino area.',
+      }
+    ]
+  },
+  {
+    id: 'ast-las-flores-stay',
+    title: 'AST Las Flores',
+    timeframe: 'El Cuco, El Salvador — once',
+    color: '#b45d7a',
+    provisional: false,
+    summary: 'One stay at AST’s Las Flores spot near El Cuco, shown as a single-location dot.',
+    stops: [
+      {
+        id: 'las-flores-el-cuco',
+        name: 'Las Flores, El Cuco',
+        coordinates: [-88.11468, 13.17223],
+        note: 'Approximate AST Las Flores location near Playa Las Flores / El Cuco.',
+      }
+    ]
+  },
+  {
+    id: 'playa-negra-surf-trip',
+    title: 'Hotel Playa Negra',
+    timeframe: 'Playa Negra, Costa Rica — surf trip',
+    color: '#3f8f5d',
+    provisional: false,
+    summary: 'A one-spot surf trip at Hotel Playa Negra, so this one shows as a single-location dot.',
+    stops: [
+      {
+        id: 'hotel-playa-negra',
+        name: 'Hotel Playa Negra',
+        coordinates: [-85.8369, 10.7868],
+        note: 'Approximate Hotel Playa Negra location in Playa Negra, Guanacaste.',
+      }
+    ]
+  },
+  {
+    id: 'club-marena-stays',
+    title: 'Club Marena',
+    timeframe: 'Rosarito, Mexico — surf stays',
+    color: '#5f88c6',
+    provisional: false,
+    summary: 'Multiple stays at Club Marena near K38, so this one shows as a single-location dot.',
+    stops: [
+      {
+        id: 'club-marena-rosarito',
+        name: 'Club Marena',
+        coordinates: [-116.9856, 32.26067],
+        note: 'Approximate Club Marena location in Rosarito near K38.',
+      }
+    ]
+  },
+  {
+    id: 'punta-mita-surf-trip',
+    title: 'Punta Mita',
+    timeframe: 'Punta Mita, Mexico — surf trip',
+    color: '#4aa7b8',
+    provisional: false,
+    summary: 'A one-spot surf trip in Punta Mita, so this one shows as a single-location dot.',
+    stops: [
+      {
+        id: 'punta-mita',
+        name: 'Punta Mita',
+        coordinates: [-105.51986, 20.77285],
+        note: 'Approximate Punta Mita location in Nayarit.',
+      }
+    ]
+  },
+  {
+    id: 'turtle-bay-surf-trip',
+    title: 'Turtle Bay',
+    timeframe: 'Oʻahu, Hawaiʻi — surf trip',
+    color: '#5b90d6',
+    provisional: false,
+    summary: 'A one-spot surf trip at Turtle Bay on Oʻahu’s North Shore.',
+    stops: [
+      {
+        id: 'turtle-bay-oahu',
+        name: 'Turtle Bay',
+        coordinates: [-158.00151, 21.70138],
+        note: 'Approximate Turtle Bay location near Kahuku on Oʻahu.',
+      }
+    ]
+  },
+  {
+    id: 'calistoga-family-trip',
+    title: 'Calistoga',
+    timeframe: 'Calistoga, California — family trip',
+    color: '#c68b4f',
+    provisional: false,
+    summary: 'A family trip in Calistoga, shown as a single-location dot.',
+    stops: [
+      {
+        id: 'calistoga',
+        name: 'Calistoga',
+        coordinates: [-122.5797, 38.5788],
+        note: 'Approximate Calistoga location in Napa County.',
+      }
+    ]
+  },
+  {
+    id: 'san-luis-valley-family-trip',
+    title: 'San Luis Valley',
+    timeframe: 'San Luis Valley, Colorado — family trip',
+    color: '#8c6bc7',
+    provisional: false,
+    summary: 'A family trip in the San Luis Valley that included climbing California Peak.',
+    stops: [
+      {
+        id: 'california-peak',
+        name: 'California Peak',
+        coordinates: [-105.4986228, 37.6141705],
+        note: 'California Peak in the Sangre de Cristo Range above the San Luis Valley.',
+      }
+    ]
+  },
+  {
+    id: 'salmon-creek-loop-trip',
+    title: 'Salmon Creek loop',
+    timeframe: 'Big Sur, California — done a few times',
+    color: '#4f8b6f',
+    provisional: false,
+    summary: 'A repeat Big Sur loop using Salmon Creek, Cruickshank, and Buckeye, with camp dots at Salmon Creek Falls and Lion Den Campground.',
+    stops: [
+      {
+        id: 'salmon-creek-falls',
+        name: 'Salmon Creek Falls',
+        coordinates: [-121.35677218437195, 35.81607317579855],
+        note: 'Camped near Salmon Creek Falls.',
+      },
+      {
+        id: 'lion-den-campground',
+        name: 'Lion Den Campground',
+        coordinates: [-121.340207, 35.8580216],
+        note: 'Lion Den Campground on the Salmon Creek / Cruickshank side of the loop.',
+      }
+    ],
+    routePoints: [
+      [-121.35888139584, 35.815671873182],
+      [-121.35677218437195, 35.81607317579855],
+      [-121.336, 35.8372],
+      [-121.340207, 35.8580216],
+      [-121.3797, 35.8427],
+      [-121.36088452592, 35.814067467508]
+    ]
+  },
+  {
+    id: 'cooper-landing-family-trip',
+    title: 'Cooper Landing',
+    timeframe: 'Cooper Landing, Alaska — family trip',
+    color: '#5c9c84',
+    provisional: false,
+    summary: 'A family trip to Cooper Landing, shown as a single-location dot.',
+    stops: [
+      {
+        id: 'cooper-landing',
+        name: 'Cooper Landing',
+        coordinates: [-149.8235, 60.4864],
+        note: 'Approximate Cooper Landing location on the Kenai Peninsula.',
+      }
+    ]
+  },
 ]

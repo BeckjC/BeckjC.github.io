@@ -23,3 +23,8 @@
 ## 2026-07-14 — Keep email signup lightweight
 - Decision: Email signup should stay simple and inexpensive, with the current implementation forwarding to Google Apps Script / Google Sheets.
 - Why: Beck prefers a reliable, self-owned, low-overhead path over extra platform complexity.
+
+## 2026-07-19 — Run this repo linearly on main
+- Decision: The default workflow for `beck-personal-site` is a single up-to-date `main` branch locally and on GitHub.
+- Why: This site is small, production-facing, and easier to manage with one verified source of truth instead of routine branch churn.
+- Operating rule: Make changes on `main`, verify locally, then push `main` and deploy the exact approved working tree.

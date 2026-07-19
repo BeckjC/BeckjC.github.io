@@ -72,12 +72,14 @@ export default function ServicesPage() {
     <section className="section page-section services-shell">
       <section className="services-hero" aria-labelledby="sites-hero-title">
         <div className="services-hero-marquee services-hero-marquee-full" aria-hidden="true">
-          <div className="services-hero-marquee-track">
-            {[...heroPills, ...heroPills].map((pill, index) => (
-              <span key={`${pill}-${index}`} className="services-hero-pill">
-                {pill}
-              </span>
-            ))}
+          <div className="services-hero-marquee-viewport">
+            <div className="services-hero-marquee-track">
+              {[...heroPills, ...heroPills].map((pill, index) => (
+                <span key={`${pill}-${index}`} className="services-hero-pill">
+                  {pill}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 

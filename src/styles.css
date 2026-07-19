@@ -641,6 +641,7 @@ button {
   gap: 1.25rem;
   min-height: calc(100svh - 128px);
   align-items: center;
+  min-width: 0;
 }
 
 .services-hero-layout {
@@ -797,10 +798,18 @@ button {
 .services-hero-marquee {
   position: relative;
   width: 100vw;
+  max-width: 100vw;
+  min-width: 0;
   margin-left: calc(50% - 50vw);
+  padding: 1rem 0;
+}
+
+.services-hero-marquee-viewport {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow: hidden;
   overflow: clip;
-  padding: 1rem 0;
 }
 
 .services-hero-marquee::before,
@@ -1199,7 +1208,13 @@ button {
 @media (max-width: 720px) {
   .services-hero-marquee {
     width: 100%;
+    max-width: 100%;
     margin-left: 0;
+  }
+
+  .services-hero-marquee-viewport {
+    width: 100%;
+    max-width: 100%;
   }
 
   .services-hero-marquee-track {

@@ -757,12 +757,15 @@ button {
 .services-workflow-cta {
   display: grid;
   width: 100%;
+  grid-template-columns: minmax(0, 560px);
   justify-content: center;
   margin-top: 0.75rem;
 }
 
-.services-workflow-cta .signup-form {
+.services-workflow-cta .signup-form,
+.services-workflow-cta .services-inline-signup {
   width: 100%;
+  max-width: none;
 }
 
 .services-price-chip {
@@ -808,6 +811,7 @@ button {
   width: 100%;
   max-width: 100%;
   min-width: 0;
+  padding: 0 1rem;
   overflow: hidden;
   overflow: clip;
 }
@@ -835,7 +839,6 @@ button {
   gap: 0.75rem;
   width: max-content;
   min-width: max-content;
-  padding: 0 1rem;
   animation: services-marquee 22s linear infinite;
   will-change: transform;
 }
@@ -896,7 +899,8 @@ button {
 
 .services-rail-slot {
   position: relative;
-  align-self: start;
+  align-self: stretch;
+  min-height: 100%;
 }
 
 .services-rail-sticky {
@@ -1217,8 +1221,11 @@ button {
     max-width: 100%;
   }
 
-  .services-hero-marquee-track {
+  .services-hero-marquee-viewport {
     padding: 0;
+  }
+
+  .services-hero-marquee-track {
     animation-duration: 18s;
   }
 
@@ -1353,6 +1360,10 @@ button {
   .services-hero-actions {
     max-width: none;
     justify-self: stretch;
+  }
+
+  .services-workflow-cta {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .services-hero-actions .services-inline-signup,

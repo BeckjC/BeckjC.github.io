@@ -74,7 +74,7 @@ export default function ServicesPage() {
         <div className="services-hero-marquee services-hero-marquee-full" aria-hidden="true">
           <div className="services-hero-marquee-viewport">
             <div className="services-hero-marquee-track">
-              {[0, 1].map((segmentIndex) => (
+              {[0, 1, 2, 3].map((segmentIndex) => (
                 <div
                   key={segmentIndex}
                   className="services-hero-marquee-segment"

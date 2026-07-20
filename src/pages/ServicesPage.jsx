@@ -74,10 +74,18 @@ export default function ServicesPage() {
         <div className="services-hero-marquee services-hero-marquee-full" aria-hidden="true">
           <div className="services-hero-marquee-viewport">
             <div className="services-hero-marquee-track">
-              {[...heroPills, ...heroPills].map((pill, index) => (
-                <span key={`${pill}-${index}`} className="services-hero-pill">
-                  {pill}
-                </span>
+              {[0, 1].map((segmentIndex) => (
+                <div
+                  key={segmentIndex}
+                  className="services-hero-marquee-segment"
+                  aria-hidden={segmentIndex === 1 ? 'true' : undefined}
+                >
+                  {heroPills.map((pill) => (
+                    <span key={`${segmentIndex}-${pill}`} className="services-hero-pill">
+                      {pill}
+                    </span>
+                  ))}
+                </div>
               ))}
             </div>
           </div>

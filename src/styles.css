@@ -836,11 +836,17 @@ button {
 
 .services-hero-marquee-track {
   display: flex;
-  gap: 0.75rem;
   width: max-content;
   min-width: max-content;
   animation: services-marquee 22s linear infinite;
   will-change: transform;
+}
+
+.services-hero-marquee-segment {
+  display: flex;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+  padding-right: 0.75rem;
 }
 
 .services-hero-pill {

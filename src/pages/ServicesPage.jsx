@@ -43,6 +43,7 @@ const steps = [
 export default function ServicesPage() {
   const [activeStep, setActiveStep] = useState(0)
   const stepRefs = useRef([])
+  const marqueeTrackRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -68,17 +69,64 @@ export default function ServicesPage() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    const track = marqueeTrackRef.current
+    if (!track || typeof window === 'undefined') return
+
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (motionQuery.matches) return
+
+    let frameId = 0
+    let lastTimestamp = 0
+    let offset = 0
+    let segmentWidth = 0
+    let speed = window.innerWidth <= 720 ? 28 : 40
+
+    const measure = () => {
+      segmentWidth = track.querySelector('.services-hero-marquee-segment')?.getBoundingClientRect().width || 0
+      speed = window.innerWidth <= 720 ? 28 : 40
+    }
+
+    const resizeObserver = new ResizeObserver(measure)
+    resizeObserver.observe(track)
+    measure()
+
+    const tick = (timestamp) => {
+      if (!lastTimestamp) {
+        lastTimestamp = timestamp
+      }
+
+      const deltaSeconds = (timestamp - lastTimestamp) / 1000
+      lastTimestamp = timestamp
+
+      if (segmentWidth > 0) {
+        offset = (offset + speed * deltaSeconds) % segmentWidth
+        track.style.transform = `translate3d(${-offset}px, 0, 0)`
+      }
+
+      frameId = window.requestAnimationFrame(tick)
+    }
+
+    frameId = window.requestAnimationFrame(tick)
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+      resizeObserver.disconnect()
+      track.style.transform = ''
+    }
+  }, [])
+
   return (
     <section className="section page-section services-shell">
       <section className="services-hero" aria-labelledby="sites-hero-title">
         <div className="services-hero-marquee services-hero-marquee-full" aria-hidden="true">
           <div className="services-hero-marquee-viewport">
-            <div className="services-hero-marquee-track">
+            <div ref={marqueeTrackRef} className="services-hero-marquee-track">
               {[0, 1, 2, 3].map((segmentIndex) => (
                 <div
                   key={segmentIndex}
                   className="services-hero-marquee-segment"
-                  aria-hidden={segmentIndex === 1 ? 'true' : undefined}
+                  aria-hidden={segmentIndex > 0 ? 'true' : undefined}
                 >
                   {heroPills.map((pill) => (
                     <span key={`${segmentIndex}-${pill}`} className="services-hero-pill">

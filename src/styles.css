@@ -838,7 +838,6 @@ button {
   display: flex;
   width: max-content;
   min-width: max-content;
-  animation: services-marquee 22s linear infinite;
   will-change: transform;
 }
 
@@ -1232,7 +1231,7 @@ button {
   }
 
   .services-hero-marquee-track {
-    animation-duration: 18s;
+    will-change: transform;
   }
 
   .home-hero {
@@ -1481,15 +1480,6 @@ button {
 
   .services-price-chip strong {
     font-size: 0.86rem;
-  }
-}
-
-@keyframes services-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-25%);
   }
 }
 

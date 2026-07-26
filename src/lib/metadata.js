@@ -62,9 +62,19 @@ export function getMetadataForRoute(route, entry) {
     return {
       title: `${entry.title} — ${route.page === pageKeys.blog ? 'Beck’s Blog' : 'Nan’s Recipes'} | ${SITE_NAME}`,
       description: trimDescription(entry.excerpt || stripHtml(entry.body)),
-      type: route.page === pageKeys.blog ? 'article' : 'article',
+      type: 'article',
       canonicalUrl,
       image: entry.image || SOCIAL_IMAGE_URL,
+    }
+  }
+
+  if (route?.page === pageKeys.emails && route?.slug && entry) {
+    return {
+      title: `${entry.title} — Emails | ${SITE_NAME}`,
+      description: trimDescription(entry.preview || entry.title),
+      type: 'article',
+      canonicalUrl,
+      image: SOCIAL_IMAGE_URL,
     }
   }
 
@@ -108,6 +118,23 @@ export function buildStructuredData(route, entry) {
       },
       mainEntityOfPage: `${SITE_URL}${route.canonicalPath}`,
       datePublished: entry.date,
+    }, baseWebsite, person]
+  }
+
+  if (route?.page === pageKeys.emails && route?.slug && entry) {
+    return [{
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: entry.title,
+      description: trimDescription(entry.preview || entry.title),
+      image: SOCIAL_IMAGE_URL,
+      url: `${SITE_URL}${route.canonicalPath}`,
+      author: {
+        '@type': 'Person',
+        name: entry.author || SITE_NAME,
+      },
+      mainEntityOfPage: `${SITE_URL}${route.canonicalPath}`,
+      datePublished: entry.sent,
     }, baseWebsite, person]
   }
 

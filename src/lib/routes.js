@@ -18,6 +18,10 @@ export function getRoutePath(route) {
     return `/nans-recipes/${route.slug}`
   }
 
+  if (page === pageKeys.emails && route?.slug) {
+    return `/emails/${route.slug}`
+  }
+
   return sectionPathMap.get(page) || '/'
 }
 
@@ -26,7 +30,7 @@ export function getLegacyHash(route) {
 
   if (page === pageKeys.home) return '#top'
   if (page === pageKeys.about) return '#contact'
-  if ((page === pageKeys.blog || page === pageKeys.recipes) && route?.slug) {
+  if ((page === pageKeys.blog || page === pageKeys.recipes || page === pageKeys.emails) && route?.slug) {
     return `#${page}/${route.slug}`
   }
 
@@ -42,11 +46,7 @@ function parseHash(hash) {
     return { page: pageKeys.home, source: 'hash' }
   }
 
-  if (page === pageKeys.blog && slug) {
-    return { page, slug, source: 'hash' }
-  }
-
-  if (page === pageKeys.recipes && slug) {
+  if ((page === pageKeys.blog || page === pageKeys.recipes || page === pageKeys.emails) && slug) {
     return { page, slug, source: 'hash' }
   }
 
@@ -66,11 +66,7 @@ function parsePathname(pathname) {
 
   const [page, slug] = segments
 
-  if (page === pageKeys.blog && slug) {
-    return { page, slug, source: 'path' }
-  }
-
-  if (page === pageKeys.recipes && slug) {
+  if ((page === pageKeys.blog || page === pageKeys.recipes || page === pageKeys.emails) && slug) {
     return { page, slug, source: 'path' }
   }
 

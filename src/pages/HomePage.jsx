@@ -9,7 +9,7 @@ export default function HomePage() {
           <div className="home-signup">
             <img className="hero-wordmark" src={logoUrl} alt="Beck Cherry" />
             <h1 className="signup-copy">
-              Join my <span className="accent-text">EPIC email list</span>.
+              Join my <span className="accent-text">epic email list</span>.
             </h1>
             <p className="signup-subcopy">New posts about whatever I’m experimenting with using AI (or anything else I find interesting).</p>
             <EmailSignupForm source="homepage" inputLabel="Newsletter email address" />

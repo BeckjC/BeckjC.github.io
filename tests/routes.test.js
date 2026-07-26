@@ -24,6 +24,11 @@ test('parseLocation supports root path routes', () => {
     page: pageKeys.adventures,
     source: 'path',
   })
+
+  assert.deepEqual(parseLocation({ pathname: '/emails', hash: '' }), {
+    page: pageKeys.emails,
+    source: 'path',
+  })
 })
 
 test('parseLocation supports detail routes', () => {
@@ -38,6 +43,12 @@ test('parseLocation supports detail routes', () => {
     slug: 'stollen',
     source: 'path',
   })
+
+  assert.deepEqual(parseLocation({ pathname: '/emails/2026-07-25-sample-email', hash: '' }), {
+    page: pageKeys.emails,
+    slug: '2026-07-25-sample-email',
+    source: 'path',
+  })
 })
 
 test('legacy hashes still resolve and normalize', () => {
@@ -50,6 +61,8 @@ test('legacy hashes still resolve and normalize', () => {
   assert.equal(getRoutePath({ page: pageKeys.about }), '/about-me')
   assert.equal(getRoutePath({ page: pageKeys.services }), '/sites')
   assert.equal(getRoutePath({ page: pageKeys.siteSignup }), '/sign-me-up')
+  assert.equal(getRoutePath({ page: pageKeys.emails }), '/emails')
+  assert.equal(getRoutePath({ page: pageKeys.emails, slug: '2026-07-25-sample-email' }), '/emails/2026-07-25-sample-email')
   assert.equal(getLegacyHash({ page: pageKeys.about }), '#contact')
 })
 

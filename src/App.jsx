@@ -1,11 +1,13 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 
+import { emailArchiveEntries } from './content/emailArchive.js'
 import { homePortraitUrl } from './content/siteAssets.js'
 import { applyRouteMetadata } from './lib/metadata.js'
 import { getRoutePath, parseLocation, shouldNormalizeLegacyHash } from './lib/routes.js'
 import { navItems, pageKeys } from './siteConfig.js'
 import AboutPage from './pages/AboutPage.jsx'
 import BlogPage from './pages/BlogPage.jsx'
+import EmailEntryPage from './pages/EmailEntryPage.jsx'
 import EntryPage from './pages/EntryPage.jsx'
 import EmailsPage from './pages/EmailsPage.jsx'
 import HomePage from './pages/HomePage.jsx'
@@ -113,7 +115,10 @@ function App() {
   const selectedRecipe = route.slug
     ? contentData.recipes.find((recipe) => recipe.slug === route.slug)
     : null
-  const selectedEntry = selectedBlogPost || selectedRecipe || null
+  const selectedEmail = route.slug
+    ? emailArchiveEntries.find((entry) => entry.slug === route.slug)
+    : null
+  const selectedEntry = selectedBlogPost || selectedRecipe || selectedEmail || null
 
   useEffect(() => {
     applyRouteMetadata(route, selectedEntry)
@@ -122,6 +127,7 @@ function App() {
   const activePage = useMemo(() => {
     if (route.page === pageKeys.blog && route.slug) return pageKeys.blog
     if (route.page === pageKeys.recipes && route.slug) return pageKeys.recipes
+    if (route.page === pageKeys.emails && route.slug) return pageKeys.emails
     return route.page
   }, [route])
 
@@ -153,6 +159,7 @@ function App() {
   const getSectionHref = (page) => getRoutePath({ page })
   const getBlogEntryHref = (slug) => getRoutePath({ page: pageKeys.blog, slug })
   const getRecipeEntryHref = (slug) => getRoutePath({ page: pageKeys.recipes, slug })
+  const getEmailEntryHref = (slug) => getRoutePath({ page: pageKeys.emails, slug })
 
   return (
     <div className="site-shell">
@@ -237,7 +244,22 @@ function App() {
           />
         )}
         {route.page === pageKeys.recipes && route.slug && !selectedRecipe && <LoadingPage />}
-        {route.page === pageKeys.emails && <EmailsPage />}
+        {route.page === pageKeys.emails && !route.slug && (
+          <EmailsPage
+            emails={emailArchiveEntries}
+            getEntryHref={getEmailEntryHref}
+            onInternalNavigate={handleInternalNavigate}
+          />
+        )}
+        {route.page === pageKeys.emails && route.slug && selectedEmail && (
+          <EmailEntryPage
+            entry={selectedEmail}
+            parentLabel="Emails"
+            parentHref={getSectionHref(pageKeys.emails)}
+            onInternalNavigate={handleInternalNavigate}
+          />
+        )}
+        {route.page === pageKeys.emails && route.slug && !selectedEmail && <LoadingPage />}
         {route.page === pageKeys.about && <AboutPage />}
       </main>
     </div>

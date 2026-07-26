@@ -1009,6 +1009,94 @@ button {
   max-width: 34rem;
 }
 
+.newsletters-shell {
+  display: grid;
+  gap: 2rem;
+}
+
+.newsletters-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 360px);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.newsletters-copy,
+.newsletters-signup-card-inner,
+.newsletters-archive-copy {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.newsletters-copy h1,
+.newsletters-archive-copy h2 {
+  margin: 0;
+  line-height: 1.02;
+}
+
+.newsletters-copy h1 {
+  font-size: clamp(2.8rem, 7vw, 5.4rem);
+  letter-spacing: -0.06em;
+}
+
+.newsletters-lead,
+.newsletters-support,
+.newsletters-archive-copy p {
+  margin: 0;
+  max-width: 40rem;
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.newsletters-lead {
+  max-width: 24ch;
+  color: var(--text);
+  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+  line-height: 1.18;
+}
+
+.newsletters-signup-card,
+.newsletters-archive-block {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(139, 188, 232, 0.12), rgba(255, 255, 255, 0.92));
+}
+
+.newsletters-signup-card {
+  padding: 1.15rem;
+}
+
+.newsletters-signup-card-inner {
+  min-height: 100%;
+}
+
+.newsletters-card-label,
+.muted-utility {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.newsletters-signup,
+.newsletters-signup .signup-form,
+.newsletters-signup .signup-row {
+  width: 100%;
+}
+
+.newsletters-signup .signup-status {
+  text-align: left;
+}
+
+.newsletters-archive-block {
+  padding: 1.4rem 1.15rem;
+}
+
+.newsletters-archive-copy h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+}
+
 .adventures-layout {
   display: grid;
   gap: 1rem;
@@ -1299,7 +1387,8 @@ button {
   }
 
   .services-hero-layout,
-  .services-workflow-columns {
+  .services-workflow-columns,
+  .newsletters-hero {
     grid-template-columns: 1fr;
   }
 
@@ -1315,6 +1404,15 @@ button {
 
   .services-hero-intro {
     gap: 0.72rem;
+  }
+
+  .newsletters-copy h1 {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .newsletters-lead,
+  .newsletters-support {
+    max-width: none;
   }
 
   .services-hero-marquee-full {
@@ -1418,6 +1516,11 @@ button {
 
   .signup-row {
     flex-direction: column;
+  }
+
+  .newsletters-signup-card,
+  .newsletters-archive-block {
+    padding: 1rem;
   }
 
   .home-signup {

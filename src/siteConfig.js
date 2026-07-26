@@ -13,6 +13,7 @@ export const pageKeys = {
   adventures: 'becks-adventures',
   blog: 'becks-blog',
   recipes: 'nans-recipes',
+  newsletters: 'newsletters',
   about: 'about-me',
 }
 
@@ -27,6 +28,7 @@ export const navItems = [
   { key: pageKeys.adventures, label: 'Beck’s Adventures' },
   { key: pageKeys.blog, label: 'Beck’s Blog' },
   { key: pageKeys.recipes, label: 'Nan’s Recipes' },
+  { key: pageKeys.newsletters, label: 'Newsletters' },
   { key: pageKeys.about, label: 'About me' },
 ]
 
@@ -37,5 +39,6 @@ export const siteSections = [
   { key: pageKeys.adventures, label: 'Beck’s Adventures', path: '/becks-adventures' },
   { key: pageKeys.blog, label: 'Beck’s Blog', path: '/becks-blog' },
   { key: pageKeys.recipes, label: 'Nan’s Recipes', path: '/nans-recipes' },
+  { key: pageKeys.newsletters, label: 'Newsletters', path: '/newsletters' },
   { key: pageKeys.about, label: 'About me', path: '/about-me' },
 ]

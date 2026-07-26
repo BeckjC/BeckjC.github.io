@@ -46,6 +46,11 @@ export function getMetadataForRoute(route, entry) {
       description: 'A family recipe collection from Nan’s recipe drawer, preserved on beckcherry.com.',
       type: 'website',
     },
+    [pageKeys.newsletters]: {
+      title: 'Newsletters — Beck Cherry',
+      description: 'A home for Beck Cherry’s newsletter, plus a signup form for future emails.',
+      type: 'website',
+    },
     [pageKeys.about]: {
       title: 'About me — Beck Cherry',
       description: 'A little about Beck Cherry, plus the corners of the internet he actually uses.',

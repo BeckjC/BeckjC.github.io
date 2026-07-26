@@ -8,6 +8,7 @@ import AboutPage from './pages/AboutPage.jsx'
 import BlogPage from './pages/BlogPage.jsx'
 import EntryPage from './pages/EntryPage.jsx'
 import HomePage from './pages/HomePage.jsx'
+import NewslettersPage from './pages/NewslettersPage.jsx'
 import RecipesPage from './pages/RecipesPage.jsx'
 import ServicesPage from './pages/ServicesPage.jsx'
 import SitesSignupPage from './pages/SitesSignupPage.jsx'
@@ -236,6 +237,7 @@ function App() {
           />
         )}
         {route.page === pageKeys.recipes && route.slug && !selectedRecipe && <LoadingPage />}
+        {route.page === pageKeys.newsletters && <NewslettersPage />}
         {route.page === pageKeys.about && <AboutPage />}
       </main>
     </div>

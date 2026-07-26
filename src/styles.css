@@ -1083,6 +1083,16 @@ button {
   text-align: left;
 }
 
+.emails-archive-hero {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.emails-archive-signup {
+  width: min(100%, 640px);
+  margin-top: 0.4rem;
+}
+
 .emails-entry-detail {
   gap: 1.5rem;
 }

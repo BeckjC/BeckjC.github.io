@@ -1,9 +1,18 @@
+import EmailSignupForm from '../components/EmailSignupForm.jsx'
+
 export default function EmailsPage({ emails, getEntryHref, onInternalNavigate }) {
   return (
     <section className="section page-section page-motion-shell">
-      <div className="section-heading page-motion-intro">
+      <div className="section-heading page-motion-intro emails-archive-hero">
         <h1>Emails</h1>
         <p>An archive of the emails I’ve sent.</p>
+        <EmailSignupForm
+          source="emails-archive"
+          inputLabel="Email address"
+          className="emails-signup emails-archive-signup"
+          formClassName="signup-form-compact"
+          rowClassName="emails-signup-row"
+        />
       </div>
 
       <div className="list-grid blog-grid emails-grid">

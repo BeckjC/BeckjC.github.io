@@ -1093,7 +1093,7 @@ button {
   margin-top: 0.4rem;
 }
 
-.emails-archive-note {
+.emails-archive-hero .emails-archive-note {
   max-width: 34rem;
   margin: 0;
   color: var(--accent-strong);

@@ -1087,18 +1087,32 @@ button {
   gap: 1.5rem;
 }
 
-.email-html-shell {
-  width: 100%;
-  border: 1px solid var(--line);
-  background: #ffffff;
-  overflow: hidden;
+.emails-entry-body {
+  gap: 1.25rem;
 }
 
-.email-html-frame {
-  width: 100%;
-  border: 0;
-  display: block;
-  background: #ffffff;
+.emails-entry-intro {
+  margin: 0;
+  max-width: 42rem;
+  color: var(--text);
+  font-size: clamp(1.08rem, 1.65vw, 1.24rem);
+  line-height: 1.85;
+}
+
+.emails-entry-section {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.emails-entry-section h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+  line-height: 1.08;
+}
+
+.emails-entry-body code {
+  padding: 0.08rem 0.35rem;
+  background: #f5f7fa;
 }
 
 .adventures-layout {

@@ -1,23 +1,21 @@
-import { useRef, useState } from 'react'
+function escapeHtml(value) {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+}
+
+function renderParagraphHtml(paragraph) {
+  return escapeHtml(paragraph)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/\n/g, '<br />')
+}
 
 export default function EmailEntryPage({ entry, parentHref, parentLabel, onInternalNavigate }) {
-  const frameRef = useRef(null)
-  const [frameHeight, setFrameHeight] = useState(1400)
-
-  const syncHeight = () => {
-    const frame = frameRef.current
-    const doc = frame?.contentDocument
-
-    if (!doc) return
-
-    const nextHeight = Math.max(
-      doc.body?.scrollHeight || 0,
-      doc.documentElement?.scrollHeight || 0,
-      900,
-    )
-
-    setFrameHeight(nextHeight)
-  }
+  const introSection = entry.sections.find((section) => section.title === 'Intro')
+  const bodySections = entry.sections.filter((section) => section.title !== 'Intro')
 
   return (
     <section className="section article-shell">
@@ -31,18 +29,26 @@ export default function EmailEntryPage({ entry, parentHref, parentLabel, onInter
           <h1>{entry.title}</h1>
         </header>
 
-        <div className="email-html-shell">
-          <iframe
-            ref={frameRef}
-            title={entry.title}
-            srcDoc={entry.websiteHtml || entry.originalHtml}
-            className="email-html-frame"
-            style={{ height: `${frameHeight}px` }}
-            onLoad={() => {
-              syncHeight()
-              window.setTimeout(syncHeight, 60)
-            }}
-          />
+        <div className="article-body emails-entry-body">
+          {introSection?.paragraphs.map((paragraph, index) => (
+            <p
+              key={`intro-${entry.slug}-${index}`}
+              className="emails-entry-intro"
+              dangerouslySetInnerHTML={{ __html: renderParagraphHtml(paragraph) }}
+            />
+          ))}
+
+          {bodySections.map((section) => (
+            <section key={`${entry.slug}-${section.title}`} className="emails-entry-section">
+              <h2>{section.title}</h2>
+              {section.paragraphs.map((paragraph, index) => (
+                <p
+                  key={`${entry.slug}-${section.title}-${index}`}
+                  dangerouslySetInnerHTML={{ __html: renderParagraphHtml(paragraph) }}
+                />
+              ))}
+            </section>
+          ))}
         </div>
       </article>
     </section>

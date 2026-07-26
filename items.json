@@ -6,8 +6,8 @@
     "timestamp": "2026-07-09",
     "source": "2026-07-09 personal-site session + project repo state",
     "status": "active",
-    "lastAccessed": "2026-07-15T23:00:00-07:00",
-    "accessCount": 4
+    "lastAccessed": "2026-07-24T23:00:00-07:00",
+    "accessCount": 6
   },
   {
     "id": "beck-personal-site-002",
@@ -108,8 +108,8 @@
       "vercel",
       "squarespace"
     ],
-    "lastAccessed": "2026-07-15T23:00:00-07:00",
-    "accessCount": 2
+    "lastAccessed": "2026-07-19T23:00:00-07:00",
+    "accessCount": 3
   },
   {
     "id": "beck-personal-site-011",
@@ -153,8 +153,8 @@
       "Google Sheets",
       "beckcherry.com"
     ],
-    "lastAccessed": "2026-07-15T23:00:00-07:00",
-    "accessCount": 1
+    "lastAccessed": "2026-07-24T23:00:00-07:00",
+    "accessCount": 3
   },
   {
     "id": "beck-personal-site-014",
@@ -166,7 +166,86 @@
     "relatedEntities": [
       "beckcherry.com"
     ],
-    "lastAccessed": "2026-07-15T23:00:00-07:00",
+    "lastAccessed": "2026-07-24T23:00:00-07:00",
+    "accessCount": 3
+  },
+  {
+    "id": "beck-personal-site-015",
+    "fact": "On July 19, 2026, Beck made linear main-only development the default workflow for the personal-site repo: make one bounded change, verify it locally, push it to GitHub main, then deploy it to production; branches/worktrees now require explicit justification.",
+    "category": "workflow-decision",
+    "timestamp": "2026-07-19",
+    "source": "2026-07-19 beckcherry.com workflow discussion",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-19T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-016",
+    "fact": "On July 19, 2026, the /sites regression recovery settled on a Safari-safe sticky rail structure: keep the rail in normal flow, use an inner position:-webkit-sticky/position:sticky wrapper with a plain top offset, and use overflow-x: clip plus fallback instead of global overflow-x: hidden.",
+    "category": "implementation-decision",
+    "timestamp": "2026-07-19",
+    "source": "2026-07-19 beckcherry.com /sites regression recovery",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-19T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-017",
+    "fact": "On July 19, 2026, Beck approved adding AST La Barra, AST Las Flores, Playa Negra, and Club Marena to the Adventures page surf-trip dataset on beckcherry.com.",
+    "category": "content-update",
+    "timestamp": "2026-07-19",
+    "source": "2026-07-19 Adventures page update sessions",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-19T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-018",
+    "fact": "On July 19, 2026, a beckcherry.com deploy regression showed that releases touching /sites and adventuresData.js must ship from the exact approved working-tree files and be re-verified on both /sites and /becks-adventures before the deploy is called done.",
+    "category": "deploy-guardrail",
+    "timestamp": "2026-07-19",
+    "source": "2026-07-19 beckcherry.com regression recovery session",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-19T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-019",
+    "fact": "On July 19, 2026, the /sites top banner moved from a CSS reset loop to a measured requestAnimationFrame marquee loop so the scroll stays visually continuous without restart flashes or tile blinking.",
+    "category": "implementation-decision",
+    "timestamp": "2026-07-19",
+    "source": "2026-07-19 beckcherry.com banner continuity fixes",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-19T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-020",
+    "fact": "On July 24, 2026, the approved branded newsletter template baseline for Beck\u2019s personal site was saved to ~/life/projects/beck-personal-site/resend-newsletter-template.html for reuse in Resend.",
+    "category": "artifact-status",
+    "timestamp": "2026-07-24",
+    "source": "2026-07-24 personal-site newsletter template session",
+    "status": "active",
+    "relatedEntities": [
+      "Resend",
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-24T23:00:00-07:00",
     "accessCount": 1
   }
 ]

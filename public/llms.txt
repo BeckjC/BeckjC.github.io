@@ -11,7 +11,7 @@ Canonical site: https://beckcherry.com
 - https://beckcherry.com/becks-adventures
 - https://beckcherry.com/becks-blog
 - https://beckcherry.com/nans-recipes
-- https://beckcherry.com/newsletters
+- https://beckcherry.com/emails
 - https://beckcherry.com/about-me
 - https://beckcherry.com/becks-blog/youre-already-a-leader
 - https://beckcherry.com/becks-blog/keeping-myself-on-task

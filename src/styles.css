@@ -1009,67 +1009,65 @@ button {
   max-width: 34rem;
 }
 
-.newsletters-shell {
+.emails-shell {
   display: grid;
   gap: 2rem;
 }
 
-.newsletters-hero {
+.emails-hero {
+  width: min(100%, 760px);
+  min-height: calc(100svh - 148px);
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 360px);
-  gap: 1.5rem;
-  align-items: start;
-}
-
-.newsletters-copy,
-.newsletters-signup-card-inner,
-.newsletters-archive-copy {
-  display: grid;
+  align-content: center;
   gap: 0.9rem;
 }
 
-.newsletters-copy h1,
-.newsletters-archive-copy h2 {
+.emails-hero h1,
+.emails-archive-copy h2 {
   margin: 0;
   line-height: 1.02;
 }
 
-.newsletters-copy h1 {
-  font-size: clamp(2.8rem, 7vw, 5.4rem);
+.emails-hero h1 {
+  font-size: clamp(3rem, 7vw, 5.5rem);
   letter-spacing: -0.06em;
 }
 
-.newsletters-lead,
-.newsletters-support,
-.newsletters-archive-copy p {
+.emails-lead,
+.emails-support,
+.emails-archive-copy p {
   margin: 0;
   max-width: 40rem;
   color: var(--muted);
   line-height: 1.72;
 }
 
-.newsletters-lead {
-  max-width: 24ch;
+.emails-lead {
+  max-width: 30rem;
   color: var(--text);
-  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
-  line-height: 1.18;
+  font-size: clamp(1.22rem, 2.2vw, 1.7rem);
+  line-height: 1.22;
 }
 
-.newsletters-signup-card,
-.newsletters-archive-block {
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(139, 188, 232, 0.12), rgba(255, 255, 255, 0.92));
+.emails-signup,
+.emails-signup .signup-form {
+  width: min(100%, 640px);
 }
 
-.newsletters-signup-card {
-  padding: 1.15rem;
+.emails-signup-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
 }
 
-.newsletters-signup-card-inner {
-  min-height: 100%;
+.emails-signup-row input {
+  min-width: 0;
 }
 
-.newsletters-card-label,
+.emails-signup .button {
+  white-space: nowrap;
+}
+
 .muted-utility {
   margin: 0;
   color: var(--muted);
@@ -1079,21 +1077,20 @@ button {
   text-transform: uppercase;
 }
 
-.newsletters-signup,
-.newsletters-signup .signup-form,
-.newsletters-signup .signup-row {
-  width: 100%;
-}
-
-.newsletters-signup .signup-status {
+.emails-signup .signup-status {
   text-align: left;
 }
 
-.newsletters-archive-block {
-  padding: 1.4rem 1.15rem;
+.emails-archive {
+  padding: 0.4rem 0;
 }
 
-.newsletters-archive-copy h2 {
+.emails-archive-copy {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.emails-archive-copy h2 {
   font-size: clamp(1.5rem, 2.5vw, 2.2rem);
 }
 
@@ -1387,8 +1384,7 @@ button {
   }
 
   .services-hero-layout,
-  .services-workflow-columns,
-  .newsletters-hero {
+  .services-workflow-columns {
     grid-template-columns: 1fr;
   }
 
@@ -1406,13 +1402,24 @@ button {
     gap: 0.72rem;
   }
 
-  .newsletters-copy h1 {
+  .emails-hero {
+    min-height: auto;
+  }
+
+  .emails-hero h1 {
     font-size: clamp(2.5rem, 12vw, 4rem);
   }
 
-  .newsletters-lead,
-  .newsletters-support {
+  .emails-lead,
+  .emails-support,
+  .emails-signup,
+  .emails-signup .signup-form {
     max-width: none;
+    width: 100%;
+  }
+
+  .emails-signup-row {
+    grid-template-columns: 1fr;
   }
 
   .services-hero-marquee-full {
@@ -1518,9 +1525,8 @@ button {
     flex-direction: column;
   }
 
-  .newsletters-signup-card,
-  .newsletters-archive-block {
-    padding: 1rem;
+  .emails-archive {
+    padding: 0;
   }
 
   .home-signup {

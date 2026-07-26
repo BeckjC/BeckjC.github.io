@@ -2,6 +2,14 @@ function getFileSlug(filePath = '') {
   return filePath.split('/').pop()?.replace(/\.md$/, '') || ''
 }
 
+export function forceLightModeEmailHtml(html = '') {
+  return html
+    .replace(/\s*<meta name="color-scheme"[^>]*>\s*/gi, '')
+    .replace(/\s*<meta name="supported-color-schemes"[^>]*>\s*/gi, '')
+    .replace(/@media \(prefers-color-scheme: dark\) \{[\s\S]*?(?=\[data-ogsc\] body,)/, '')
+    .replace(/\[data-ogsc\] body,[\s\S]*?(?=<\/style>)/, '')
+}
+
 function parseMetadataBlock(block = '') {
   const metadata = {}
 
@@ -92,6 +100,7 @@ export function parseArchiveEmail(raw, filePath = '') {
     sourceOfTruth: metadata['source of truth'] || '',
     footerLinks: footerLinksSection ? parseFooterLinks(footerLinksSection.content) : [],
     originalHtml: originalHtmlSection ? extractFencedHtml(originalHtmlSection.content) : '',
+    websiteHtml: forceLightModeEmailHtml(originalHtmlSection ? extractFencedHtml(originalHtmlSection.content) : ''),
     sections: contentSections,
   }
 }

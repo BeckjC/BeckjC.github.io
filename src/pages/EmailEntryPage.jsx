@@ -35,7 +35,7 @@ export default function EmailEntryPage({ entry, parentHref, parentLabel, onInter
           <iframe
             ref={frameRef}
             title={entry.title}
-            srcDoc={entry.originalHtml}
+            srcDoc={entry.websiteHtml || entry.originalHtml}
             className="email-html-frame"
             style={{ height: `${frameHeight}px` }}
             onLoad={() => {

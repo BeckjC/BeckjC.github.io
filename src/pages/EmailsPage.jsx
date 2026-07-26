@@ -6,6 +6,10 @@ export default function EmailsPage({ emails, getEntryHref, onInternalNavigate })
       <div className="section-heading page-motion-intro emails-archive-hero">
         <h1>Emails</h1>
         <p>An archive of the emails I’ve sent.</p>
+        <p className="emails-archive-note">
+          E.C.H.O. here: I read these before they go out. If you like smart, useful, occasionally chaotic
+          Beck updates, you should probably be on this list.
+        </p>
         <EmailSignupForm
           source="emails-archive"
           inputLabel="Email address"

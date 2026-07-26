@@ -1023,7 +1023,8 @@ button {
 }
 
 .emails-hero h1,
-.emails-archive-copy h2 {
+.emails-entry-header h2,
+.emails-entry-section h3 {
   margin: 0;
   line-height: 1.02;
 }
@@ -1035,7 +1036,8 @@ button {
 
 .emails-lead,
 .emails-support,
-.emails-archive-copy p {
+.emails-entry-preview,
+.emails-entry-section p {
   margin: 0;
   max-width: 40rem;
   color: var(--muted);
@@ -1081,17 +1083,44 @@ button {
   text-align: left;
 }
 
-.emails-archive {
+.emails-list {
+  display: grid;
+  gap: 4rem;
+}
+
+.emails-entry {
+  gap: 1.5rem;
   padding: 0.4rem 0;
 }
 
-.emails-archive-copy {
+.emails-entry-header h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.emails-entry-preview {
+  max-width: 38rem;
+}
+
+.emails-entry-intro {
+  margin: 0;
+  max-width: 42rem;
+  color: var(--text);
+  font-size: clamp(1.08rem, 1.65vw, 1.24rem);
+  line-height: 1.85;
+}
+
+.emails-entry-section {
   display: grid;
   gap: 0.9rem;
 }
 
-.emails-archive-copy h2 {
-  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+.emails-entry-section h3 {
+  font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+}
+
+.emails-entry-body code {
+  padding: 0.08rem 0.35rem;
+  background: #f5f7fa;
 }
 
 .adventures-layout {

@@ -40,10 +40,12 @@ export default function EmailEntryPage({ entry, parentHref, parentLabel, onInter
 
           {bodySections.map((section) => (
             <section key={`${entry.slug}-${section.title}`} className="emails-entry-section">
-              <h2>{section.title}</h2>
+              <div className="home-divider emails-entry-divider" aria-hidden="true" />
+              {section.title !== 'Closing' ? <h2>{section.title}</h2> : null}
               {section.paragraphs.map((paragraph, index) => (
                 <p
                   key={`${entry.slug}-${section.title}-${index}`}
+                  className={section.title === 'Closing' ? 'emails-entry-closing' : undefined}
                   dangerouslySetInnerHTML={{ __html: renderParagraphHtml(paragraph) }}
                 />
               ))}

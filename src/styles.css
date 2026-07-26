@@ -1104,10 +1104,18 @@ button {
   gap: 0.9rem;
 }
 
+.emails-entry-divider {
+  margin: 0.6rem 0 0.1rem;
+}
+
 .emails-entry-section h2 {
   margin: 0;
   font-size: clamp(1.35rem, 2.2vw, 1.9rem);
   line-height: 1.08;
+}
+
+.emails-entry-closing {
+  color: var(--text);
 }
 
 .emails-entry-body code {

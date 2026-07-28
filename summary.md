@@ -2,6 +2,8 @@
 
 ## Hot
 
+- On July 26, 2026, Beck found a cross-page signup dedupe bug: submitting the same email on the home page and the `/email` page created duplicate rows in the spreadsheet.
+- The durable fix rule for `beckcherry.com` signup capture is now server-side global dedupe in Google Apps Script using `email.trim().toLowerCase()` as the unique key across the whole sheet; duplicate submits should not append a second row.
 - Active project at `/Users/cherrynet/life/projects/beck-personal-site` for the React-based `beckcherry.com` site.
 - On July 19, 2026, Beck made linear `main`-only development the default workflow for this repo: one bounded change, verify locally, push to GitHub `main`, then deploy to production; branches/worktrees now require explicit justification.
 - On July 19, 2026, the `/sites` regression recovery settled on a Safari-safe sticky rail structure: keep the rail in normal flow, use an inner `position: -webkit-sticky; position: sticky;` wrapper with a plain `top` offset, and use `overflow-x: clip` plus fallback instead of global `overflow-x: hidden`.

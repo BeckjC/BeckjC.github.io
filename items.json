@@ -83,8 +83,8 @@
     "timestamp": "2026-07-12",
     "source": "2026-07-12 personal-site session",
     "status": "active",
-    "lastAccessed": "2026-07-15T23:00:00-07:00",
-    "accessCount": 2
+    "lastAccessed": "2026-07-26T23:00:00-07:00",
+    "accessCount": 3
   },
   {
     "id": "beck-personal-site-009",
@@ -93,8 +93,8 @@
     "timestamp": "2026-07-13",
     "source": "2026-07-13 personal-site session",
     "status": "active",
-    "lastAccessed": "2026-07-15T23:00:00-07:00",
-    "accessCount": 3
+    "lastAccessed": "2026-07-26T23:00:00-07:00",
+    "accessCount": 4
   },
   {
     "id": "beck-personal-site-010",
@@ -153,8 +153,8 @@
       "Google Sheets",
       "beckcherry.com"
     ],
-    "lastAccessed": "2026-07-24T23:00:00-07:00",
-    "accessCount": 3
+    "lastAccessed": "2026-07-26T23:00:00-07:00",
+    "accessCount": 4
   },
   {
     "id": "beck-personal-site-014",
@@ -246,6 +246,21 @@
       "beckcherry.com"
     ],
     "lastAccessed": "2026-07-24T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-021",
+    "fact": "On July 26, 2026, Beck identified a cross-page signup dedupe bug on beckcherry.com: the same email submitted on the home page and the /email page created duplicate spreadsheet rows, so the durable fix is server-side global dedupe in Google Apps Script using email.trim().toLowerCase() as the unique key across the whole sheet.",
+    "category": "implementation-decision",
+    "timestamp": "2026-07-26",
+    "source": "2026-07-26 beckcherry.com signup duplicate report",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com",
+      "Google Apps Script",
+      "Google Sheets"
+    ],
+    "lastAccessed": "2026-07-26T23:00:00-07:00",
     "accessCount": 1
   }
 ]

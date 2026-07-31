@@ -31,7 +31,7 @@
   },
   {
     "id": "beck-personal-site-004",
-    "fact": "The new personal site should include Who I Am, Nan\u2019s Recipes, Contact, LinkedIn, YouTube, and Blog, with Blog, Nan\u2019s Recipes, and Contact living inside the new site; X and Occupy Greenland should be removed.",
+    "fact": "The new personal site should include Who I Am, Nan’s Recipes, Contact, LinkedIn, YouTube, and Blog, with Blog, Nan’s Recipes, and Contact living inside the new site; X and Occupy Greenland should be removed.",
     "category": "content-decision",
     "timestamp": "2026-07-09",
     "source": "2026-07-09 personal-site session",
@@ -42,7 +42,7 @@
   },
   {
     "id": "beck-personal-site-005",
-    "fact": "On July 12, 2026, Beck changed the page plan so the site should keep Blog, Nan\u2019s Recipes, About/Who I Am, YouTube, and LinkedIn in the new site, while the old Contact-page idea is replaced by an About Me / links-style page; X and Occupy Greenland should still be removed.",
+    "fact": "On July 12, 2026, Beck changed the page plan so the site should keep Blog, Nan’s Recipes, About/Who I Am, YouTube, and LinkedIn in the new site, while the old Contact-page idea is replaced by an About Me / links-style page; X and Occupy Greenland should still be removed.",
     "category": "content-decision",
     "timestamp": "2026-07-12",
     "source": "2026-07-12 personal-site session",
@@ -179,8 +179,8 @@
     "relatedEntities": [
       "beckcherry.com"
     ],
-    "lastAccessed": "2026-07-19T23:00:00-07:00",
-    "accessCount": 1
+    "lastAccessed": "2026-07-27T23:00:00-07:00",
+    "accessCount": 2
   },
   {
     "id": "beck-personal-site-016",
@@ -236,7 +236,7 @@
   },
   {
     "id": "beck-personal-site-020",
-    "fact": "On July 24, 2026, the approved branded newsletter template baseline for Beck\u2019s personal site was saved to ~/life/projects/beck-personal-site/resend-newsletter-template.html for reuse in Resend.",
+    "fact": "On July 24, 2026, the approved branded newsletter template baseline for Beck’s personal site was saved to ~/life/projects/beck-personal-site/resend-newsletter-template.html for reuse in Resend.",
     "category": "artifact-status",
     "timestamp": "2026-07-24",
     "source": "2026-07-24 personal-site newsletter template session",
@@ -261,6 +261,32 @@
       "Google Sheets"
     ],
     "lastAccessed": "2026-07-26T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-022",
+    "fact": "On July 27, 2026, Beck set the next personal-site workstream direction as an ultra-minimal playful push-up tracker with a mostly visual lifetime push-up tracker and a visual “ripping fifty” streak tracker for days with at least 50 pushups.",
+    "category": "product-decision",
+    "timestamp": "2026-07-27",
+    "source": "2026-07-27 beckcherry.com topic 2546 planning session",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-27T23:00:00-07:00",
+    "accessCount": 1
+  },
+  {
+    "id": "beck-personal-site-023",
+    "fact": "On July 27, 2026, before the push-up tracker UI work, the beckcherry.com repo was re-verified on a linear main-only workflow, was clean and synced on main, and a restore checkpoint was pushed as commit 701f924 with backup tag pre-ripping-fifty-ui-2026-07-28.",
+    "category": "artifact-status",
+    "timestamp": "2026-07-27",
+    "source": "2026-07-27 beckcherry.com topic 2546 repo-checkpoint session",
+    "status": "active",
+    "relatedEntities": [
+      "beckcherry.com"
+    ],
+    "lastAccessed": "2026-07-27T23:00:00-07:00",
     "accessCount": 1
   }
 ]

@@ -43,6 +43,17 @@ function LoadingPage() {
   return <section className="section page-section" aria-live="polite" />
 }
 
+function formatEntryDate(value) {
+  if (!value) return ''
+
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(value))
+}
+
 function App() {
   const [route, setRoute] = useState(() => getRouteForCurrentLocation())
   const [menuOpen, setMenuOpen] = useState(false)
@@ -53,7 +64,10 @@ function App() {
     if (!contentImportRef.current) {
       contentImportRef.current = import('./content/contentData.js').then((module) => {
         const nextData = {
-          blogPosts: module.blogPosts,
+          blogPosts: module.blogPosts.map((post) => ({
+            ...post,
+            displayDate: formatEntryDate(post.date),
+          })),
           recipes: module.recipes,
           loaded: true,
         }

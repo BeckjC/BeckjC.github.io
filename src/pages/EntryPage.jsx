@@ -7,6 +7,11 @@ export default function EntryPage({ entry, parentHref, parentLabel, onInternalNa
 
       <article className="article-entry">
         <header className="article-header">
+          {entry.kind === 'blog' && entry.displayDate && (
+            <p className="article-date">
+              <time dateTime={entry.date}>Published {entry.displayDate}</time>
+            </p>
+          )}
           <h1>{entry.title}</h1>
         </header>
 

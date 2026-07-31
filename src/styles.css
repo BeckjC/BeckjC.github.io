@@ -293,7 +293,9 @@ button {
 .entry-copy p,
 .article-body p,
 .article-body li,
-.signup-subcopy {
+.signup-subcopy,
+.entry-date,
+.article-date {
   color: var(--muted);
 }
 
@@ -303,7 +305,9 @@ button {
 .article-body li,
 .article-body figcaption,
 .back-link,
-.signup-subcopy {
+.signup-subcopy,
+.entry-date,
+.article-date {
   font-size: 1rem;
   line-height: 1.7;
 }
@@ -546,6 +550,20 @@ button {
 .entry-copy p {
   margin: 0;
   max-width: 34rem;
+}
+
+.entry-date,
+.article-date {
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.entry-date {
+  font-size: 0.96rem;
+}
+
+.article-date {
+  font-size: 0.98rem;
 }
 
 .title-link,

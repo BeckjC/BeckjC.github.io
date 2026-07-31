@@ -9,6 +9,11 @@ export default function BlogPage({ posts, getEntryHref, onInternalNavigate }) {
         {posts.map((post) => (
           <article key={post.slug} className="entry-card text-entry motion-card">
             <div className="entry-copy">
+              {post.displayDate && (
+                <p className="entry-date">
+                  <time dateTime={post.date}>{post.displayDate}</time>
+                </p>
+              )}
               <h2>
                 <a
                   className="title-link"

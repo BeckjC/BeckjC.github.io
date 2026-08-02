@@ -13,6 +13,7 @@ Canonical site: https://beckcherry.com
 - https://beckcherry.com/nans-recipes
 - https://beckcherry.com/emails
 - https://beckcherry.com/about-me
+- https://beckcherry.com/becks-blog/the-extrication-of-the-web-will-kill-social-media
 - https://beckcherry.com/becks-blog/youre-already-a-leader
 - https://beckcherry.com/becks-blog/keeping-myself-on-task
 - https://beckcherry.com/becks-blog/dont-be-a-little-bitch

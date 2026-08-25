@@ -8,6 +8,35 @@ export const homeBase = {
 
 export const travelLog = [
   {
+    id: 'maui-honeymoon-trip',
+    title: 'Wedding + Maui honeymoon',
+    timeframe: 'August 22–29, 2026',
+    color: '#d27f99',
+    provisional: false,
+    summary: 'Got married at the Santa Barbara Mission on August 22, 2026, then spent a week in Kāʻanapali, Maui for the honeymoon.',
+    stops: [
+      {
+        id: 'santa-barbara-mission-wedding',
+        name: 'Santa Barbara Mission',
+        coordinates: [-119.7146, 34.4381],
+        note: 'Wedding ceremony on August 22, 2026.',
+      },
+      {
+        id: 'kaanapali-maui-honeymoon',
+        name: 'Kāʻanapali, Maui',
+        coordinates: [-156.6936, 20.9178],
+        note: 'Spent a week here for the honeymoon.',
+      }
+    ],
+    routePoints: [
+      [-119.7146, 34.4381],
+      [-124.1, 33.9],
+      [-132.5, 30.4],
+      [-145.8, 24.7],
+      [-156.6936, 20.9178]
+    ]
+  },
+  {
     id: 'greece-sailing-trip',
     title: 'Greece sailing trip',
     timeframe: 'Ionian sailing + London night',

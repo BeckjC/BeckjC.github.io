@@ -10,10 +10,10 @@ export const travelLog = [
   {
     id: 'maui-honeymoon-trip',
     title: 'Wedding + Maui honeymoon',
-    timeframe: 'August 22–29, 2026',
+    timeframe: 'Wedding on 8/22/2026 + Maui honeymoon',
     color: '#d27f99',
     provisional: false,
-    summary: 'Got married at the Santa Barbara Mission on August 22, 2026, then spent a week in Kāʻanapali, Maui for the honeymoon.',
+    summary: 'Got married at the Santa Barbara Mission on 8/22/2026, then headed to Kāʻanapali, Maui for the honeymoon.',
     stops: [
       {
         id: 'santa-barbara-mission-wedding',

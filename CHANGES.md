@@ -59,3 +59,6 @@
 
 ## Recipe finder — 2026-11-20 (development only)
 Added accessible recipe-name search, stable A–Z sorting, result count and reset; all 20 original recipes and links preserved. Unit coverage includes normalization, multiword matching and non-mutation. Browser evidence covers narrow and desktop layouts. Run npm ci, npm test, npm run build; optional browser harness requires Playwright/Chromium. Branch-specific Vercel auto-deployment is disabled; merge and deployment require owner approval.
+
+## Recipe styling alignment — 2026-11-20
+Matched the existing site with lighter labels, shared button styling, blue focus/hover accents and compact mobile controls. Search/sort behavior and all20 recipes unchanged. Owner approved this scoped production update; deployment remains pending account access and live verification.

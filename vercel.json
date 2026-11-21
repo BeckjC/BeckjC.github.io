@@ -11,7 +11,8 @@
   ],
   "git": {
     "deploymentEnabled": {
-      "echo/recipe-finder-review-2026-11-20": false
+      "echo/recipe-finder-review-2026-11-20": false,
+      "echo/recipe-style-deploy-2026-11-20": false
     }
   }
 }

@@ -40,7 +40,7 @@ export default function RecipesPage({ recipes, getEntryHref, onInternalNavigate 
               <option value="az">Name: A–Z</option>
             </select>
           </div>
-          <button className="recipe-finder-reset" type="button" onClick={reset} disabled={!query && order === 'original'}>
+          <button className="button recipe-finder-reset" type="button" onClick={reset} disabled={!query && order === 'original'}>
             Reset
           </button>
         </div>

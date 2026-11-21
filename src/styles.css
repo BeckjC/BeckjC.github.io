@@ -480,8 +480,100 @@ button {
 }
 
 .recipes-grid {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   gap: 2rem 1.5rem;
+}
+
+.recipe-finder {
+  position: relative;
+  margin-bottom: 2rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.recipe-finder-controls {
+  display: grid;
+  gap: 1rem;
+  align-items: end;
+}
+
+.recipe-finder-field {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.recipe-finder-field label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.recipe-finder-field input,
+.recipe-finder-field select {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--text);
+  background: var(--bg);
+  font: inherit;
+}
+
+.recipe-finder-reset {
+  min-height: 46px;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--line);
+  justify-self: start;
+}
+
+.recipe-finder-reset:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+.recipe-finder-reset:not(:disabled):hover {
+  border-color: var(--text);
+}
+
+.recipe-finder :is(input, select, button):focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.recipe-finder-caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.recipe-finder-caption p {
+  margin: 0;
+}
+
+.recipe-finder-empty {
+  padding: 1rem 0 2rem;
+}
+
+.recipe-finder-empty h2 {
+  margin: 0 0 0.75rem;
+}
+
+.recipe-finder-empty p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (min-width: 640px) {
+  .recipe-finder-controls {
+    grid-template-columns: minmax(0, 1fr) minmax(10rem, 13rem) auto;
+  }
 }
 
 .entry-card {

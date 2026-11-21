@@ -8,5 +8,10 @@
       "source": "/(.*)",
       "destination": "/"
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "echo/recipe-finder-review-2026-11-20": false
+    }
+  }
 }

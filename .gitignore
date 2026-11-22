@@ -4,3 +4,9 @@ dist/
 *.log
 .vercel
 .env*.local
+
+# Reproducible recipe browser acceptance outputs; retain test source and baseline.
+/tests/artifacts/recipes-after-1440.png
+/tests/artifacts/recipes-after-390.png
+/tests/artifacts/recipes-browser-results.json
+/tests/artifacts/recipes-search-desktop.png
